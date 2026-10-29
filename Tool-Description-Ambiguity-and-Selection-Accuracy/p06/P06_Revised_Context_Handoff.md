@@ -47,3 +47,9 @@ See [development audit and executable pilot](development_pilot/README.md). The o
 Prepared an unexecuted development comparison on families 2 and 3 (six records per condition): vanilla, generic instruction control and schema-evidence checklist. One server is reused across all three conditions; official scoring and raw traces are preserved. Both instruction policies are prompt variants, not native official leaderboard baselines; neither is calibrated. Prompt length/order effects and semantic intent remain limitations.
 
 Local tests passed for wrapper preservation, 14-turn audit findings, real subprocess/archive handling and mocked three-condition control flow. Actual 18-record GPU pilot remains pending. Keep family 1 and the new development families out of future unseen-test claims. PRE-P07 stays CONDITIONAL GO; Prompt 07 is not frozen.
+
+## 2026-10-29 interrupted development run — recovery prepared
+
+Vanilla completed in the supplied console log; generic_control encountered `multi_turn_miss_param_2` context rejection (8302 + 4096 = 12398 > 12288), and postflight correctly blocked evaluation. Schema-evidence had not started. Full partial-result inspection is pending; do not claim pilot scores or exact reusable counts yet.
+
+[Recovery and methodological limits](development_pilot/README.md): increase cap to 24576 within the same 85% GPU budget, synchronize handler context, preserve full 4096 answer allowance and history, and explicitly fail on oversize. Dedicated no-reinstall recovery notebook reuses valid original records in a new run and exports provenance plus the original failure ZIP. New GPU fit and real pilot completion remain pending; Prompt 07 remains unfrozen.

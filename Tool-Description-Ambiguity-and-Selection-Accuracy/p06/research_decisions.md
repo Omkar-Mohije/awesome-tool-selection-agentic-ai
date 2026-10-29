@@ -232,3 +232,11 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Validation:** local wrapper/audit/subprocess/archive checks and mocked three-condition flow pass. Real GPU comparison is unexecuted.
 - **Boundary:** generic control is not a calibrated comparator; the checklist is a development intervention, not a proven contribution. Prompt length, fixed condition order, model-history divergence, semantic labels and final held-out design remain unresolved. No reference answer or future-turn leakage into policy prompts is authorized.
 - **Next:** run the 18-record development notebook on the existing Colab runtime and inspect authentic outputs before protocol freeze. Prompt 07 remains unfrozen.
+
+### D019 — Resume development after context failure without discarding valid work
+- **Date:** 2026-10-29.
+- **Observed:** vanilla completed; generic control reached a 12398-token request against cap 12288. Supplied console log is preserved under development_pilot/incident_20261029_context_overflow.md. No CUDA OOM is shown; no pilot task scores are established.
+- **Decision:** synchronize effective handler/server context, try cap 24576 under the same T4 memory controls, preserve the full 4096-token answer allowance and all history, and reject oversize explicitly.
+- **Recovery:** create a new run seeded only with non-exception original records, verify the source policy script hash, preserve original data/ZIP and record reused-result provenance. Do not overwrite or regenerate valid results merely to obtain successes.
+- **Validation:** local context guard and synthetic seed/copy tests pass along with prior pilot checks. GPU recovery remains unexecuted by the assistant.
+- **Boundary:** mixed-attempt development evidence is not a uniform-run timing/held-out comparison. Prior runtime profiles motivate 24K but do not guarantee new fit. PRE-P07 stays CONDITIONAL GO.

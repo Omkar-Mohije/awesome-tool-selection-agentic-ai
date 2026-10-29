@@ -233,3 +233,22 @@ See [development audit and executable pilot](development_pilot/README.md). The o
 Prepared an unexecuted development comparison on families 2 and 3 (six records per condition): vanilla, generic instruction control and schema-evidence checklist. One server is reused across all three conditions; official scoring and raw traces are preserved. Both instruction policies are prompt variants, not native official leaderboard baselines; neither is calibrated. Prompt length/order effects and semantic intent remain limitations.
 
 Local tests passed for wrapper preservation, 14-turn audit findings, real subprocess/archive handling and mocked three-condition control flow. Actual 18-record GPU pilot remains pending. Keep family 1 and the new development families out of future unseen-test claims. PRE-P07 stays CONDITIONAL GO; Prompt 07 is not frozen.
+
+## Entry 008 — development generic-control context overflow and resume repair
+
+## Context recovery update — 2026-10-29
+
+The first development attempt (`20261029T115448Z-6d9a8339`) completed vanilla and then failed during generic-control postflight. `multi_turn_miss_param_2` requested 8302 prompt + 4096 answer = 12398 tokens, 110 over the server cap of 12288. Source: `incident_20261029_context_overflow.md`. This is another serving-budget failure, not a CUDA OOM or model task-accuracy result. Schema-evidence had not started in the supplied log.
+
+The official handler used native context 262144 when computing its 4096-token answer allowance. Initial prompt preflight could not prevent later conversation growth. The fix now sets the handler's effective context to the same server cap and rejects a request if prompt + 4096 + 2 safety tokens cannot fit. It preserves full answer allowance and history: no silent reduction, truncation, retry-until-success, or relabeling.
+
+Current main/recovery cap is **24576**, with the same 85% GPU budget, eager execution, one sequence/request, chunked prefill 2048 and CPU swap/offload zero. The earlier T4 profiler reported 2078 GPU blocks (block size 16), about 33248 cache tokens; this supports trying 24K without changing weights or increasing the budget. It is an estimate from the earlier run, not a guarantee about new memory availability. New startup profiles and validates fit.
+
+### Recover existing work
+Use `P06_BFCL_Development_Pilot_Recovery_Colab.ipynb` in the **same existing runtime**. Its source run defaults to the exact failed path above. No dependency reinstall or cache deletion is performed.
+
+The recovery creates a new run, validates the original policy script hash, copies only non-exception model records, and uses BFCL's normal skip-existing behavior (no --allow-overwrite). This should avoid redoing completed vanilla and valid generic records. Actual counts come from files; do not infer them solely from console progress. Genuine model task failures with valid outputs remain reusable. The original run and diagnostic ZIP remain intact; a copy of the original ZIP is included in the new export.
+
+Record provenance names the source files and hashes for reused results. Mixed-attempt outputs and changed capacity are development evidence, not a single uniform-run/latency comparison. If memory/prompt/history exceeds the new cap, preserve a labeled infrastructure failure. Formal held-out comparisons still require one fixed verified serving policy.
+
+Local validation: previous ten pilot check groups pass; added tests verify the 24K full-answer context guard, oversize rejection, and a synthetic recovery retaining 11 valid records while excluding one exception without modifying original files. Those counts are fixture checks, not measurements of the user's files. GPU recovery and comparison scores remain pending.

@@ -33,8 +33,22 @@ def make_formatter(original, policy):
         return original(self, updated, functions)
     return format_prompt
 
+def make_context_guard(original):
+    def query(self, inference_data):
+        limit=int(os.environ['P06_CONTEXT_CAP'])
+        self.max_context_length=min(self.max_context_length,limit)
+        prompt=self._format_prompt(inference_data['message'],inference_data['function'])
+        count=len(self.tokenizer.tokenize(prompt))
+        # Preserve the official 4096-token output allowance. No history truncation.
+        if count+4096+2>limit:
+            raise RuntimeError(f'CONTEXT_BUDGET_EXHAUSTED: input={count}, answer_budget=4096, cap={limit}; no truncation or reduced budget applied')
+        return original(self,inference_data)
+    return query
+
 def main():
     from bfcl_eval.model_handler.local_inference.qwen_fc import QwenFCHandler
+    from bfcl_eval.model_handler.local_inference.base_oss_handler import OSSHandler
+    OSSHandler._query_prompting=make_context_guard(OSSHandler._query_prompting)
     policy = os.environ['P06_POLICY']
     QwenFCHandler._format_prompt = make_formatter(QwenFCHandler._format_prompt, policy)
     runpy.run_module('bfcl_eval', run_name='__main__')
