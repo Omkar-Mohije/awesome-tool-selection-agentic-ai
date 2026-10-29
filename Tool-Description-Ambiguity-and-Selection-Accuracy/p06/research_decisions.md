@@ -248,3 +248,10 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Compute:** 24K cap worked on the T4 with the fixed 85%/single-request/chunked-2048 profile. No new recorded inference exceptions are present.
 - **Decision:** do not scale or claim improvement for this checklist on the basis of this pilot. Pause further GPU use and first validate an explicitly synthetic CPU reference-replay control, then reassess cause-specific measurement and research differentiation. That control is not yet executed.
 - **Boundary:** mixed-attempt provenance, prompt length/order confounds, earlier state failures and unvalidated semantic labels remain explicit. Prompt 07 stays unfrozen; CONDITIONAL GO for validity/diagnostic work, NO-GO for a checklist improvement claim.
+
+### D021 — CPU reference sanity check completed; preserve secondary no-call audit
+- **Date:** 2026-10-29.
+- **Evidence:** [reference control](development_pilot/reference_control/README.md), six cases pass both decoded layouts with zero reference execution exceptions; six empty-answer and four no-call-violation controls correctly fail. Original official checker/tool code is hash-locked and unchanged.
+- **Scope:** local CPU direct-checker control; not a Colab environment reproduction, model prediction, decoding test, or publication contribution.
+- **Pilot audit:** 0/11 available decoded intervention records obey reference no-call turns; one force-terminated record has missing decoded evidence. This post-hoc descriptive result uses the existing development data and is not a held-out metric. Ordinary execution failures also remain.
+- **Decision:** the planned direct evaluator validity check is complete; do not repeat/scale the same prompt conditions. Next research decision concerns independently measurable diagnostic value and novelty. Prompt 07 remains unfrozen; no improvement claim or extra GPU run follows automatically.

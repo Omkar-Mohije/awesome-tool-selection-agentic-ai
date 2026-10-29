@@ -1,0 +1,19 @@
+condition,case_id,error_type,first_reported_failure_turn_zero_based,reference_no_call_turns_zero_based,failure_relative_to_first_no_call,decoded_no_call_turn_checks,tool_error_responses_in_saved_execution_prefix,tool_error_messages
+generic_control,multi_turn_base_2,multi_turn:instance_state_mismatch,0,[],not_applicable,{},1,"[""cd: 'document': No such file or directory""]"
+generic_control,multi_turn_base_3,multi_turn:instance_state_mismatch,1,[],not_applicable,{},1,"[""cp: cannot copy 'projects/photography/test_image1.jpg': No such file or directory""]"
+generic_control,multi_turn_miss_func_2,multi_turn:instance_state_mismatch,4,[3],after,"{""3"": false}",4,"[""cd: 'documents': No such file or directory"", ""cd: 'documents': No such file or directory"", ""cp: cannot copy 'TeamNotes.txt': No such file or directory"", ""cp: cannot copy 'TeamNotes.txt': No such file or directory""]"
+generic_control,multi_turn_miss_func_3,multi_turn:execution_response_mismatch,1,[0],after,"{""0"": false}",0,[]
+generic_control,multi_turn_miss_param_2,multi_turn:instance_state_mismatch,1,[0],after,"{""0"": false}",3,"[""cd: 'document': No such file or directory"", ""echo: cannot write to 'fresh_ideas_tracker.md': No such file"", ""echo: cannot write to 'TeamNotes.txt': No such file""]"
+generic_control,multi_turn_miss_param_3,multi_turn:force_terminated,,[1],unknown,null,0,[]
+schema_evidence,multi_turn_base_2,multi_turn:execution_response_mismatch,2,[],not_applicable,{},0,[]
+schema_evidence,multi_turn_base_3,multi_turn:instance_state_mismatch,1,[],not_applicable,{},1,"[""cp: cannot copy 'test_image1.jpg': No such file or directory""]"
+schema_evidence,multi_turn_miss_func_2,multi_turn:instance_state_mismatch,4,[3],after,"{""3"": false}",3,"[""cd: 'documents': No such file or directory"", ""cp: path not allowed in destination. Provide only a file or directory name."", ""cd: 'documents': No such file or directory""]"
+schema_evidence,multi_turn_miss_func_3,multi_turn:execution_response_mismatch,1,[0],after,"{""0"": false}",0,[]
+schema_evidence,multi_turn_miss_param_2,multi_turn:instance_state_mismatch,4,[0],after,"{""0"": false}",3,"[""cd: 'document': No such file or directory"", ""cd: 'document': No such file or directory"", ""cp: cannot copy 'TeamNotes.txt': No such file or directory""]"
+schema_evidence,multi_turn_miss_param_3,multi_turn:instance_state_mismatch,2,[1],after,"{""1"": false}",6,"[""cp: cannot copy 'projects/photography/test_image1.jpg': No such file or directory"", ""cd: projects/photography: Unsupported path. Only one folder level at a time is supported."", ""cp: cannot copy 'projects/photography/test_image1.jpg': No such file or directory"", ""cp: cannot copy 'projects/photography/test_image1.jpg': No such file or directory"", ""mkdir: cannot create directory 'photography_backup': File exists"", ""cp: cannot copy 'backup_tests': No such file or directory""]"
+vanilla,multi_turn_base_2,multi_turn:instance_state_mismatch,0,[],not_applicable,{},1,"[""cd: 'document': No such file or directory""]"
+vanilla,multi_turn_base_3,multi_turn:instance_state_mismatch,1,[],not_applicable,{},1,"[""cp: cannot copy 'test_image1.jpg': No such file or directory""]"
+vanilla,multi_turn_miss_func_2,multi_turn:instance_state_mismatch,4,[3],after,"{""3"": false}",4,"[""cd: 'documents': No such file or directory"", ""cd: 'documents': No such file or directory"", ""cd: 'documents': No such file or directory"", ""cp: cannot copy 'TeamNotes.txt': No such file or directory""]"
+vanilla,multi_turn_miss_func_3,multi_turn:execution_response_mismatch,1,[0],after,"{""0"": false}",0,[]
+vanilla,multi_turn_miss_param_2,multi_turn:instance_state_mismatch,1,[0],after,"{""0"": false}",1,"[""cd: 'document': No such file or directory""]"
+vanilla,multi_turn_miss_param_3,multi_turn:instance_state_mismatch,2,[1],after,"{""1"": false}",1,"[""cp: cannot copy 'projects/photography/test_image1.jpg': No such file or directory""]"

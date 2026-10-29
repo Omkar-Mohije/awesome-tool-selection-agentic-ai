@@ -31,3 +31,9 @@ See [complete evidence and diagnosis](runs/20261029T113521Z-d72a657e/README.md).
 Use the current notebook's 12K single-request resource profile, zero CPU swap/offload and 2048-token chunked prefill; the earlier 8192-token cap caused late-turn context errors. Record actual versions from the successful run's pip freeze before expanding experiments. No need to rerun this same case merely to obtain passing scores.
 
 A second comparator, proposed intervention, family-separated evaluation and cause-label validity checks remain outstanding. PRE-P07 remains CONDITIONAL GO; Prompt 07 is unfrozen.
+
+## 2026-10-29 CPU control completed
+
+[Executed CPU reference control and trace audit](development_pilot/reference_control/README.md): six reference cases pass both decoded layouts (12 positive checks), all six empty-action and four no-call-violation negative controls are rejected; no reference execution exceptions. This ran locally, not in Colab, and tests direct official execution/irrelevance checkers, not model decoding or server behavior. Hash-locked automated reproduction is included.
+
+Post-hoc pilot audit: 0/11 available decoded intervention records satisfy the reference no-call requirement; one force-terminated record has no usable decoded output. The overall three 0/6 task scores remain unchanged. No fresh GPU run was used. Prompt 07 remains unfrozen pending contribution/measurement review.

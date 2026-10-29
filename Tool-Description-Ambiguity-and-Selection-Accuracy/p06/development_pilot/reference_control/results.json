@@ -1,0 +1,426 @@
+{
+  "control": "synthetic_reference_replay_not_model_performance",
+  "upstream_commit": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+  "python": "3.12.14",
+  "elapsed_seconds": 0.03724776200033375,
+  "source_sha256": {
+    "bfcl_eval/constants/executable_backend_config.py": "1214b960de5d86840e379007c70bc9570203e0b5a926ea740ff00c605a531e57",
+    "bfcl_eval/eval_checker/multi_turn_eval/multi_turn_checker.py": "b3b787515eda3bf0e365e39634a8fc7f831763f010f716d35d86f96fd5aab1b5",
+    "bfcl_eval/eval_checker/multi_turn_eval/multi_turn_utils.py": "9fdbd779ec715959c310445b54b431e91abaa8b45a302abb6fd8db8d61b62ba2",
+    "bfcl_eval/eval_checker/multi_turn_eval/func_source_code/gorilla_file_system.py": "84173750930b09aaa31b90547c9bd79ce75714682608b35e78a9c1ea259faf2b",
+    "bfcl_eval/eval_checker/multi_turn_eval/func_source_code/ticket_api.py": "6a9375aa6425410c07a151aef27f3e44e9ed1023bb5cc5c25f14f4a9b3c99116",
+    "bfcl_eval/eval_checker/multi_turn_eval/func_source_code/long_context.py": "5c9a5710115609c779e5b2ccb43f6ad58271ed96f2ea7a797edb0d65c385aa38",
+    "bfcl_eval/data/BFCL_v4_multi_turn_base.json": "1a21a995d06fd6f20ba55de7bced30ef953ec35e998f502ec2ecf4d66ef1c43a",
+    "bfcl_eval/data/possible_answer/BFCL_v4_multi_turn_base.json": "1fee67823b317571649177dd89d63969feaae4e810cc7448ee55ba797fb7c8fc",
+    "bfcl_eval/data/BFCL_v4_multi_turn_miss_func.json": "87d28ce10e37d864b72de85d5732eef2a867b241d6c1c99b4ae682c9e3ea921c",
+    "bfcl_eval/data/possible_answer/BFCL_v4_multi_turn_miss_func.json": "69e679b806d1c871b05393a4b95583bb973248e5b8d96c2d7f4ca05e29fc32e6",
+    "bfcl_eval/data/BFCL_v4_multi_turn_miss_param.json": "f0c66dda3795f5f53e3e1c0cc8ba0246b6761c8f58bdba8317203bf451ab8838",
+    "bfcl_eval/data/possible_answer/BFCL_v4_multi_turn_miss_param.json": "59c442901779e2c31c33abcd566d032e03736e5ad8069de2fe05489873046ecf"
+  },
+  "cases": [
+    {
+      "case_id": "multi_turn_base_2",
+      "passed": true,
+      "turns": 5,
+      "reference_call_count": 8,
+      "reference_responses": [
+        [
+          "{\"current_working_directory\": \"documents\"}",
+          "None"
+        ],
+        [
+          "None"
+        ],
+        [
+          "{\"diff_lines\": \"\"}"
+        ],
+        [
+          "{\"result\": \"'TeamNotes.txt' copied to 'Archived/TeamNotes.txt'\"}",
+          "{\"current_working_directory\": \"Archived\"}",
+          "{\"result\": \"'TeamNotes.txt' moved to 'IdeasArchive.txt'\"}"
+        ],
+        [
+          "{\"file_content\": \"Collaboration leads to success. Innovation ignites growth.\"}"
+        ]
+      ],
+      "reference_execution_errors": [],
+      "positive_controls": {
+        "one_step_per_turn": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        },
+        "one_step_per_call": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        }
+      },
+      "empty_action_negative": {
+        "valid": false,
+        "error_message": "Model response list is empty for turn 0",
+        "error_type": "multi_turn:empty_turn_model_response",
+        "details": {
+          "execution_result": [
+            {
+              "model": [],
+              "ground_truth": [
+                "{\"current_working_directory\": \"documents\"}",
+                "None"
+              ]
+            }
+          ]
+        }
+      },
+      "no_call_violation_negative": null
+    },
+    {
+      "case_id": "multi_turn_base_3",
+      "passed": true,
+      "turns": 2,
+      "reference_call_count": 5,
+      "reference_responses": [
+        [
+          "{\"matches\": [\"./projects/photography/test_image1.jpg\", \"./projects/photography/test_document.txt\", \"./projects/photography/backup_tests\"]}"
+        ],
+        [
+          "{\"current_working_directory\": \"projects\"}",
+          "{\"current_working_directory\": \"photography\"}",
+          "{\"result\": \"'test_image1.jpg' copied to 'backup_tests/test_image1.jpg'\"}",
+          "{\"result\": \"'test_document.txt' copied to 'backup_tests/test_document.txt'\"}"
+        ]
+      ],
+      "reference_execution_errors": [],
+      "positive_controls": {
+        "one_step_per_turn": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        },
+        "one_step_per_call": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        }
+      },
+      "empty_action_negative": {
+        "valid": false,
+        "error_message": "Model response list is empty for turn 0",
+        "error_type": "multi_turn:empty_turn_model_response",
+        "details": {
+          "execution_result": [
+            {
+              "model": [],
+              "ground_truth": [
+                "{\"matches\": [\"./projects/photography/test_image1.jpg\", \"./projects/photography/test_document.txt\", \"./projects/photography/backup_tests\"]}"
+              ]
+            }
+          ]
+        }
+      },
+      "no_call_violation_negative": null
+    },
+    {
+      "case_id": "multi_turn_miss_func_2",
+      "passed": true,
+      "turns": 6,
+      "reference_call_count": 8,
+      "reference_responses": [
+        [
+          "{\"current_working_directory\": \"documents\"}",
+          "None"
+        ],
+        [
+          "None"
+        ],
+        [
+          "{\"diff_lines\": \"\"}"
+        ],
+        [],
+        [
+          "{\"result\": \"'TeamNotes.txt' copied to 'Archived/TeamNotes.txt'\"}",
+          "{\"current_working_directory\": \"Archived\"}",
+          "{\"result\": \"'TeamNotes.txt' moved to 'IdeasArchive.txt'\"}"
+        ],
+        [
+          "{\"file_content\": \"Collaboration leads to success. Innovation ignites growth.\"}"
+        ]
+      ],
+      "reference_execution_errors": [],
+      "positive_controls": {
+        "one_step_per_turn": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        },
+        "one_step_per_call": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        }
+      },
+      "empty_action_negative": {
+        "valid": false,
+        "error_message": "Model response list is empty for turn 0",
+        "error_type": "multi_turn:empty_turn_model_response",
+        "details": {
+          "execution_result": [
+            {
+              "model": [],
+              "ground_truth": [
+                "{\"current_working_directory\": \"documents\"}",
+                "None"
+              ]
+            }
+          ]
+        }
+      },
+      "no_call_violation_negative": {
+        "valid": false,
+        "error_message": "Model outputs valid function calls when it should not for turn 3.",
+        "error_type": "multi_turn:irrelevance_error:decoder_success",
+        "details": {
+          "model response decoded": [
+            [
+              "cd(folder='documents')"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "multi_turn_miss_func_3",
+      "passed": true,
+      "turns": 3,
+      "reference_call_count": 5,
+      "reference_responses": [
+        [],
+        [
+          "{\"matches\": [\"./projects/photography/test_image1.jpg\", \"./projects/photography/test_document.txt\", \"./projects/photography/backup_tests\"]}"
+        ],
+        [
+          "{\"current_working_directory\": \"projects\"}",
+          "{\"current_working_directory\": \"photography\"}",
+          "{\"result\": \"'test_image1.jpg' copied to 'backup_tests/test_image1.jpg'\"}",
+          "{\"result\": \"'test_document.txt' copied to 'backup_tests/test_document.txt'\"}"
+        ]
+      ],
+      "reference_execution_errors": [],
+      "positive_controls": {
+        "one_step_per_turn": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        },
+        "one_step_per_call": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        }
+      },
+      "empty_action_negative": {
+        "valid": false,
+        "error_message": "Model response list is empty for turn 1",
+        "error_type": "multi_turn:empty_turn_model_response",
+        "details": {
+          "execution_result": [
+            {
+              "model": [],
+              "ground_truth": []
+            },
+            {
+              "model": [],
+              "ground_truth": [
+                "{\"matches\": [\"./projects/photography/test_image1.jpg\", \"./projects/photography/test_document.txt\", \"./projects/photography/backup_tests\"]}"
+              ]
+            }
+          ]
+        }
+      },
+      "no_call_violation_negative": {
+        "valid": false,
+        "error_message": "Model outputs valid function calls when it should not for turn 0.",
+        "error_type": "multi_turn:irrelevance_error:decoder_success",
+        "details": {
+          "model response decoded": [
+            [
+              "find(path='.',name='test')"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "multi_turn_miss_param_2",
+      "passed": true,
+      "turns": 6,
+      "reference_call_count": 8,
+      "reference_responses": [
+        [],
+        [
+          "{\"current_working_directory\": \"documents\"}",
+          "None"
+        ],
+        [
+          "None"
+        ],
+        [
+          "{\"diff_lines\": \"\"}"
+        ],
+        [
+          "{\"result\": \"'TeamNotes.txt' copied to 'Archived/TeamNotes.txt'\"}",
+          "{\"current_working_directory\": \"Archived\"}",
+          "{\"result\": \"'TeamNotes.txt' moved to 'IdeasArchive.txt'\"}"
+        ],
+        [
+          "{\"file_content\": \"Collaboration leads to success. Innovation ignites growth.\"}"
+        ]
+      ],
+      "reference_execution_errors": [],
+      "positive_controls": {
+        "one_step_per_turn": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        },
+        "one_step_per_call": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        }
+      },
+      "empty_action_negative": {
+        "valid": false,
+        "error_message": "Model response list is empty for turn 1",
+        "error_type": "multi_turn:empty_turn_model_response",
+        "details": {
+          "execution_result": [
+            {
+              "model": [],
+              "ground_truth": []
+            },
+            {
+              "model": [],
+              "ground_truth": [
+                "{\"current_working_directory\": \"documents\"}",
+                "None"
+              ]
+            }
+          ]
+        }
+      },
+      "no_call_violation_negative": {
+        "valid": false,
+        "error_message": "Model outputs valid function calls when it should not for turn 0.",
+        "error_type": "multi_turn:irrelevance_error:decoder_success",
+        "details": {
+          "model response decoded": [
+            [
+              "cd(folder='documents')"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "multi_turn_miss_param_3",
+      "passed": true,
+      "turns": 3,
+      "reference_call_count": 5,
+      "reference_responses": [
+        [
+          "{\"matches\": [\"./projects/photography/test_image1.jpg\", \"./projects/photography/test_document.txt\", \"./projects/photography/backup_tests\"]}"
+        ],
+        [],
+        [
+          "{\"current_working_directory\": \"projects\"}",
+          "{\"current_working_directory\": \"photography\"}",
+          "{\"result\": \"'test_image1.jpg' copied to 'backup_tests/test_image1.jpg'\"}",
+          "{\"result\": \"'test_document.txt' copied to 'backup_tests/test_document.txt'\"}"
+        ]
+      ],
+      "reference_execution_errors": [],
+      "positive_controls": {
+        "one_step_per_turn": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        },
+        "one_step_per_call": {
+          "execution": {
+            "valid": true
+          },
+          "irrelevance": {
+            "valid": true
+          }
+        }
+      },
+      "empty_action_negative": {
+        "valid": false,
+        "error_message": "Model response list is empty for turn 0",
+        "error_type": "multi_turn:empty_turn_model_response",
+        "details": {
+          "execution_result": [
+            {
+              "model": [],
+              "ground_truth": [
+                "{\"matches\": [\"./projects/photography/test_image1.jpg\", \"./projects/photography/test_document.txt\", \"./projects/photography/backup_tests\"]}"
+              ]
+            }
+          ]
+        }
+      },
+      "no_call_violation_negative": {
+        "valid": false,
+        "error_message": "Model outputs valid function calls when it should not for turn 1.",
+        "error_type": "multi_turn:irrelevance_error:decoder_success",
+        "details": {
+          "model response decoded": [
+            [
+              "find(path='.',name='test')"
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "passed": 6,
+  "total": 6,
+  "limits": [
+    "Direct official decoded execution/state/response and irrelevance checkers only; does not test model decoding, server, CLI dispatch, tool exposure, or clarification wording.",
+    "Synthetic author reference actions are supplied deliberately; these are not model predictions."
+  ]
+}

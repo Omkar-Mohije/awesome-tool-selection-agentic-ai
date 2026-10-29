@@ -61,3 +61,9 @@ Vanilla completed in the supplied console log; generic_control encountered `mult
 All 203 outer and 62 nested source-manifest hashes match. All 11 reused records match original records field-for-field; seven new records completed. Intended prompt instructions were checked in saved model-facing inputs. The 24K resource profile worked without new recorded inference exceptions. One generic-control tool-loop force termination is a model/harness outcome and remains in the results.
 
 Do not treat this mixed-attempt development pilot as uniform-run latency/held-out performance. State/execution failures dominate and confound attribution to uncertainty causes. Pause further GPU runs; next recommendation is synthetic CPU reference-trajectory replay, followed by a narrower failure/measurement audit. That control remains unexecuted. NO-GO for scaling/claiming the present checklist as an improvement; CONDITIONAL GO for diagnostic validity work. Prompt 07 is unfrozen.
+
+## 2026-10-29 CPU control completed
+
+[Executed CPU reference control and trace audit](development_pilot/reference_control/README.md): six reference cases pass both decoded layouts (12 positive checks), all six empty-action and four no-call-violation negative controls are rejected; no reference execution exceptions. This ran locally, not in Colab, and tests direct official execution/irrelevance checkers, not model decoding or server behavior. Hash-locked automated reproduction is included.
+
+Post-hoc pilot audit: 0/11 available decoded intervention records satisfy the reference no-call requirement; one force-terminated record has no usable decoded output. The overall three 0/6 task scores remain unchanged. No fresh GPU run was used. Prompt 07 remains unfrozen pending contribution/measurement review.
