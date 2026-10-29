@@ -1,0 +1,14 @@
+{
+  "new_notebook_cells_compile": true,
+  "child_programs_compile": [
+    "check_code",
+    "selection_check",
+    "raw_check",
+    "reference_check"
+  ],
+  "embedded_runner_equals_versioned_runner": true,
+  "historical_lifecycle_tests": "10 groups passed; historical context/recovery tests passed",
+  "new_gpu_execution": "NOT RUN",
+  "cold_dependency_replay": "NOT RUN",
+  "selected_author_reference_controls": "6/6 pass locally; not model predictions"
+}

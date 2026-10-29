@@ -1,0 +1,70 @@
+{
+  "protocol_id": "ATR-P07-v1",
+  "bfcl_commit": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+  "model": "Qwen/Qwen3-4B-Instruct-2507-FC",
+  "checkpoint": "Qwen/Qwen3-4B-Instruct-2507",
+  "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "families": [
+    89,
+    73
+  ],
+  "selection_rule": "Eligible certified mutator pairs for both miss_func and miss_param; exclude inspected families 1,2,3 and ten unequal-initial-state families; sort SHA256(ATR-P07-v1:<family>) and take first two",
+  "conditions": [
+    "vanilla",
+    "generic_control",
+    "schema_evidence"
+  ],
+  "primary_metric": "official complete-task successes / 6 per condition; descriptive schema_evidence minus generic_control difference",
+  "secondary_metrics": [
+    "published definition-C act/hold and both-twins scores on eligible pairs",
+    "strict no-call compliance with missing decoded evidence explicit",
+    "first failure types",
+    "input tokens and serving profiler allocations"
+  ],
+  "context_cap": 24576,
+  "gpu_memory_utilization": 0.85,
+  "max_num_seqs": 1,
+  "temperature": 0.001,
+  "server_seed": 0,
+  "generation_threads": 1,
+  "answer_budget": 4096,
+  "dtype": "half on T4",
+  "cpu_swap_gib": 0,
+  "cpu_offload_gib": 0,
+  "chunked_prefill_tokens": 2048,
+  "condition_order": "vanilla, generic_control, schema_evidence; fixed order limitation",
+  "inference_status": "NOT RUN",
+  "claim_boundary": "Small prospective descriptive evaluation; no statistical or population-level improvement claim",
+  "selected_input_reference_hashes": [
+    {
+      "case_id": "multi_turn_base_89",
+      "input_sha256": "42ee55fa06c1640f9843839f81ca797f705c8e00c3e2d7e69de0de0d0b719872",
+      "reference_sha256": "94fb1be1600893c41493d9f2168ae7e3d22e3285f8cd86cc9afcb15603989994"
+    },
+    {
+      "case_id": "multi_turn_miss_func_89",
+      "input_sha256": "d52f8a6683350478ae6e3d57c423b276e12fba1811da81e93533d06866890645",
+      "reference_sha256": "0956440e7333a0c726f1689c506d261fc2b8dc15323aa273c2fd504ede18dbc2"
+    },
+    {
+      "case_id": "multi_turn_miss_param_89",
+      "input_sha256": "20c6331803b4896baa664b3e38d3210db60b147b17502a0a0bd52867e0314f20",
+      "reference_sha256": "698eda060fc9e00c68465ee4687fe193b4a7e301aaba136ee1d45f2e0657822c"
+    },
+    {
+      "case_id": "multi_turn_base_73",
+      "input_sha256": "1db6ff1dc9c504a9db3572f8603e9a28c2f74f10ee561684ee32df0861e14346",
+      "reference_sha256": "552636c2fc1654ce8a5fb260e2b967d1f7393cf9a6c73d4cbd5584eb5c869d85"
+    },
+    {
+      "case_id": "multi_turn_miss_func_73",
+      "input_sha256": "fbe84238263e087690f7fee3283393371e6d496b934151c730cb9cc7d0e51388",
+      "reference_sha256": "ef64dda4e87a2978cd0accc420400c4ae77eb6cddfab7aaa6be7bbfdbf01f2d1"
+    },
+    {
+      "case_id": "multi_turn_miss_param_73",
+      "input_sha256": "c59e91e7fef1294c90e3119704c9ee7d59a42a9ce28bd0c22eb3cf287288e074",
+      "reference_sha256": "2b8ab1140f76c53d845699ac9a6f4ea0b7deb63ebcc5f29c5ce49bb8342307a3"
+    }
+  ]
+}

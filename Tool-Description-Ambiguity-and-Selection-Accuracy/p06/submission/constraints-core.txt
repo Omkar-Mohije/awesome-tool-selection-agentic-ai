@@ -1,0 +1,8 @@
+numpy==1.26.4
+torch==2.6.0
+vllm==0.8.5
+transformers==4.51.3
+tokenizers==0.21.4
+huggingface_hub==0.36.2
+qwen-agent==0.0.34
+soundfile==0.14.0
