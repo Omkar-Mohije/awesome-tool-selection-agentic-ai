@@ -184,3 +184,33 @@
 
 ### AI-assistance log — Prompt 06 (28 October 2026)
 Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, local Python/ReportLab document creation. Activities: reviewed P05 handoff + exact P06 submission; fetched repository files and calculated reported JSON-key counts inside connector response; inspected scholarly pages; drafted dataset feasibility / annotation / comparators / leakage plan; created P06 deliverables. Not performed: full CSV download and parsing, human annotation, Colab model execution, license legal clearance, metric calculation or benchmark reproduction.
+
+## PRE-P07 BFCL ground truth and schema validation — 2026-10-29
+
+### D014 — Replace unverified three-way BFCL labels with source-grounded no-call analysis
+- **Status:** VERIFIED (official BFCL V4 JSONL, possible-answer files and evaluator inspected); INFERRED (proposed research scope); UNKNOWN (novelty and full three-way cause labels).
+- **Decision:** Retain the approved *exploration* of benchmark-supported, no-second-human-annotator validation. **Do not** treat BFCL category names or every empty reference call as gold SELECT/NO_VALID_TOOL/NEEDS_CLARIFICATION action labels. The currently supportable benchmark-facing outcome is call/no-call and execution-state success. A cause-aware diagnostic is a proposed secondary extension.
+- **Reason:** Official `multi_turn_checker` evaluates executable calls against state/responses; `multi_turn_irrelevance_checker` tests absence of function calls on empty-reference turns and does not score clarification text.
+- **Evidence:** upstream `ShishirPatil/gorilla` commit `6ea57973c7a6097fd7c5915698c54c17c5b1b6c8`; six JSONL and answer blobs with hashes in `P06_BFCL_Ground_Truth_Validation.md`; checker SHA `34b36715cdfaa4464ba1be137af4d30e85da8efb`. Observed 200 families/category, 734/934/934 turn slots, 3/203/203 empty-reference turns.
+- **Alternatives:** preserve old retrieval-only question as historical; prefer tool-calling action reliability if BFCL becomes primary; a separated two-stage retrieval/call study is an optional extension, NOT a finalized design.
+- **Next:** inspect exact per-turn active function availability and state; derive explicitly evidenced cause labels only for eligible subset; test model comparators before freezing protocol.
+
+### D015 — Exclude ten structurally unequal initial states from strict matched-pair estimates pending resolution
+- **Status:** VERIFIED (decoded initial configs recursively compared); INFERRED (strict-pair handling).
+- **Decision:** Preserve all source cases, but hold out families 0, 38, 76, 139, 145, 154, 176, 188, 189, 193 from a same-initial-state causal estimate until their state differences are accounted for.
+- **Reason:** Differences include additional files/directories, changed tweet content, watchlist entry, transaction timestamp, booking key and card expiry. Even the remaining 190 require intervention-turn state alignment.
+- **Evidence:** `P06_BFCL_Pairing_and_Schema_Audit.md` with path-level comparisons and pinned upstream blobs.
+- **Next:** check actual runtime states and reference trajectories; publish eligible IDs/exclusion reasons when established.
+
+### D016 — Structural oracle tests and baseline execution boundaries
+- **Status:** VERIFIED (five local structural assertions passed); UNKNOWN (semantic oracle, BFCL scorer reproduction and baseline performance).
+- **Decision:** Save `bfcl_oracle_checks.py` and the proposed oracle specification, but prohibit describing this as a completed three-way oracle or as a model evaluation.
+- **Evidence:** local command `python bfcl_oracle_checks.py` printed `5 structural oracle checks passed; no BFCL model execution or semantic label validation`.
+- **Next:** validate official exposed function signatures, compare local checker against genuine reference data, run compatible BFCL model baseline and development-calibrated no-call policy with separate held-out groups.
+
+### Authentic AI assistance log — PRE-P07
+- **Date:** 2026-10-29.
+- **Tool use actually performed:** GitHub connector fetched user repository artifacts and pinned official upstream BFCL JSONL, possible-answer and evaluator source; JavaScript decoded/count-tested 600 input and 600 answer records and compared ten mismatched configs; Python locally executed five **synthetic structural tests**; GitHub connector committed audit Markdown files and oracle test script.
+- **Not done:** no official BFCL scoring run on model predictions; no model weights downloaded; no inference, calibrated policy fitting or Colab run; no independent human annotation or verified natural-language-to-schema oracle; no proof of novel publication contribution.
+- **User approval:** approved investigating benchmark-supported, no-two-human-reviewer path; **NOT** approval of a frozen Prompt 07 protocol.
+- **Recommendation:** CONDITIONAL GO for additional evidence collection; NO-GO for freezing Prompt 07 at present.
