@@ -1,0 +1,15 @@
+# Dataset and comparator validation sheet
+
+**VERIFIED:** BFCL source pinned at `6ea57973c7a6097fd7c5915698c54c17c5b1b6c8`. Input/reference JSONL files, original execution checker, tool implementation and Qwen handler were inspected. Official loader, generation and partial evaluation ran in Colab on genuine selected records. The underlying model checkpoint omits the registry suffix `-FC`. Official tool definitions and execution mechanics are retained.
+
+**Task:** Multi-turn function calling, not large-corpus tool retrieval. Input examples consist of user turns, initial simulation state, involved API classes and tool metadata. Reference trajectories contain per-turn call lists. Empty reference calls define a no-call audit location but do not by themselves establish correct clarification prose or a three-class semantic label.
+
+**Partitions:** Development families 1–3; prospective families 89 and 73 selected before new model results. Variants within a family are dependent. Ten previously unequal initial-state families are excluded from the prospective selection pool. Selected raw input/reference hashes are in `configs/protocol.json`.
+
+**Comparators:** (1) original official prompt; (2) general-review instruction with later-tool explanation; (3) schema-evidence checklist sharing that explanation. All use the same model. These are appropriate lightweight prompt controls for a descriptive pilot, not two validated published learning algorithms. Generic versus checklist is the primary contrast. Their prompt lengths differ and order is fixed; no isolated causal/content effect or fair latency comparison is claimed.
+
+**Access and licensing:** Official repositories/checkpoint are publicly accessible sources, and actual model access occurred in Colab. BFCL and the published scorer repository describe Apache-2.0 licensing; inspect upstream LICENSE/NOTICE for reuse. Public availability is not a guarantee of every constituent data right. Model weights are downloaded from the provider, not redistributed in this package. The Qwen checkpoint license metadata should be retained with any future redistribution. This package retains code attribution and instructions; it does not promise unrestricted reuse of all source materials.
+
+**Published secondary metric:** `YangzeLiu/asking-earns-nothing`, commit `7f20cf1bdc37fc8d3954ef8488b80ef8bf8c9c02`. Exact scorer, eligibility manifest and mutator labels are inherited and hash-locked. Its labels are not our independent human annotation. Reference trajectory and available function-name sequence compatibility were checked for the two development pairs.
+
+**Pitfalls:** Official multi-turn dispatch does not call the standalone irrelevance checker; complete-task accuracy and strict no-call compliance differ. Read-only exploration and state-changing attempts also differ. Do not score an absent raw anchor as successful abstention. Inference exceptions require incomplete-run reporting, while official force termination remains a task failure.

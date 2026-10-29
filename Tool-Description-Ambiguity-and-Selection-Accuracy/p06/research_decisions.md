@@ -279,3 +279,12 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Status correction:** the study Markdown draft is not the complete assignment or final LaTeX/PDF package. P08–P11 have substantial genuine technical evidence but still need consolidated reports, code understanding and authentic prompt-to-code records.
 - **Next:** requirements-aligned Phase II/III packaging, prospective P07, then bounded fresh evaluation where resources permit; keep all prior outputs. Publication novelty remains unnecessary.
 - **Evidence:** [requirement-by-requirement audit](output_study/assignment_status.md).
+
+### D025 — Freeze prospective P07 and prepare instruction-aligned submission artifacts
+- **Date:** 2026-10-29.
+- **Authorization:** user requested completion of the ATR assignment under the approved output-based scope, all expected deliverables and reproducibility in the observed Colab environment.
+- **Freeze:** commit `2d72394d1e725f7a80236661f600d995dd705b39`, ATR-P07-v1, fresh families 89/73 chosen deterministically before their model results. Six selected author references pass locally. New model execution is pending user-run Colab; the pinned one-cell launcher was supplied.
+- **Code:** new notebook reuses warm Python 3.12/core pins; optional exact observed cold replay is TEST REQUIRED. Source and server/tokenizer/config model revision pinned; 24K/85%/one sequence/FP16/zero offload profile, no silent truncation or overwrite. Current notebook/child programs compile, nine current lifecycle/subprocess test groups pass; incomplete archives are rejected by analysis. None of these local checks is a GPU execution claim.
+- **Prepared artifacts:** current research brief; P06–P18 validation, understanding, debugging, interpretation, internal review, reproducibility and authentic AI-use reports; six-page IEEE-style paper compiled from LaTeX/BibTeX with actual development figures; demo guide and portable handoff. Original negative results and their provenance remain intact.
+- **Remaining:** actual frozen-run output ZIP, student-owned personal reflection/code review, final demonstration and Classroom submission. Paper labels prospective results pending. No fabricated outcomes, external peer review or personal understanding is asserted.
+- **Evidence:** [submission entry point and status](submission/README.md).

@@ -1,0 +1,33 @@
+{
+  "archive_sha256": "4b7178e4208094c16f04cdaf83235f2986a5923f1b910496d92d545c2b1eba40",
+  "verified_file_hashes": 203,
+  "run_id": "20261029T122816Z-5e29a2e6",
+  "selected_ids": {
+    "multi_turn_base": [
+      "multi_turn_base_2",
+      "multi_turn_base_3"
+    ],
+    "multi_turn_miss_func": [
+      "multi_turn_miss_func_2",
+      "multi_turn_miss_func_3"
+    ],
+    "multi_turn_miss_param": [
+      "multi_turn_miss_param_2",
+      "multi_turn_miss_param_3"
+    ]
+  },
+  "conditions": [
+    "vanilla",
+    "generic_control",
+    "schema_evidence"
+  ],
+  "families": [
+    2,
+    3
+  ],
+  "first_failure_counts": {
+    "multi_turn:instance_state_mismatch": 13,
+    "multi_turn:execution_response_mismatch": 4,
+    "multi_turn:force_terminated": 1
+  }
+}

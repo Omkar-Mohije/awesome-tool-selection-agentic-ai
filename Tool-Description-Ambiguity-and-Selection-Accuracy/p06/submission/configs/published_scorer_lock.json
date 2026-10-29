@@ -1,0 +1,12 @@
+{
+  "published_repository": "YangzeLiu/asking-earns-nothing",
+  "published_commit": "7f20cf1bdc37fc8d3954ef8488b80ef8bf8c9c02",
+  "published_files_sha256": {
+    "score_pairs.py": "987b650e156ea5ee207ed82d5dbfd62b0d862782abe17d74b7fcb03a6ef15b40",
+    "pairs.json": "5dac6ba8bc9557f25975221d863dfeead9233ee5d90f1d239a3ddc5148e1b627",
+    "mutator_map.json": "b18810ce3b215940acc974703a96c01a6b208fc5605dfccae32a6ec9ad064ccd",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "b41c3b350ed4d4cf2e9f4874960b0347e67f9c7f2066c49414afe940c4d636b8"
+  },
+  "eval_runner_sha256": "b1033684908819ccb312d4d0e2c563359d69247412f00206013b2292b0e3ce81"
+}

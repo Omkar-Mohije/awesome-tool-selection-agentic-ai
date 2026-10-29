@@ -1,0 +1,1 @@
+IEEEtran.cls was downloaded from https://mirrors.ctan.org/macros/latex/contrib/IEEEtran/IEEEtran.cls on 2026-10-29. Original copyright and license text are retained inside the class. Compile with pdflatex + BibTeX. The course paper is not an IEEE publication or an accepted manuscript.

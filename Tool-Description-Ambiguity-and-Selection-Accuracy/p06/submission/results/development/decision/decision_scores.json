@@ -1,0 +1,95 @@
+{
+  "attribution": "Liu and Han (2026), unchanged released definition-C scorer and inherited labels",
+  "source": {
+    "published_repository": "YangzeLiu/asking-earns-nothing",
+    "published_commit": "7f20cf1bdc37fc8d3954ef8488b80ef8bf8c9c02",
+    "published_files_sha256": {
+      "score_pairs.py": "987b650e156ea5ee207ed82d5dbfd62b0d862782abe17d74b7fcb03a6ef15b40",
+      "pairs.json": "5dac6ba8bc9557f25975221d863dfeead9233ee5d90f1d239a3ddc5148e1b627",
+      "mutator_map.json": "b18810ce3b215940acc974703a96c01a6b208fc5605dfccae32a6ec9ad064ccd",
+      "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "NOTICE": "b41c3b350ed4d4cf2e9f4874960b0347e67f9c7f2066c49414afe940c4d636b8"
+    },
+    "eval_runner_sha256": "b1033684908819ccb312d4d0e2c563359d69247412f00206013b2292b0e3ce81"
+  },
+  "archive_sha256": "4b7178e4208094c16f04cdaf83235f2986a5923f1b910496d92d545c2b1eba40",
+  "run_id": "20261029T122816Z-5e29a2e6",
+  "summaries": [
+    {
+      "condition": "vanilla",
+      "n": 2,
+      "act": 50.0,
+      "hold": 50.0,
+      "hold_credited": 50.0,
+      "decision": 50.0,
+      "decision_credited": 50.0,
+      "pair_correct": 0.0,
+      "decision_miss_param": 50.0
+    },
+    {
+      "condition": "generic_control",
+      "n": 2,
+      "act": 50.0,
+      "hold": 0.0,
+      "hold_credited": 0.0,
+      "decision": 25.0,
+      "decision_credited": 25.0,
+      "pair_correct": 0.0,
+      "decision_miss_param": 25.0
+    },
+    {
+      "condition": "schema_evidence",
+      "n": 2,
+      "act": 100.0,
+      "hold": 50.0,
+      "hold_credited": 50.0,
+      "decision": 75.0,
+      "decision_credited": 75.0,
+      "pair_correct": 50.0,
+      "decision_miss_param": 75.0
+    }
+  ],
+  "availability": [
+    {
+      "condition": "vanilla",
+      "miss_id": "multi_turn_miss_param_2",
+      "anchor_turn": 0,
+      "raw_anchor_available": true
+    },
+    {
+      "condition": "vanilla",
+      "miss_id": "multi_turn_miss_param_3",
+      "anchor_turn": 1,
+      "raw_anchor_available": true
+    },
+    {
+      "condition": "generic_control",
+      "miss_id": "multi_turn_miss_param_2",
+      "anchor_turn": 0,
+      "raw_anchor_available": true
+    },
+    {
+      "condition": "generic_control",
+      "miss_id": "multi_turn_miss_param_3",
+      "anchor_turn": 1,
+      "raw_anchor_available": true
+    },
+    {
+      "condition": "schema_evidence",
+      "miss_id": "multi_turn_miss_param_2",
+      "anchor_turn": 0,
+      "raw_anchor_available": true
+    },
+    {
+      "condition": "schema_evidence",
+      "miss_id": "multi_turn_miss_param_3",
+      "anchor_turn": 1,
+      "raw_anchor_available": true
+    }
+  ],
+  "limits": [
+    "Missing raw anchors are unavailable, never counted as successful abstention.",
+    "These are attempted actions, not successful execution or useful clarification.",
+    "New model outputs require reference/parser compatibility review; this script does not establish semantic gold labels."
+  ]
+}

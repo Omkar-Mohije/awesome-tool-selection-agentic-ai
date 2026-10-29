@@ -10,5 +10,9 @@
   "historical_lifecycle_tests": "10 groups passed; historical context/recovery tests passed",
   "new_gpu_execution": "NOT RUN",
   "cold_dependency_replay": "NOT RUN",
-  "selected_author_reference_controls": "6/6 pass locally; not model predictions"
+  "selected_author_reference_controls": "6/6 pass locally; not model predictions",
+  "new_notebook_mock_and_real_subprocess_tests": "9 groups passed on current notebook: syntax, success/nonzero exit, timeout cleanup, archive hashes, ready/server-failure/generation-failure/saved-error/missing-ID lifecycle",
+  "real_archive_analysis": "Executed; recovery manifest verified, three 0/6 task rows and original published scorer values reproduced",
+  "incomplete_archive_negative_test": "PASS: incomplete generation/evaluation rejected before model accuracy",
+  "manuscript": "LaTeX + BibTeX compiled; six pages; all six rendered pages visually inspected; no overfull boxes or undefined refs"
 }
