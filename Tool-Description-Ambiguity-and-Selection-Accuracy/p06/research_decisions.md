@@ -223,3 +223,12 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Decision:** retain this as the verified software feasibility check and development evidence. Do not rerun solely to obtain passing examples; do not treat inspected cases as unseen held-out data.
 - **Next:** audit error traces and exposed tools; then define a family-separated development pilot and fairly matched comparator/intervention.
 - **Boundary:** no validated three-way semantic oracle, second calibrated comparator, frozen Prompt 07 or publication novelty is claimed. PRE-P07 remains CONDITIONAL GO.
+
+### D018 — Audit actual tool exposure; prepare a development-only policy comparison
+- **Date:** 2026-10-29.
+- **Verified:** 14 saved turn slots audited. In the Qwen prompting path, restored mv is disclosed in a user message, cp remains model-visible, and tail.lines is optional/default 10. Block-only inventory checks and required-field-only semantic labels are insufficient.
+- **Decision:** prepare families 2/3 as development data for vanilla, generic instruction control and schema-evidence checklist, using one persistent T4 server and official per-task scoring. Family 1 remains inspected development evidence.
+- **Evidence:** [audit, exact prompts, notebook and limitations](development_pilot/README.md); observed turn CSV and reproducible offline auditor. Initial configurations of both candidate families match across variants; dynamic intervention-state equality is not established.
+- **Validation:** local wrapper/audit/subprocess/archive checks and mocked three-condition flow pass. Real GPU comparison is unexecuted.
+- **Boundary:** generic control is not a calibrated comparator; the checklist is a development intervention, not a proven contribution. Prompt length, fixed condition order, model-history divergence, semantic labels and final held-out design remain unresolved. No reference answer or future-turn leakage into policy prompts is authorized.
+- **Next:** run the 18-record development notebook on the existing Colab runtime and inspect authentic outputs before protocol freeze. Prompt 07 remains unfrozen.

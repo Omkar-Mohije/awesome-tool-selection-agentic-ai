@@ -223,3 +223,13 @@ Verified hardware/profile: Tesla T4 15 GiB, host RAM 12.67 GiB; FP16, context 12
 Second calibrated comparator, proposed intervention, held-out family-separated evaluation, valid cause-specific oracle and publication differentiation remain open. PRE-P07 stays CONDITIONAL GO; Prompt 07 remains unfrozen. Do not recruit a second reviewer for strictly mechanically verified outcomes. Continue analysis here; use the GitHub evidence and running log as the handoff to any other chat.
 
 Integrity: all 36 manifest file hashes match; archive SHA-256 `400db99fea9069d9acc87f85981aa1afdb70b54c67a3dcb69e3df28b00dc18fc`. Original archive is preserved unchanged on GitHub with readable key extracts. This assistant inspected outputs locally; the actual GPU execution was performed in the user’s Colab runtime.
+
+## Entry 007 — post-smoke tool-exposure audit and development pilot
+
+## 2026-10-29 post-smoke audit and next development pilot
+
+See [development audit and executable pilot](development_pilot/README.md). The offline auditor checked 14 observed turn slots. `cp` was exposed despite excluded_function metadata; missing `mv` was introduced through a later user message without expansion of the tool block; tail.lines is optional/default 10. These observations rule out a simple required-parameter validator as unrestricted cause ground truth.
+
+Prepared an unexecuted development comparison on families 2 and 3 (six records per condition): vanilla, generic instruction control and schema-evidence checklist. One server is reused across all three conditions; official scoring and raw traces are preserved. Both instruction policies are prompt variants, not native official leaderboard baselines; neither is calibrated. Prompt length/order effects and semantic intent remain limitations.
+
+Local tests passed for wrapper preservation, 14-turn audit findings, real subprocess/archive handling and mocked three-condition control flow. Actual 18-record GPU pilot remains pending. Keep family 1 and the new development families out of future unseen-test claims. PRE-P07 stays CONDITIONAL GO; Prompt 07 is not frozen.
