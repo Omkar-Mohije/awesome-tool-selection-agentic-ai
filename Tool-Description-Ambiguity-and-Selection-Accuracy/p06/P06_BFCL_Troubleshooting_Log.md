@@ -163,9 +163,47 @@ The older shared /content/P06_BFCL_Logs path applies only to previous notebook v
 ### Remaining runtime checks
 Full dependency resolution/install, real Qwen tokenizer preflight, CUDA/VRAM fit, server startup, model predictions and official evaluation still need the user's Colab GPU execution. No GPU is available in this assistant workspace; direct PyPI connectivity also timed out, so no full install was claimed. Local tests do not establish a complete end-to-end pass.
 
+## Entry 005 — real inference succeeds, late-turn context budget exceeded
+### Observed evidence
+Attachment: Pasted markdown(1).md.
+Server started successfully in FP16 at context limit 8192 on the user's existing GPU runtime.
+Actual model inference ran across the three records for approximately 98 seconds. The base record reached completion; its correctness is not established until official scoring.
+Two variants hit HTTP 400 at turn 4, step 0:
+- multi_turn_miss_func_1: prompt 4164 + completion allowance 4096 = 8260, exceeding 8192 by 68.
+- multi_turn_miss_param_1: prompt 4123 + completion allowance 4096 = 8219, exceeding 8192 by 27.
+The official handler reports native context 262144, while the server enforces the smaller resource cap. It therefore continued asking for its 4096-token maximum answer allowance on growing conversation histories.
+These are request/context configuration errors, not observed CUDA OOMs or evidence of an incorrect uncertainty decision. BFCL continued to 3/3 and returned zero; our result-integrity check correctly rejected the two recorded inference exceptions before scoring.
+Messages saying 'Empty response from the model. Proceed to next turn.' refer to the official loop's empty decoded tool-call response and do not alone establish an error or an empty natural-language answer.
+
+### User resource constraints
+Reported GPU: approximately 15 GB VRAM.
+Reported system RAM: 12.7 GB.
+Reported available disk: approximately 40 GB, with previous data present.
+Treat these as user-reported capacities; the notebook now records runtime measurements in GiB rather than assuming exact free resources.
+
+### Resource-aware repair
+- Increase the context cap to 12288 (12K); retain the official 4096-token answer budget and existing model/checkpoint.
+- Retain GPU memory utilization 0.85, one sequence, one request thread, eager execution and FP16 on pre-Ampere GPUs.
+- Disable CPU KV swap (--swap-space 0) and CPU weight offload (--cpu-offload-gb 0) to avoid consuming the limited host RAM for these caches/weights.
+- Enable chunked prefill with max_num_batched_tokens 2048 to bound prefill activation work. This is a serving-profile change and is recorded for reproducibility; it is not a proven throughput improvement on this GPU.
+- vLLM's GPU cache pool is governed by its memory budget and profiling. Increasing the maximum allowed sequence length does not itself double model weights or automatically imply allocation of a second model.
+- Record RAM/disk before setup and server use, GPU total/free memory, and RAM after server cleanup. Preserve the actual server memory-profile log.
+- Reuse the existing isolated environment and default Hugging Face model cache. Do not reset the runtime or delete old caches/data merely for this repair.
+- Use pip --no-cache-dir for future installs to avoid adding new wheel caches; existing caches are preserved.
+- Keep official source, prompts, decoding and scoring unchanged. Keep overwrite-on-retry, isolated run output, inference-error checks and failure archives.
+
+### Verification and limits
+Checked the pinned vLLM scheduler validation: max_num_batched_tokens below max_model_len is supported when chunked prefill is enabled; the paired flags are both supplied.
+Checked pinned worker memory profiling and CPU-cache block allocation from swap_space_bytes.
+Official documentation: https://docs.vllm.ai/en/v0.8.5/performance/optimization.html
+Sources:
+- https://github.com/vllm-project/vllm/blob/v0.8.5/vllm/config.py
+- https://github.com/vllm-project/vllm/blob/v0.8.5/vllm/worker/worker.py
+Updated code/child-program syntax, pip constraint parsing, subprocess/archive tests and mocked generation control-flow checks pass with the revised resource flags.
+No local GPU execution was performed. Exact 12K KV-cache fit and end-to-end official evaluation remain to be verified on the user's GPU. Context growth beyond 12K remains possible in other cases; do not extrapolate this pilot configuration to all BFCL records.
+
 ## Return-to-original-chat summary
-Troubleshooting progressed from Python version incompatibility to missing soundfile, then to vLLM's tokenizer API mismatch. Repairs retain Python 3.12 and vLLM 0.8.5, add soundfile and constrain Transformers to 4.51.3.
-The pre-run audit caught and corrected an escaped-newline bug in that constraint writer and added run isolation, initial context-budget checks, explicit input/reference checks, result-integrity checks, timed process cleanup and failure ZIP export.
-Ten local check groups passed, with actual subprocess/parser/archive tests and mocked GPU-server lifecycle tests clearly separated. Actual GPU inference/evaluation remain unverified.
-Reopen the current notebook rather than rerun an older browser copy. New run logs are under the printed /content/P06_BFCL_Runs/<run-id>/logs directory.
-PRE-P07 remains CONDITIONAL GO; Prompt 07 has not been executed; no successful baseline or publication result is claimed.
+Real Qwen model inference is now evidenced. The base smoke record completed generation, while two variants failed because growing histories plus the official 4096-token answer budget exceeded our old 8192-token serving cap by 68 and 27 tokens. The result guard correctly blocked scoring these infrastructure failures.
+The notebook now targets the user's 15 GB GPU / 12.7 GB host RAM with a 12288 context cap, 85% GPU budget, single request, eager FP16 on older GPUs, zero CPU swap/offload, and chunked prefill batches of 2048. It reuses environment/model caches and preserves previous files. Resource measurements are recorded.
+Rerun the updated notebook using the same runtime; do not claim a complete benchmark or official score until all three records and the evaluator finish successfully.
+PRE-P07 remains CONDITIONAL GO. Prompt 07 has not been executed; no publication result is claimed.
