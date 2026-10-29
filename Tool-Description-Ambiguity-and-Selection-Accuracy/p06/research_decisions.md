@@ -271,3 +271,11 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Deliverable prepared:** [output-based study draft](output_study/README.md), based on preserved evidence. No new GPU run.
 - **Protocol boundary:** this is retrospective analysis of already inspected development cases. Do not call it preregistered, frozen before execution, held-out, or an exact completed numbered Prompt 07 without checking the original assignment wording.
 - **Future work:** keep families 1–3 as development evidence; preselect fresh family groups and fixed metrics/configuration before revised-policy experiments. Publication can be reconsidered later as a separate goal.
+
+### D024 — Verify original assignment; distinguish study draft from submission completeness
+- **Date:** 2026-10-29.
+- **Sources actually read:** full original 11-page instruction sheet (18 prompts) and 28 October Classroom announcement requiring Phase III by 30 October, full phases/paper before end-sem exams.
+- **Finding:** original P07 explicitly requires blueprint freeze before viewing results. No completed freeze is established for the inspected pilot. Existing outputs remain development evidence; do not backdate a protocol. A prospective protocol followed by fresh evaluation is the clearest compliance route.
+- **Status correction:** the study Markdown draft is not the complete assignment or final LaTeX/PDF package. P08–P11 have substantial genuine technical evidence but still need consolidated reports, code understanding and authentic prompt-to-code records.
+- **Next:** requirements-aligned Phase II/III packaging, prospective P07, then bounded fresh evaluation where resources permit; keep all prior outputs. Publication novelty remains unnecessary.
+- **Evidence:** [requirement-by-requirement audit](output_study/assignment_status.md).
