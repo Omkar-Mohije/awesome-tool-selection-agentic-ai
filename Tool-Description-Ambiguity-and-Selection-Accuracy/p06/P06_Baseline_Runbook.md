@@ -45,3 +45,9 @@ Post-hoc pilot audit: 0/11 available decoded intervention records satisfy the re
 The original published decision scorer was executed unchanged on two eligible missing-parameter pairs per condition: vanilla 50%, generic 25%, checklist 75%. These are post-hoc descriptive values, not held-out improvement. Source locks, parser/reference compatibility checks and missing decoded evidence are archived.
 
 NO-GO for a novel call/no-call diagnostic or demonstrated improvement claim. A course reproduction/negative-result scope is recommended for review; original publication novelty would require a distinct question. No scope change or Prompt 07 freeze is asserted. No extra GPU inference used.
+
+## 2026-10-29 user-approved output-based study scope
+
+The user explicitly approved proceeding with an output-based study and dropping publication as a requirement. The active question is descriptive: what differences appear in task success, act/hold decisions, and execution failures across the three recorded prompting conditions? [The study draft](output_study/README.md) consolidates actual methods, results, controls, attribution, limitations, and future experiments. This is retrospective analysis, not preregistration or a held-out result. No further GPU inference is required merely to make the current results reportable.
+
+Publication novelty is no longer a gate for course-study completion. The precise numbered Prompt 07 deliverable still needs mapping to its original assignment wording; neither a pre-experiment freeze nor completion of an unseen assignment requirement is asserted. Existing cases remain development data. Future experiments can use fresh preselected family groups with declared metrics and fixed resources; current findings remain preserved.

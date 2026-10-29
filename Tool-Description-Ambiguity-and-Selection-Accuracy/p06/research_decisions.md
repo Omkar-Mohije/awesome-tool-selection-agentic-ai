@@ -263,3 +263,11 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Descriptive replay:** two eligible missing-parameter pairs/condition; original published decision scorer yields vanilla 50%, generic 25%, checklist 75%; no inference test or held-out improvement claim. Strict-any-call and state-changing-attempt metrics differ.
 - **Decision:** NO-GO for asserting novelty or checklist improvement from this evidence. Recommend course reproduction/negative-result scope for user review; do not silently substitute it for the original research goal. Prompt 07 remains unfrozen. No additional GPU generation.
 - **Evidence:** [scope report, source locks, executed controls and original scorer logs](development_pilot/diagnostic_review/README.md).
+
+### D023 — User approves output-based study; publication no longer required
+- **Date:** 2026-10-29.
+- **Explicit instruction:** proceed with an output-based study and drop publication as a required goal; retain the ability to experiment on the research question in future.
+- **Active scope:** descriptive empirical pilot and attributed metric reproduction; report completed model outputs, negative task outcomes, software controls and limitations. No novelty or statistically established intervention benefit is needed or claimed.
+- **Deliverable prepared:** [output-based study draft](output_study/README.md), based on preserved evidence. No new GPU run.
+- **Protocol boundary:** this is retrospective analysis of already inspected development cases. Do not call it preregistered, frozen before execution, held-out, or an exact completed numbered Prompt 07 without checking the original assignment wording.
+- **Future work:** keep families 1–3 as development evidence; preselect fresh family groups and fixed metrics/configuration before revised-policy experiments. Publication can be reconsidered later as a separate goal.
