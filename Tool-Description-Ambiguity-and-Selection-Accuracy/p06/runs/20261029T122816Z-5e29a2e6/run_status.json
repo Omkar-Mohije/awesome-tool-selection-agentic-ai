@@ -1,0 +1,12 @@
+{
+  "setup": "passed",
+  "selection": "passed",
+  "generation": "passed",
+  "evaluation": "passed",
+  "generation_vanilla": "passed",
+  "generation_generic_control": "passed",
+  "generation_schema_evidence": "passed",
+  "evaluation_vanilla": "passed",
+  "evaluation_generic_control": "passed",
+  "evaluation_schema_evidence": "passed"
+}

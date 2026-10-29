@@ -53,3 +53,11 @@ Local tests passed for wrapper preservation, 14-turn audit findings, real subpro
 Vanilla completed in the supplied console log; generic_control encountered `multi_turn_miss_param_2` context rejection (8302 + 4096 = 12398 > 12288), and postflight correctly blocked evaluation. Schema-evidence had not started. Full partial-result inspection is pending; do not claim pilot scores or exact reusable counts yet.
 
 [Recovery and methodological limits](development_pilot/README.md): increase cap to 24576 within the same 85% GPU budget, synchronize handler context, preserve full 4096 answer allowance and history, and explicitly fail on oversize. Dedicated no-reinstall recovery notebook reuses valid original records in a new run and exports provenance plus the original failure ZIP. New GPU fit and real pilot completion remain pending; Prompt 07 remains unfrozen.
+
+## 2026-10-29 development recovery results — 20261029T122816Z-5e29a2e6
+
+[Verified result and full archive](runs/20261029T122816Z-5e29a2e6/README.md): generation and official scoring completed for all three conditions, six records each. Task successes: vanilla **0/6**, generic control **0/6**, checklist **0/6**. Two indexed families only; no complete-task improvement is demonstrated.
+
+All 203 outer and 62 nested source-manifest hashes match. All 11 reused records match original records field-for-field; seven new records completed. Intended prompt instructions were checked in saved model-facing inputs. The 24K resource profile worked without new recorded inference exceptions. One generic-control tool-loop force termination is a model/harness outcome and remains in the results.
+
+Do not treat this mixed-attempt development pilot as uniform-run latency/held-out performance. State/execution failures dominate and confound attribution to uncertainty causes. Pause further GPU runs; next recommendation is synthetic CPU reference-trajectory replay, followed by a narrower failure/measurement audit. That control remains unexecuted. NO-GO for scaling/claiming the present checklist as an improvement; CONDITIONAL GO for diagnostic validity work. Prompt 07 is unfrozen.

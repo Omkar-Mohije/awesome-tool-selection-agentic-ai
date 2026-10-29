@@ -240,3 +240,11 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Recovery:** create a new run seeded only with non-exception original records, verify the source policy script hash, preserve original data/ZIP and record reused-result provenance. Do not overwrite or regenerate valid results merely to obtain successes.
 - **Validation:** local context guard and synthetic seed/copy tests pass along with prior pilot checks. GPU recovery remains unexecuted by the assistant.
 - **Boundary:** mixed-attempt development evidence is not a uniform-run timing/held-out comparison. Prior runtime profiles motivate 24K but do not guarantee new fit. PRE-P07 stays CONDITIONAL GO.
+
+### D020 — Preserve negative completed pilot; pause expansion
+- **Date:** 2026-10-29.
+- **Verified:** [run 20261029T122816Z-5e29a2e6](runs/20261029T122816Z-5e29a2e6/README.md); 203 outer and 62 nested hashes verified, 11 reused records verified unchanged, seven new records, all 18 condition/case records officially scored. Intended instructions present in saved inputs.
+- **Outcome:** each of vanilla, generic control and schema checklist scored 0/6. This is two development families, not evidence of population accuracy or a significant method effect. One generic-control loop force termination is preserved as a task failure.
+- **Compute:** 24K cap worked on the T4 with the fixed 85%/single-request/chunked-2048 profile. No new recorded inference exceptions are present.
+- **Decision:** do not scale or claim improvement for this checklist on the basis of this pilot. Pause further GPU use and first validate an explicitly synthetic CPU reference-replay control, then reassess cause-specific measurement and research differentiation. That control is not yet executed.
+- **Boundary:** mixed-attempt provenance, prompt length/order confounds, earlier state failures and unvalidated semantic labels remain explicit. Prompt 07 stays unfrozen; CONDITIONAL GO for validity/diagnostic work, NO-GO for a checklist improvement claim.

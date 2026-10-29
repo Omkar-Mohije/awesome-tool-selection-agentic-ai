@@ -255,3 +255,13 @@ Local validation: previous ten pilot check groups pass; added tests verify the 2
 
 ## Entry 009 — Colab session-limit popup when opening recovery tab
 User screenshot shows 'Too many sessions' in the newly opened recovery notebook. Do not terminate the original runtime containing the interrupted run solely to open a new notebook session. Recovery code can execute inside the original active notebook kernel via a code cell that downloads the pinned recovery notebook at fd63f01516a6f5bd2884059bc70497ef313f9fd8 and executes its code cells sequentially. This changes neither the recovery logic nor the original source-run path. The pinned notebook was re-fetched and verified to have seven cells. The launcher is a user-executed option; no live Colab session operation has been performed by the assistant. If the source runtime/files are gone, stop and restore from the diagnostic ZIP rather than rerunning missing-data assumptions.
+
+## Entry 010 — recovery pilot completed; negative task outcome
+
+## 2026-10-29 development recovery results — 20261029T122816Z-5e29a2e6
+
+[Verified result and full archive](runs/20261029T122816Z-5e29a2e6/README.md): generation and official scoring completed for all three conditions, six records each. Task successes: vanilla **0/6**, generic control **0/6**, checklist **0/6**. Two indexed families only; no complete-task improvement is demonstrated.
+
+All 203 outer and 62 nested source-manifest hashes match. All 11 reused records match original records field-for-field; seven new records completed. Intended prompt instructions were checked in saved model-facing inputs. The 24K resource profile worked without new recorded inference exceptions. One generic-control tool-loop force termination is a model/harness outcome and remains in the results.
+
+Do not treat this mixed-attempt development pilot as uniform-run latency/held-out performance. State/execution failures dominate and confound attribution to uncertainty causes. Pause further GPU runs; next recommendation is synthetic CPU reference-trajectory replay, followed by a narrower failure/measurement audit. That control remains unexecuted. NO-GO for scaling/claiming the present checklist as an improvement; CONDITIONAL GO for diagnostic validity work. Prompt 07 is unfrozen.

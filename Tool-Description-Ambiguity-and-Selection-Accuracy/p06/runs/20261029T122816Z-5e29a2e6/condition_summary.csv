@@ -1,0 +1,4 @@
+condition,correct,total,accuracy,reused,new,max_input_tokens,saved_prompt_steps
+vanilla,0,6,0.0,6,0,6234,78
+generic_control,0,6,0.0,5,1,9161,116
+schema_evidence,0,6,0.0,0,6,6716,101
