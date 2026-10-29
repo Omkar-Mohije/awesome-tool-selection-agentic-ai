@@ -123,8 +123,49 @@ The pinned BFCL handler still knows the native model context; server-side overfl
 Notebook JSON and Python code-cell syntax checked locally. Server lifecycle logic checked using mocked subprocess/HTTP behavior, including successful readiness, early exit and generation-failure cleanup; this does not test actual GPU inference.
 Real dependency resolution, Qwen tokenizer check, server memory fit, inference and official evaluation remain pending in the user's Colab environment.
 
+## Entry 004 — pre-run audit requested before another Colab attempt
+### Confirmed defects and missing safeguards
+- Found a bug in Entry 003's prepared notebook: the constraints file writer contained an escaped backslash+n rather than an actual newline. Syntax compilation did not detect it. Corrected the string and verified its generated file using pip's actual requirement-file parser.
+- Existing result files could be silently reused on retry, including recorded inference exceptions. Generation now uses --allow-overwrite within an isolated run directory.
+- BFCL may catch inference exceptions, write them into result records and exit with status zero. Added result-integrity checking before evaluation; zero process exit alone is no longer treated as success.
+- Shared result/score directories and export staging could mix stale files into an output archive. Every setup creates a new timestamp/UUID run root; generation, scoring and exports use only that run.
+- Previous export depended on completing generation and did not preserve stage status. Export is now defined before dependency installation; logged failures create a diagnostic ZIP with status and hashes. The final export cell may be run after a logged failure.
+- Streaming child processes had no deadline or cancellation cleanup. Added a one-hour logged-command deadline and process-group cleanup; server readiness retains its separate 30-minute limit.
+
+### Additional preflights and source checks
+- Validate all three selected IDs through the official dataset loader and verify corresponding reference trajectory turn counts before starting the model server.
+- Re-fetched the actual official index-1 inputs and references: base has 4 turns, missing function and missing parameter each have 5. This is a structural check, not an action-label or semantic correctness claim.
+- Check initial prompt token counts using the official QwenFCHandler prompt formatter and tokenizer, reserving the handler's 4096-token generation budget against the 8192-token smoke cap.
+- Later conversation growth can still exceed the context cap; recorded inference failures remain blocked from being presented as a successful smoke run.
+- Rechecked generation/evaluation flags, --allow-overwrite support, run-ID loading, result JSONL format, model registry directory naming, environment-root handling, partial evaluation and official score output paths against the pinned source.
+- BFCL_PROJECT_ROOT now points to the isolated run root, avoiding stale source-tree .env overrides. Package datasets still load from the pinned source package.
+- Add notebook cell IDs for current notebook-format compatibility.
+
+### Checks actually executed here
+Ten local check groups passed:
+1. All notebook Python cells and nested child-preflight program strings syntax-compile.
+2. Pip's actual parser reads the generated constraints file as exactly transformers==4.51.3.
+3. Real subprocess success and nonzero exit are logged correctly.
+4. A real subprocess timeout is terminated and reported.
+5. Failure archive includes result bytes, stage status and verified SHA-256 manifest hashes.
+6. Mocked ready-server generation runs with official skip-server setup and overwrite flags.
+7. Mocked early server exit saves diagnostics and cleans up the launched process group.
+8. Mocked generation command failure saves diagnostics and cleans up.
+9. Mocked CLI success with an embedded inference exception is rejected before evaluation.
+10. Mocked CLI success with a missing result record is rejected before evaluation.
+Mocked server tests are software-control-flow checks, not model/server performance evidence.
+
+### Current log/output locations
+New runs print /content/P06_BFCL_Runs/<run-id>.
+Logs are in that run's logs directory; the ZIP is P06_BFCL_Smoke_Outputs.zip inside the same run.
+The older shared /content/P06_BFCL_Logs path applies only to previous notebook versions.
+
+### Remaining runtime checks
+Full dependency resolution/install, real Qwen tokenizer preflight, CUDA/VRAM fit, server startup, model predictions and official evaluation still need the user's Colab GPU execution. No GPU is available in this assistant workspace; direct PyPI connectivity also timed out, so no full install was claimed. Local tests do not establish a complete end-to-end pass.
+
 ## Return-to-original-chat summary
-Python 3.12 and soundfile repairs progressed to actual vLLM startup. The next observed failure is a tokenizer API mismatch: vLLM 0.8.5 reads all_special_tokens_extended, absent from the installed tokenizer.
-Notebook now constrains Transformers to 4.51.3 and tests the real tokenizer through vLLM before generation. It also uses official external-server support to choose an older-GPU-compatible dtype and cap context/concurrency for the smoke test.
-Run the updated notebook in the existing GPU runtime; packages already installed/downloaded may be reused. No fresh full runtime is required solely for these child-process dependency changes.
-No successful baseline or official evaluation is evidenced. PRE-P07 remains CONDITIONAL GO; Prompt 07 has not been executed.
+Troubleshooting progressed from Python version incompatibility to missing soundfile, then to vLLM's tokenizer API mismatch. Repairs retain Python 3.12 and vLLM 0.8.5, add soundfile and constrain Transformers to 4.51.3.
+The pre-run audit caught and corrected an escaped-newline bug in that constraint writer and added run isolation, initial context-budget checks, explicit input/reference checks, result-integrity checks, timed process cleanup and failure ZIP export.
+Ten local check groups passed, with actual subprocess/parser/archive tests and mocked GPU-server lifecycle tests clearly separated. Actual GPU inference/evaluation remain unverified.
+Reopen the current notebook rather than rerun an older browser copy. New run logs are under the printed /content/P06_BFCL_Runs/<run-id>/logs directory.
+PRE-P07 remains CONDITIONAL GO; Prompt 07 has not been executed; no successful baseline or publication result is claimed.
