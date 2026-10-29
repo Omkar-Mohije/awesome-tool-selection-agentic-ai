@@ -1,0 +1,12 @@
+model                              N     act    hold  decision  hold+c   dec+c    pair      mf      mp
+Qwen_Qwen3-4B-Instruct-2507-FC     2   100.0    50.0      75.0    50.0    75.0    50.0     nan    75.0
+
+act  = attempted a world-changing call on the base (complete) anchor turn, %
+hold = attempted none on the miss (incomplete) anchor turn, %
+decision = mean of the two; 50 is chance, and is also what always acting and always asking each score
+hold+c / dec+c = the credited reading: on the 27 certified compound turns an attempt confined to that pair's independent steps is not counted as acting
+pair = both twins of the same scenario decided correctly, %
+mf / mp = decision accuracy on miss_func / miss_param alone (strict)
+scored pairs: 223 of 365
+
+per-item decisions written to p06_repairs/development_pilot/diagnostic_review/published_schema_evidence_pairs.csv

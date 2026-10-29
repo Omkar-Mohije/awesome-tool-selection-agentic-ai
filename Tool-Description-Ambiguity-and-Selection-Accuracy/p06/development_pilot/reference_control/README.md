@@ -28,3 +28,6 @@ The official task result remains vanilla 0/6, generic control 0/6, checklist 0/6
 
 ## Decision
 Complete the planned evaluator check and failure audit before more GPU work. They are now complete at the decoded-checker level. Do not repeat the same three prompting conditions or claim checklist improvement. Keep Prompt 07 unfrozen while deciding whether a narrow, independently measured diagnostic contribution is sufficient. No new model intervention or expanded run is authorized by a positive reference-control result alone.
+
+## Subsequent integration finding — 29 October 2026
+The [dispatch audit](../diagnostic_review/README.md) confirms that the pinned official multi-turn evaluation function does not invoke the standalone irrelevance checker. Consequently the successful standalone tests above do not establish no-call enforcement in official complete-task scores. The strict 0/11 no-call result is a separate descriptive audit; some calls are read-only and may be allowed by a state-changing-attempt metric. See the attributed published-scorer replay for that different definition.

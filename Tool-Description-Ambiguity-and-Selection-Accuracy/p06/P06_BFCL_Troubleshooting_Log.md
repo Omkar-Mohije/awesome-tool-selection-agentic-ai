@@ -275,3 +275,13 @@ Do not treat this mixed-attempt development pilot as uniform-run latency/held-ou
 Post-hoc pilot audit: 0/11 available decoded intervention records satisfy the reference no-call requirement; one force-terminated record has no usable decoded output. The overall three 0/6 task scores remain unchanged. No fresh GPU run was used. Prompt 07 remains unfrozen pending contribution/measurement review.
 
 The runner catches reference execution exceptions separately from reference-vs-reference equality. An initial synthetic identifier starting with a digit was rejected and fixed with an alphabetic prefix before reporting the successful control.
+
+## Entry 012 — dispatch integration distinction and published diagnostic replay
+
+## 2026-10-29 diagnostic overlap and dispatch audit
+
+[Completed diagnostic review](development_pilot/diagnostic_review/README.md) identifies direct overlap with Liu and Han's *Asking Earns Nothing* and distinguishes three metrics. The pinned official multi-turn evaluation function does not invoke its imported standalone irrelevance checker. A synthetic identity-decoder dispatch control accepted all six references and four extra-read trajectories that the separate irrelevance checker rejects. This limits the interpretation of the earlier direct-checker control; it does not change the model's three 0/6 task results.
+
+The original published decision scorer was executed unchanged on two eligible missing-parameter pairs per condition: vanilla 50%, generic 25%, checklist 75%. These are post-hoc descriptive values, not held-out improvement. Source locks, parser/reference compatibility checks and missing decoded evidence are archived.
+
+NO-GO for a novel call/no-call diagnostic or demonstrated improvement claim. A course reproduction/negative-result scope is recommended for review; original publication novelty would require a distinct question. No scope change or Prompt 07 freeze is asserted. No extra GPU inference used.

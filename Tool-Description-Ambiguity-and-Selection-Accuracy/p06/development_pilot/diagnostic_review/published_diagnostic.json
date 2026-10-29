@@ -1,0 +1,161 @@
+{
+  "attribution": "Liu and Han, Asking Earns Nothing (2026), published definition C scorer",
+  "upstream": {
+    "published_repository": "YangzeLiu/asking-earns-nothing",
+    "published_commit": "7f20cf1bdc37fc8d3954ef8488b80ef8bf8c9c02",
+    "published_files_sha256": {
+      "score_pairs.py": "987b650e156ea5ee207ed82d5dbfd62b0d862782abe17d74b7fcb03a6ef15b40",
+      "pairs.json": "5dac6ba8bc9557f25975221d863dfeead9233ee5d90f1d239a3ddc5148e1b627",
+      "mutator_map.json": "b18810ce3b215940acc974703a96c01a6b208fc5605dfccae32a6ec9ad064ccd",
+      "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "NOTICE": "b41c3b350ed4d4cf2e9f4874960b0347e67f9c7f2066c49414afe940c4d636b8"
+    },
+    "eval_runner_sha256": "b1033684908819ccb312d4d0e2c563359d69247412f00206013b2292b0e3ce81"
+  },
+  "archive_sha256": "4b7178e4208094c16f04cdaf83235f2986a5923f1b910496d92d545c2b1eba40",
+  "summaries": [
+    {
+      "condition": "vanilla",
+      "n": 2,
+      "act": 50.0,
+      "hold": 50.0,
+      "hold_credited": 50.0,
+      "decision": 50.0,
+      "decision_credited": 50.0,
+      "pair_correct": 0.0,
+      "decision_miss_param": 50.0
+    },
+    {
+      "condition": "generic_control",
+      "n": 2,
+      "act": 50.0,
+      "hold": 0.0,
+      "hold_credited": 0.0,
+      "decision": 25.0,
+      "decision_credited": 25.0,
+      "pair_correct": 0.0,
+      "decision_miss_param": 25.0
+    },
+    {
+      "condition": "schema_evidence",
+      "n": 2,
+      "act": 100.0,
+      "hold": 50.0,
+      "hold_credited": 50.0,
+      "decision": 75.0,
+      "decision_credited": 75.0,
+      "pair_correct": 50.0,
+      "decision_miss_param": 75.0
+    }
+  ],
+  "compatibility": [
+    {
+      "condition": "vanilla",
+      "miss_id": "multi_turn_miss_param_2",
+      "anchor_turn": 0,
+      "reference_trajectory_alignment": true,
+      "anchor_turn_present_in_both_raw_results": true,
+      "decoder_checks": [
+        {
+          "case_id": "multi_turn_base_2",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        },
+        {
+          "case_id": "multi_turn_miss_param_2",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        }
+      ]
+    },
+    {
+      "condition": "vanilla",
+      "miss_id": "multi_turn_miss_param_3",
+      "anchor_turn": 1,
+      "reference_trajectory_alignment": true,
+      "anchor_turn_present_in_both_raw_results": true,
+      "decoder_checks": [
+        {
+          "case_id": "multi_turn_base_3",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        },
+        {
+          "case_id": "multi_turn_miss_param_3",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        }
+      ]
+    },
+    {
+      "condition": "generic_control",
+      "miss_id": "multi_turn_miss_param_2",
+      "anchor_turn": 0,
+      "reference_trajectory_alignment": true,
+      "anchor_turn_present_in_both_raw_results": true,
+      "decoder_checks": [
+        {
+          "case_id": "multi_turn_base_2",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        },
+        {
+          "case_id": "multi_turn_miss_param_2",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        }
+      ]
+    },
+    {
+      "condition": "generic_control",
+      "miss_id": "multi_turn_miss_param_3",
+      "anchor_turn": 1,
+      "reference_trajectory_alignment": true,
+      "anchor_turn_present_in_both_raw_results": true,
+      "decoder_checks": [
+        {
+          "case_id": "multi_turn_base_3",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        },
+        {
+          "case_id": "multi_turn_miss_param_3",
+          "official_decoder_comparison": "unavailable_force_terminated"
+        }
+      ]
+    },
+    {
+      "condition": "schema_evidence",
+      "miss_id": "multi_turn_miss_param_2",
+      "anchor_turn": 0,
+      "reference_trajectory_alignment": true,
+      "anchor_turn_present_in_both_raw_results": true,
+      "decoder_checks": [
+        {
+          "case_id": "multi_turn_base_2",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        },
+        {
+          "case_id": "multi_turn_miss_param_2",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        }
+      ]
+    },
+    {
+      "condition": "schema_evidence",
+      "miss_id": "multi_turn_miss_param_3",
+      "anchor_turn": 1,
+      "reference_trajectory_alignment": true,
+      "anchor_turn_present_in_both_raw_results": true,
+      "decoder_checks": [
+        {
+          "case_id": "multi_turn_base_3",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        },
+        {
+          "case_id": "multi_turn_miss_param_3",
+          "official_decoder_comparison": "exact_function_name_sequence_match"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Post-hoc application to two inspected development pairs, both missing-parameter; no held-out or statistical improvement claim.",
+    "Mutator labels and certification are inherited from the published work, not newly independently annotated.",
+    "Generic-control missing-parameter family 3 is force-terminated later/in its trajectory; its raw anchor exists, but official decoded outputs are unavailable for the anchor parser cross-check.",
+    "Function-name sequence agreement does not verify all parsed argument values; the score is attempt-based, not successful execution."
+  ]
+}

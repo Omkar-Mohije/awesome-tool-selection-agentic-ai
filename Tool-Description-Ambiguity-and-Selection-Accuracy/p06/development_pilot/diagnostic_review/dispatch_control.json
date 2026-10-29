@@ -1,0 +1,64 @@
+{
+  "control": "synthetic_dispatch_identity_decoder_not_model_inference",
+  "upstream_commit": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+  "eval_runner_sha256": "b1033684908819ccb312d4d0e2c563359d69247412f00206013b2292b0e3ce81",
+  "reference_dispatch_passes": 6,
+  "extra_read_controls_accepted_by_dispatch": 4,
+  "extra_read_controls_rejected_by_standalone_irrelevance_checker": 4,
+  "cases": [
+    {
+      "case_id": "multi_turn_base_2",
+      "reference_dispatch_valid": true,
+      "corruption": null
+    },
+    {
+      "case_id": "multi_turn_base_3",
+      "reference_dispatch_valid": true,
+      "corruption": null
+    },
+    {
+      "case_id": "multi_turn_miss_func_2",
+      "reference_dispatch_valid": true,
+      "corruption": {
+        "turn": 3,
+        "injected_call": "pwd()",
+        "official_dispatch_valid": true,
+        "direct_irrelevance_valid": false
+      }
+    },
+    {
+      "case_id": "multi_turn_miss_func_3",
+      "reference_dispatch_valid": true,
+      "corruption": {
+        "turn": 0,
+        "injected_call": "pwd()",
+        "official_dispatch_valid": true,
+        "direct_irrelevance_valid": false
+      }
+    },
+    {
+      "case_id": "multi_turn_miss_param_2",
+      "reference_dispatch_valid": true,
+      "corruption": {
+        "turn": 0,
+        "injected_call": "pwd()",
+        "official_dispatch_valid": true,
+        "direct_irrelevance_valid": false
+      }
+    },
+    {
+      "case_id": "multi_turn_miss_param_3",
+      "reference_dispatch_valid": true,
+      "corruption": {
+        "turn": 1,
+        "injected_call": "pwd()",
+        "official_dispatch_valid": true,
+        "direct_irrelevance_valid": false
+      }
+    }
+  ],
+  "limits": [
+    "Uses the unmodified original evaluation function extracted by AST, real execution checker, and deliberately supplied decoded calls through an identity decoder.",
+    "Does not test production model decoding, full CLI invocation, or user clarification quality."
+  ]
+}
