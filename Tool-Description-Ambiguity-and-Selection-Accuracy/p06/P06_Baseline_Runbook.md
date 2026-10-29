@@ -21,3 +21,13 @@ In every one of 200 indexed families, each miss_func and miss_param variant adds
 
 ## Human involvement
 Only enabling a Colab GPU, executing the notebook and sharing run logs are beyond this GitHub connector's compute capabilities. File updates and downstream analysis can be handled here after results exist.
+
+## 2026-10-29 execution update — supersedes earlier pending-run status
+
+The first real GPU smoke run completed generation and official partial scoring on a Tesla T4. All three selected records are present without recorded inference exceptions. Official task successes: **0/3**. This confirms execution feasibility for one family, not task correctness or representative performance.
+
+See [complete evidence and diagnosis](runs/20261029T113521Z-d72a657e/README.md). The original archive is preserved unchanged with all 36 manifest hashes verified.
+
+Use the current notebook's 12K single-request resource profile, zero CPU swap/offload and 2048-token chunked prefill; the earlier 8192-token cap caused late-turn context errors. Record actual versions from the successful run's pip freeze before expanding experiments. No need to rerun this same case merely to obtain passing scores.
+
+A second comparator, proposed intervention, family-separated evaluation and cause-label validity checks remain outstanding. PRE-P07 remains CONDITIONAL GO; Prompt 07 is unfrozen.

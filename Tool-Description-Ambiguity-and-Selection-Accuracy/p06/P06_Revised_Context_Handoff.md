@@ -27,3 +27,15 @@ BFCL itself tests missing functions and parameters; SAGE-Agent, AgentAbstain, ca
 3. Verify two compatible models/policies and run genuine baseline traces with environment logs.
 4. Assess novel difference vs BFCL and clarification/calibration papers.
 5. Then and only then consider Prompt 07.
+
+## 2026-10-29 update — first verified GPU smoke execution
+
+Supersedes earlier statements that all model execution and scoring are pending; those statements describe the historical audit stage.
+
+Evidence: [run 20261029T113521Z-d72a657e](runs/20261029T113521Z-d72a657e/README.md), including the complete original output archive, hashes, raw traces/scores and environment/resource logs.
+
+All three selected records generated without inference exceptions and the official BFCL partial evaluator completed. Official task successes: **0/3** (base and missing-parameter state mismatch; missing-function empty decoded-call turn). Thus execution feasibility is established for this one family; task correctness is not. No broader accuracy or three-class cause-label claim follows.
+
+Verified hardware/profile: Tesla T4 15 GiB, host RAM 12.67 GiB; FP16, context 12288, GPU budget 0.85, one sequence/request, chunked prefill 2048, zero CPU swap/offload. Actual profiler: weights 7.61 GiB, activation peak 0.16 GiB, KV cache 4.57 GiB.
+
+Second calibrated comparator, proposed intervention, held-out family-separated evaluation, valid cause-specific oracle and publication differentiation remain open. PRE-P07 stays CONDITIONAL GO; Prompt 07 remains unfrozen. Do not recruit a second reviewer for strictly mechanically verified outcomes. Continue analysis here; use the GitHub evidence and running log as the handoff to any other chat.

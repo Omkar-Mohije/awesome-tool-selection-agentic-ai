@@ -1,0 +1,22 @@
+{
+  "run_id": "20261029T113521Z-d72a657e",
+  "input_zip_sha256": "400db99fea9069d9acc87f85981aa1afdb70b54c67a3dcb69e3df28b00dc18fc",
+  "input_zip_bytes": 252913,
+  "manifest_entries_verified": 36,
+  "hash_mismatches": [],
+  "result_ids": [
+    "multi_turn_base_1",
+    "multi_turn_miss_func_1",
+    "multi_turn_miss_param_1"
+  ],
+  "result_turn_counts": [
+    4,
+    5,
+    5
+  ],
+  "inference_exceptions": 0,
+  "official_task_successes": 0,
+  "official_task_total": 3,
+  "scope": "one indexed family; execution smoke test only",
+  "checks": "manifest hashes, exact result IDs/turn counts, absence of recorded inference exceptions, evaluator log and per-case scores cross-checked"
+}

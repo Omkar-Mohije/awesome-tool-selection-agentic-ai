@@ -214,3 +214,12 @@ Tool: ChatGPT GPT-6, web original-source lookup, connected GitHub file fetch, lo
 - **Not done:** no official BFCL scoring run on model predictions; no model weights downloaded; no inference, calibrated policy fitting or Colab run; no independent human annotation or verified natural-language-to-schema oracle; no proof of novel publication contribution.
 - **User approval:** approved investigating benchmark-supported, no-two-human-reviewer path; **NOT** approval of a frozen Prompt 07 protocol.
 - **Recommendation:** CONDITIONAL GO for additional evidence collection; NO-GO for freezing Prompt 07 at present.
+
+### D017 — First verified BFCL model smoke execution (2026-10-29)
+- **Status:** VERIFIED for execution and official partial scoring on one indexed family; not a completed comparative experiment.
+- **Evidence:** [run 20261029T113521Z-d72a657e](runs/20261029T113521Z-d72a657e/README.md), unchanged full archive, 36 matching file hashes, raw model traces, official per-case scores, dependency freeze and resource profile.
+- **Outcome:** three records generated without recorded inference exceptions; official successes 0/3. Preserve failures rather than altering examples or reporting pipeline success as task success.
+- **Compute:** Tesla T4 15 GiB / host RAM 12.67 GiB. Working serving profile: FP16, 12288 context, GPU utilization 0.85, single request, eager V0, 2048-token chunked prefill, zero CPU swap/offload.
+- **Decision:** retain this as the verified software feasibility check and development evidence. Do not rerun solely to obtain passing examples; do not treat inspected cases as unseen held-out data.
+- **Next:** audit error traces and exposed tools; then define a family-separated development pilot and fairly matched comparator/intervention.
+- **Boundary:** no validated three-way semantic oracle, second calibrated comparator, frozen Prompt 07 or publication novelty is claimed. PRE-P07 remains CONDITIONAL GO.

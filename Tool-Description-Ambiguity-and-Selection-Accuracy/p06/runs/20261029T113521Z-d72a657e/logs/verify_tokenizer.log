@@ -1,0 +1,2 @@
+INFO 10-29 11:36:04 [__init__.py:239] Automatically detected platform cuda.
+{"transformers": "4.51.3", "tokenizer": "Qwen2TokenizerFast", "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554", "gpu": "Tesla T4", "capability": [7, 5], "tokenizer_check": "PASS"}

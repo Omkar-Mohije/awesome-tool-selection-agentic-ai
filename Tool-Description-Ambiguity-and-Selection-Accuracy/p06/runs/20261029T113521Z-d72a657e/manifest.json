@@ -1,0 +1,62 @@
+{
+  "run_id": "20261029T113521Z-d72a657e",
+  "timestamp_utc": "2026-10-29T11:39:53.745582+00:00",
+  "bfcl_commit": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+  "model_id": "Qwen/Qwen3-4B-Instruct-2507-FC",
+  "selected_ids": {
+    "multi_turn_base": [
+      "multi_turn_base_1"
+    ],
+    "multi_turn_miss_func": [
+      "multi_turn_miss_func_1"
+    ],
+    "multi_turn_miss_param": [
+      "multi_turn_miss_param_1"
+    ]
+  },
+  "status": {
+    "setup": "passed",
+    "selection": "passed",
+    "generation": "passed",
+    "evaluation": "passed"
+  },
+  "note": "Resource-limited smoke test, not a complete study",
+  "files": {
+    "run_status.json": "12e03acfffb33145240986b36ca7c88596e2dc0e06fc14d095306c1cdd6161b0",
+    "test_case_ids_to_generate.json": "62d9741ea7ca57f441ea87cb214fbca0539486b327e8e74b6e9053c5d395b328",
+    "score/data_non_live.csv": "2538f885f2a0769188847ad443dd595d4569154e79befcb78148706dc0f8c462",
+    "score/data_overall.csv": "3be114f5d7be4d1a61a94172b56039bb1a4aa4b1275738a0a5c83717fab5ce44",
+    "score/data_agentic.csv": "6a6ab244c931c680884bcce4d51478ea75287722ac12b5cc95b1f69fdff8a9c4",
+    "score/data_format_sensitivity.csv": "0528f9fee58d84a185110d20341eca9b252f5bbc5a6ab332d1fa7d66046b9e1b",
+    "score/data_live.csv": "db2547836d1cfcabbf7ce619e267632a4ae765d52d0c2c53cfb8c351db24fb4a",
+    "score/data_multi_turn.csv": "770db7d4911c54e81e35697dbca88c4c6540020d5cdd5d697d91cddc18acf8ec",
+    "logs/install_python312.log": "5c33ea4644e575ff503e3c8eb9433e3a4a185fa86a3a35fd7e172174d83f4582",
+    "logs/pip_freeze.log": "005fc6af2fdebffd652bb3ff2d44daa312cbfc20ce2cace17e88ffae27500444",
+    "logs/install_bfcl.log": "90cd45b98ca9e32c91f5163bd25639d7cd5a2b86649f62f0b9b9a75a9a367b63",
+    "logs/vllm_server.log": "97a5f460910f9f9caa5e5417d298f331635f5bb465a58e74515e63fc44df8d94",
+    "logs/evaluate.log": "1405af270d0e30c2587ab47daa25ee59065a9dc273f71c4f35c788def85666f4",
+    "logs/gpu_resources_before_server.log": "4cf723f42534c4b096b31a0846c4aa9347a0a7732f163c8b17c57c2b84083ced",
+    "logs/verify_evaluate_cli.log": "f8cac2fed9520886e35b3753b914853a8cb9127b457ef0d60b992bb6e4af12de",
+    "logs/verify_cli_imports.log": "7d9f994dafc0b832ce12c44adc3a226d7da97ec08a1e140bacc66c014886bd8f",
+    "logs/verify_selection.log": "ff0225c4802ea7ed83fba3a65b505697f1ae2d38035db90c41e400741e8d87b0",
+    "logs/verify_tokenizer.log": "96f3172a8135863bf3de19612e50981ac580c45e088fb60a649c6743864f361b",
+    "logs/install_uv.log": "12f6169c31fa1fa77c414cb41847fe67ec3788e641a73ca9ff93ea6f3bafec34",
+    "logs/install_soundfile.log": "4abae54fde1f02841eec41be193ecafea77ce7619202987367948b3cc84fb616",
+    "logs/host_resources_setup.json": "be389dc265520fba8b8cab53036f61878933d192615c6ff893d653383eba32cb",
+    "logs/verify_generate_cli.log": "de3cb28b1298eb885cc04976b7fd77b1921236bf02b15be3fabd85530cf8cd27",
+    "logs/generate.log": "f81d0b62737ee4bdb53ee32df0a7fdbc79559b2d29d7741da40a9d5d440f552b",
+    "logs/pip_check.log": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+    "logs/runtime_profile.json": "7e5d6e138d1e31e5dd07bc21718eef1ad9c48f9da2e469e937b94c85ad1a4525",
+    "logs/result_integrity.json": "73887542904365867c19125079c7d6496cf50282a0b5c1547a9d6e95e850944b",
+    "logs/host_resources_after_server.json": "0a15e1f0d5af978e3bcb4768e2b67fda1a790c18fdc5a3093b70c14d390fdc86",
+    "logs/verify_imports.log": "3d2f8653de6ec836027d5253859b2a4907abfaf075ff3045e0d5bf9fe667d164",
+    "logs/gpu_resources_setup.log": "4cf723f42534c4b096b31a0846c4aa9347a0a7732f163c8b17c57c2b84083ced",
+    "logs/verify_python.log": "8ac26c77f3211cc0b31eb60c79eb835d803f29c0e9fe797c5a5ebddf1ae3869b",
+    "score/Qwen_Qwen3-4B-Instruct-2507-FC/multi_turn/BFCL_v4_multi_turn_base_score.json": "9c1a93d59bed11ee533bdd2d7e079a7885a46b7f1061c0b89a686cb0b12d215b",
+    "score/Qwen_Qwen3-4B-Instruct-2507-FC/multi_turn/BFCL_v4_multi_turn_miss_func_score.json": "e55ad9039caf0be269a87b2328fcdc5ef081a3e584f8fc39b7317a6579f9bceb",
+    "score/Qwen_Qwen3-4B-Instruct-2507-FC/multi_turn/BFCL_v4_multi_turn_miss_param_score.json": "9e78a11b19f08ca21e67edac4770003bd13760073fc101c29040a159771f088b",
+    "result/Qwen_Qwen3-4B-Instruct-2507-FC/multi_turn/BFCL_v4_multi_turn_base_result.json": "c5d9d5befa68ea3bb9e2eff762af0ff7b6fcea54bef5e283dbfd265af2e1d14b",
+    "result/Qwen_Qwen3-4B-Instruct-2507-FC/multi_turn/BFCL_v4_multi_turn_miss_func_result.json": "3a6662ec480d1333a055691341033967a387359c149f0d2ce8be379ba2a1eac0",
+    "result/Qwen_Qwen3-4B-Instruct-2507-FC/multi_turn/BFCL_v4_multi_turn_miss_param_result.json": "3e93e797f5c1df0d5cc1767a437af1ec39e38e64633f151c2ab388df718e264d"
+  }
+}

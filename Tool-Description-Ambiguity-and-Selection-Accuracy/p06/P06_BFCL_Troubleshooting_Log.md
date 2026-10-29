@@ -1,7 +1,7 @@
 # P06 BFCL troubleshooting branch — running handoff log
 
 Updated: 2026-10-29 (Asia/Kolkata)
-Status: OPEN — soundfile blocker cleared on user rerun; vLLM tokenizer API mismatch observed; compatibility and serving-profile repairs prepared.
+Status: INITIAL SMOKE PIPELINE VERIFIED — 3 records generated and officially scored; task successes 0/3; research still CONDITIONAL GO.
 
 ## Purpose
 Carry troubleshooting findings back to the original research conversation. Append new entries as errors are resolved. Do not treat setup repairs as experimental results.
@@ -207,3 +207,19 @@ Real Qwen model inference is now evidenced. The base smoke record completed gene
 The notebook now targets the user's 15 GB GPU / 12.7 GB host RAM with a 12288 context cap, 85% GPU budget, single request, eager FP16 on older GPUs, zero CPU swap/offload, and chunked prefill batches of 2048. It reuses environment/model caches and preserves previous files. Resource measurements are recorded.
 Rerun the updated notebook using the same runtime; do not claim a complete benchmark or official score until all three records and the evaluator finish successfully.
 PRE-P07 remains CONDITIONAL GO. Prompt 07 has not been executed; no publication result is claimed.
+
+## Entry 006 — uploaded successful execution bundle verified
+
+### Verified milestone
+
+Supersedes earlier statements that all model execution and scoring are pending; those statements describe the historical audit stage.
+
+Evidence: [run 20261029T113521Z-d72a657e](runs/20261029T113521Z-d72a657e/README.md), including the complete original output archive, hashes, raw traces/scores and environment/resource logs.
+
+All three selected records generated without inference exceptions and the official BFCL partial evaluator completed. Official task successes: **0/3** (base and missing-parameter state mismatch; missing-function empty decoded-call turn). Thus execution feasibility is established for this one family; task correctness is not. No broader accuracy or three-class cause-label claim follows.
+
+Verified hardware/profile: Tesla T4 15 GiB, host RAM 12.67 GiB; FP16, context 12288, GPU budget 0.85, one sequence/request, chunked prefill 2048, zero CPU swap/offload. Actual profiler: weights 7.61 GiB, activation peak 0.16 GiB, KV cache 4.57 GiB.
+
+Second calibrated comparator, proposed intervention, held-out family-separated evaluation, valid cause-specific oracle and publication differentiation remain open. PRE-P07 stays CONDITIONAL GO; Prompt 07 remains unfrozen. Do not recruit a second reviewer for strictly mechanically verified outcomes. Continue analysis here; use the GitHub evidence and running log as the handoff to any other chat.
+
+Integrity: all 36 manifest file hashes match; archive SHA-256 `400db99fea9069d9acc87f85981aa1afdb70b54c67a3dcb69e3df28b00dc18fc`. Original archive is preserved unchanged on GitHub with readable key extracts. This assistant inspected outputs locally; the actual GPU execution was performed in the user’s Colab runtime.

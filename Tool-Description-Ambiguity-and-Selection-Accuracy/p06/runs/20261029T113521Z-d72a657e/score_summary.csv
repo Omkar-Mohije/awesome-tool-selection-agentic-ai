@@ -1,0 +1,4 @@
+case_id,correct_count,total_count,accuracy,error_type,error_message
+multi_turn_base_1,0,1,0.0,multi_turn:instance_state_mismatch,Model instance for GorillaFileSystem does not match the state with ground truth instance.
+multi_turn_miss_func_1,0,1,0.0,multi_turn:empty_turn_model_response,Model response list is empty for turn 2
+multi_turn_miss_param_1,0,1,0.0,multi_turn:instance_state_mismatch,Model instance for GorillaFileSystem does not match the state with ground truth instance.
