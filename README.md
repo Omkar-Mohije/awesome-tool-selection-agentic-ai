@@ -6,6 +6,7 @@ This repository accompanies an AI-assisted research paper on the topic and a sys
 
 ## Contents
 - [Overview](#overview)
+- [Empirical Implementation Study & Paper](#empirical-implementation-study--paper)
 - [AI-Assisted Research Paper](#ai-assisted-research-paper)
 - [Citation Integrity Audit](#citation-integrity-audit)
 - [Survey Papers](#survey-papers)
@@ -25,6 +26,17 @@ As large language models are deployed as autonomous agents, they must increasing
 The field decomposes this problem into several sub-tasks: deciding whether a tool is needed at all (invocation necessity), discriminating between functionally similar tools, retrieving candidates from large repositories, grounding arguments once a tool is chosen, and correctly sequencing tools in multi-step trajectories. Benchmarks such as MetaTool, ToolLLM/ToolBench, API-Bank, TaskBench, τ-bench, and the Berkeley Function-Calling Leaderboard (BFCL) each target different slices of this problem, using metrics ranging from simple top-1 accuracy to set-based F1, ranked-retrieval metrics, and graph-based Node-F1/Edge-F1 scores.
 
 Key open challenges include: persistent confusion between semantically overlapping tools, degraded accuracy as candidate/repository size grows, inconsistent evaluation protocols across benchmarks, and the difficulty of isolating selection error from downstream execution error. This repository organizes verified literature, datasets, and tools around these themes, and separately documents a hands-on audit of how reliable AI-generated citations on this topic actually are.
+
+## Empirical Implementation Study & Paper
+
+**Title:** [Prompting and Tool-Use Failures in a Resource-Constrained BFCL Pilot](Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/README.md)
+
+An empirical implementation study and failure analysis investigating complete-task success, tool-use decisions, and execution failures on Berkeley Function-Calling Leaderboard (BFCL) multi-turn tasks under Tesla T4 resource constraints using Qwen3-4B across three prompting conditions (Vanilla, General Review, and Schema-Evidence Checklist).
+
+- **Paper Manuscript:** [View 6-Page IEEE Paper (PDF)](Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper/main.pdf) | [LaTeX Source](Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper/main.tex)
+- **Implementation Study Package:** [Browse Project Directory](Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/)
+- **Colab Notebook:** [Frozen Evaluation Notebook](Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb)
+- **Experimental Reports:** [Browse Phase Reports (P05–P18)](Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/reports/)
 
 ## AI-Assisted Research Paper
 
