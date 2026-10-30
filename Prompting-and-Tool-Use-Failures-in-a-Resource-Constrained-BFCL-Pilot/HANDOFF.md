@@ -19,14 +19,14 @@ The user received a one-cell loader for the pinned notebook to execute in the ex
 ## On receiving the archive
 
 1. Verify every manifest hash, selected IDs, original protocol, source/revision, all generation/evaluation statuses and inference exceptions. Confirm no old-case reuse and no missing/duplicate task records. Separate infrastructure errors from force-terminated tasks.
-2. Run `scripts/analyze_run.py` into a new prospective output folder. Run the attributed `scripts/score_decisions.py`; review eligibility, raw anchor presence and reference/parser compatibility before interpretation. Keep family dependence and all denominators explicit.
-3. Add prospective results as a separate section/table in `[paper/main.tex](paper/main.tex)`; retain development history. Regenerate figures from actual CSVs, compile and render/inspect the paper. Update pending labels without implying that pilot design was frozen before it occurred.
+2. Run [`scripts/analyze_run.py`](scripts/analyze_run.py) into a new prospective output folder. Run the attributed [`scripts/score_decisions.py`](scripts/score_decisions.py); review eligibility, raw anchor presence and reference/parser compatibility before interpretation. Keep family dependence and all denominators explicit.
+3. Add prospective results as a separate section/table in [`paper/main.tex`](paper/main.tex); retain development history. Regenerate figures from actual CSVs, compile and render/inspect the paper. Update pending labels without implying that pilot design was frozen before it occurred.
 4. Update validation, AI-use and decision logs with actual activity, then rebuild the submission bundle and sync GitHub. No positive result is required.
 
 ## Still human-dependent
 
-The student must review the code walkthrough, review the completed authentic reflection paragraphs, rehearse the five-minute demonstration and submit to Classroom. No personal understanding or independent human annotation is certified by these documents. Latest verified announcement: Phase III through P11 by 30 October 2026; all phases and implementation paper before end-sem. Exact cutoff/submission location should be checked in Classroom.
+The student must review the code walkthrough, review the completed authentic reflection paragraphs in [`reports/P18_AI_use_and_reflection.md`](reports/P18_AI_use_and_reflection.md), rehearse the five-minute demonstration and submit to Classroom. No personal understanding or independent human annotation is certified by these documents. Latest verified announcement: Phase III through P11 by 30 October 2026; all phases and implementation paper before end-sem. Exact cutoff/submission location should be checked in Classroom.
 
 ## Package state
 
-Six-page IEEE-style paper PDF and LaTeX/BibTeX/figures compile. Reports map P05–P18, and prior P01–P06 prompts and decisions are organized in [ssignment_prompts/](assignment_prompts/). Exact scope/status is in `README.md` and `DELIVERABLE_STATUS.md`. Source repositories and licenses are credited. Continue from these files with any assistant; a particular chatbot subscription is not required to run the scripts or edit the LaTeX.
+Six-page IEEE-style paper PDF ([`paper/main.pdf`](paper/main.pdf)) and LaTeX/BibTeX/figures compile. Reports map P05–P18 in [`reports/`](reports/), and prior P01–P06 prompts and decisions are organized in [`assignment_prompts/`](assignment_prompts/). Exact scope/status is in [`README.md`](README.md) and [`DELIVERABLE_STATUS.md`](DELIVERABLE_STATUS.md). Source repositories and licenses are credited. Continue from these files with any assistant; a particular chatbot subscription is not required to run the scripts or edit the LaTeX.

@@ -1,126 +1,201 @@
 # Prompting and Tool-Use Failures in a Resource-Constrained BFCL Pilot
 
-**Current version: completed development evidence and reports; fresh prospective model results pending.** This repository accompanies an output-based empirical study on tool-calling reliability in multi-turn interactions under strict resource constraints. Publication novelty is not required.
+**Author:** Omkar Arjun Mohije (M.Tech, IIIT Allahabad)  
+**Study Scope:** Empirical Implementation Study & Failure Analysis (Course Study)  
+**Paper:** [Compiled 6-Page IEEE Paper (PDF)](paper/main.pdf) | [LaTeX Source](paper/main.tex)
+
+> [!NOTE]
+> **Study Status:** Completed development evidence and validation reports. Prospective held-out evaluation is frozen under commit `2d72394d1e72` with new GPU outcomes pending. Publication novelty is not claimed; this package provides an attributed, reproducible evaluation of prompt interventions and failure modes under hard hardware limits.
+
+---
+
+## Executive Summary
+
+Connecting language models to external tools requires more than syntactically valid function calls—the agent must select appropriate tools, bind correct arguments, and reliably transition simulated environment states across multiple conversation turns.
+
+This project investigates tool-calling failures on the **Berkeley Function-Calling Leaderboard (BFCL)** multi-turn benchmark using **Qwen3-4B-Instruct** served via vLLM on a single 15 GiB Tesla T4 GPU. We evaluated three prompting strategies:
+1. **Vanilla Prompt:** Default model formatter and system instructions.
+2. **General Review:** Generic instruction emphasizing step-by-step task review.
+3. **Schema-Evidence Checklist:** Structured checklist verifying capabilities, required arguments, and state prerequisites.
+
+### Core Empirical Findings
+
+Across 18 recorded condition/task runs (evaluating base, missing-function, and missing-parameter variants across two task families):
+- **Complete-Task Accuracy:** **0/6 (0%)** across all three prompting conditions. Neither prompt intervention enabled end-to-end task success.
+- **Observed Failure Modes:** The 18 first-failure events comprised **13 state mismatches**, **4 response mismatches**, and **1 force termination**.
+- **Root Causes:** Failures were driven primarily by ordinary path/state-tracking errors (e.g., calling `cd(folder='document')` instead of `documents`), rather than function hallucination or schema syntax errors.
+- **Secondary Act/Hold Scoring:** Applying Liu & Han's reproduced paired decision scorer yielded post-hoc descriptive scores of 50%, 25%, and 75% on only two eligible pairs, which does not constitute evidence of systematic prompt improvement.
+
+---
+
+## Quick Navigation
+
+| Deliverable | Key Artifacts | Description |
+|---|---|---|
+| **Research Paper** | [`paper/main.pdf`](paper/main.pdf), [`paper/main.tex`](paper/main.tex) | 6-page IEEE conference format manuscript |
+| **Colab Evaluation** | [`notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb`](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb) | Pinned executable Google Colab evaluation notebook |
+| **Pipeline Scripts** | [`scripts/policy_runner.py`](scripts/policy_runner.py), [`scripts/analyze_run.py`](scripts/analyze_run.py) | Inference wrapper, context guarding, and analysis scripts |
+| **Configuration** | [`configs/protocol.json`](configs/protocol.json), [`configs/published_scorer_lock.json`](configs/published_scorer_lock.json) | Frozen experiment protocol and secondary scorer pins |
+| **Reports (P05–P18)** | [`reports/`](reports/) | Research brief, baseline validation, debugging logs, AI reflection |
+| **Experimental Runs** | [`runs/`](runs/) | Verified raw output archives, manifests, and execution logs |
+| **Assignment Stages** | [`assignment_prompts/`](assignment_prompts/) | Isolated coursework prompts and decisions ([`P01_P04/`](assignment_prompts/P01_P04/), [`P05/`](assignment_prompts/P05/), [`P06/`](assignment_prompts/P06/)) |
+
+---
 
 ## Repository Structure
 
-- [paper/](paper/): Compiled 6-page IEEE-style manuscript ([main.pdf](paper/main.pdf)), LaTeX source ([main.tex](paper/main.tex)), BibTeX ([
-eferences.bib](paper/references.bib)), class file ([IEEEtran.cls](paper/IEEEtran.cls)), and generated plots ([igures/](paper/figures/)).
-- [
-otebooks/](notebooks/): Pinned Colab execution notebook ([ATR_P07_Frozen_Evaluation_Colab.ipynb](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb)).
-- [scripts/](scripts/): Inference runner ([policy_runner.py](scripts/policy_runner.py)), output analysis ([nalyze_run.py](scripts/analyze_run.py)), decision scoring ([score_decisions.py](scripts/score_decisions.py)), and submission test suite ([	est_submission.py](scripts/test_submission.py)).
-- [configs/](configs/): Evaluation protocol ([protocol.json](configs/protocol.json)) and published scorer commit lock ([published_scorer_lock.json](configs/published_scorer_lock.json)).
-- [
-eports/](reports/): Research briefs, baseline audits, debugging logs, technical review, completed AI reflection, and viva guide.
-- [
-esults/](results/): Empirical task outcomes, CSV data tables, and decision metrics ([
-esults/development/](results/development/)).
-- [
-uns/](runs/): Raw execution logs, manifests, and verified output archives for the smoke and recovery runs.
-- [development_pilot/](development_pilot/): Pilot test fixtures, recovery scripts, reference controls, and diagnostic audits.
-- [ssignment_prompts/](assignment_prompts/): Historical course prompt deliverables and decision records ([P01_P04/](assignment_prompts/P01_P04/), [P05/](assignment_prompts/P05/), [P06/](assignment_prompts/P06/)).
+```
+Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/
+├── README.md                          # Project documentation and reproduction guide
+├── DELIVERABLE_STATUS.md              # Current deliverable compliance checklist
+├── HANDOFF.md                         # Portable experiment continuation guide
+├── requirements-colab-observed.txt    # Exact pinned Colab dependencies (Python 3.12, torch 2.6.0)
+├── requirements-analysis.txt          # CPU analysis dependencies (matplotlib, standard library)
+├── constraints-core.txt               # Hardware & memory constraints for Tesla T4
+│
+├── paper/                             # IEEE-style manuscript and figures
+│   ├── main.tex                       # LaTeX paper source
+│   ├── main.pdf                       # Compiled 6-page PDF manuscript
+│   ├── references.bib                 # Verified bibliography
+│   ├── IEEEtran.cls                   # CTAN IEEEtran document class
+│   └── figures/                       # Empirical failure plots and task outcome charts
+│       ├── failure_types.png / .pdf
+│       └── task_outcomes.png / .pdf
+│
+├── notebooks/                         # Google Colab notebooks
+│   └── ATR_P07_Frozen_Evaluation_Colab.ipynb # Frozen evaluation pipeline
+│
+├── scripts/                           # Core execution and analysis suite
+│   ├── policy_runner.py               # History deep-copying and prompt policy injector
+│   ├── analyze_run.py                 # Manifest verification and task outcome exporter
+│   ├── score_decisions.py             # Attributed Liu & Han act/hold decision scorer
+│   └── test_submission.py             # Offline syntax, lifecycle, and integrity tests
+│
+├── configs/                           # Experiment protocols and locks
+│   ├── protocol.json                  # Pinned model revisions, task IDs, and serving profile
+│   └── published_scorer_lock.json     # Pinned secondary scorer commit and SHA256 hashes
+│
+├── reports/                           # Comprehensive phase and reflection reports
+│   ├── P05_current_research_brief.md
+│   ├── P06_dataset_comparator_validation.md
+│   ├── P07_protocol.md
+│   ├── P08_environment_verification.md
+│   ├── P09_code_understanding.md      # Code walkthrough & viva preparation
+│   ├── P10_baseline_validation.md     # Observed discrepancies and controls
+│   ├── P11_debugging_log.md           # Context overflow and dependency resolution
+│   ├── P12_P14_evidence_and_interpretation.md
+│   ├── P16_technical_review.md
+│   ├── P17_reproduction_checklist.md
+│   ├── P18_AI_use_and_reflection.md   # Completed student personal reflection
+│   └── demonstration_and_viva.md      # 5-minute walkthrough and viva defense guide
+│
+├── results/                           # Evaluation outputs and metrics
+│   └── development/                   # Verified CSV results and decision scores
+│
+├── runs/                              # Verifiable execution archives and logs
+│   ├── 20261029T113521Z-d72a657e/     # Initial smoke run outputs
+│   └── 20261029T122816Z-5e29a2e6/     # Full recovery run outputs and manifests
+│
+├── development_pilot/                 # Pilot diagnostics and recovery controls
+│   ├── diagnostic_review/             # Published diagnostic reproduction logs
+│   ├── reference_control/             # Reference action replay and dispatch audits
+│   └── ...
+│
+└── assignment_prompts/                # Separated historical course prompt phases
+    ├── P01_P04/                       # Prompts 1-4 PDFs and decision logs
+    ├── P05/                           # Prompt 5 research brief and criteria
+    └── P06/                           # Prompt 6 dataset mapping, runbook, and rubrics
+```
 
-## Start Here
+---
 
-1. Read [paper/main.pdf](paper/main.pdf) (compiled six-page IEEE-style manuscript), [
-eports/P05_current_research_brief.md](reports/P05_current_research_brief.md), and [
-eports/P10_baseline_validation.md](reports/P10_baseline_validation.md).
-2. Run the pinned [
-otebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb) in the existing T4 Colab runtime. Protocol freeze commit: 2d72394d1e725f7a80236661f600d995dd705b39. The one-cell launcher executes that exact notebook in the existing kernel; no second session is needed.
-3. Keep and upload ATR_Frozen_Evaluation_Outputs.zip. The paper deliberately contains no new results until that archive is validated.
-4. Review [
-eports/P09_code_understanding.md](reports/P09_code_understanding.md) and [
-eports/demonstration_and_viva.md](reports/demonstration_and_viva.md). Student personal reflection is completed in [
-eports/P18_AI_use_and_reflection.md](reports/P18_AI_use_and_reflection.md).
+## Assignment Deliverable Map
 
-## Deliverable Map
+| Assignment Requirement | Primary Artifacts | Status |
+|---|---|---|
+| **P05: Current Research Brief** | [`reports/P05_current_research_brief.md`](reports/P05_current_research_brief.md) | Verified |
+| **P06: Dataset & Comparator Validation** | [`reports/P06_dataset_comparator_validation.md`](reports/P06_dataset_comparator_validation.md), [`assignment_prompts/P06/`](assignment_prompts/P06/) | Verified |
+| **P07: Prospective Protocol Blueprint** | [`reports/P07_protocol.md`](reports/P07_protocol.md), [`configs/protocol.json`](configs/protocol.json) | Frozen |
+| **P08: Environment Verification** | [`reports/P08_environment_verification.md`](reports/P08_environment_verification.md), [`requirements-colab-observed.txt`](requirements-colab-observed.txt) | Verified |
+| **P09: Baseline Code Understanding** | [`reports/P09_code_understanding.md`](reports/P09_code_understanding.md), [`scripts/policy_runner.py`](scripts/policy_runner.py) | Verified |
+| **P10: Baseline Discrepancies & Controls** | [`reports/P10_baseline_validation.md`](reports/P10_baseline_validation.md), [`development_pilot/`](development_pilot/) | Verified |
+| **P11: Evidence-Based Debugging Log** | [`reports/P11_debugging_log.md`](reports/P11_debugging_log.md) | Verified |
+| **P12–P14: Evidence & Interpretation** | [`reports/P12_P14_evidence_and_interpretation.md`](reports/P12_P14_evidence_and_interpretation.md), [`results/development/`](results/development/) | Verified |
+| **P15–P16: Implementation Manuscript** | [`paper/main.pdf`](paper/main.pdf), [`paper/main.tex`](paper/main.tex), [`reports/P16_technical_review.md`](reports/P16_technical_review.md) | Compiled |
+| **P17: Reproduction Checklist** | [`reports/P17_reproduction_checklist.md`](reports/P17_reproduction_checklist.md), [`scripts/test_submission.py`](scripts/test_submission.py) | Verified |
+| **P18: Human–AI Collaboration & Reflection** | [`reports/P18_AI_use_and_reflection.md`](reports/P18_AI_use_and_reflection.md) | Completed |
+| **Demonstration & Viva Guide** | [`reports/demonstration_and_viva.md`](reports/demonstration_and_viva.md) | Prepared |
 
-| Assignment component | Artifact |
-|---|---|
-| Current gap/question brief (P05/G1) | [
-eports/P05_current_research_brief.md](reports/P05_current_research_brief.md) |
-| Dataset/comparator validation (P06) | [
-eports/P06_dataset_comparator_validation.md](reports/P06_dataset_comparator_validation.md) |
-| Prospective blueprint, diagram, settings, checklist (P07) | [
-eports/P07_protocol.md](reports/P07_protocol.md), [configs/protocol.json](configs/protocol.json) |
-| Environment verification (P08) | [
-eports/P08_environment_verification.md](reports/P08_environment_verification.md), [
-equirements-colab-observed.txt](requirements-colab-observed.txt) |
-| Baseline and code understanding (P09) | [
-otebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb), [scripts/policy_runner.py](scripts/policy_runner.py), [
-eports/P09_code_understanding.md](reports/P09_code_understanding.md) |
-| Validation/discrepancies (P10/G2) | [
-eports/P10_baseline_validation.md](reports/P10_baseline_validation.md), [
-uns/](runs/) |
-| Debugging evidence (P11) | [
-eports/P11_debugging_log.md](reports/P11_debugging_log.md), [development_pilot/](development_pilot/) |
-| Contribution/evaluation/interpretation (P12–P14/G3) | [
-eports/P12_P14_evidence_and_interpretation.md](reports/P12_P14_evidence_and_interpretation.md), [
-esults/development/](results/development/), [scripts/analyze_run.py](scripts/analyze_run.py) |
-| Manuscript and review (P15–P16) | [paper/main.pdf](paper/main.pdf), [paper/main.tex](paper/main.tex), [paper/references.bib](paper/references.bib), [paper/figures/](paper/figures/), [
-eports/P16_technical_review.md](reports/P16_technical_review.md) |
-| Reproducibility (P17) | [README.md](README.md), [configs/](configs/), [scripts/](scripts/), [
-eports/P17_reproduction_checklist.md](reports/P17_reproduction_checklist.md) |
-| Authentic AI provenance and reflection (P18) | [
-eports/P18_AI_use_and_reflection.md](reports/P18_AI_use_and_reflection.md) (with completed student reflections) |
-| Five-minute demonstration (G4) | [
-eports/demonstration_and_viva.md](reports/demonstration_and_viva.md) |
-
-Earlier P01–P06 reports and historical decisions remain preserved in [ssignment_prompts/](assignment_prompts/):
-- [ssignment_prompts/P01_P04/](assignment_prompts/P01_P04/)
-- [ssignment_prompts/P05/](assignment_prompts/P05/)
-- [ssignment_prompts/P06/](assignment_prompts/P06/)
+Earlier P01–P06 reports and historical decisions remain preserved in [`assignment_prompts/`](assignment_prompts/):
+- [`assignment_prompts/P01_P04/`](assignment_prompts/P01_P04/)
+- [`assignment_prompts/P05/`](assignment_prompts/P05/)
+- [`assignment_prompts/P06/`](assignment_prompts/P06/)
 
 The current brief explicitly reconciles the narrowed question with the previous review. Existing pilot outputs are development evidence, not a retrospectively frozen test.
 
+---
+
 ## Observed Execution Environment
 
-Model registry Qwen/Qwen3-4B-Instruct-2507-FC; checkpoint without -FC; pinned BFCL commit in config. The working Colab environment uses Python 3.12 in /content/bfcl-py312, torch 2.6.0, vLLM 0.8.5, transformers 4.51.3, numpy 1.26.4 and soundfile 0.14.0. Full observed pins are in [
-equirements-colab-observed.txt](requirements-colab-observed.txt). This is a recorded freeze, not a claim that every future pip/platform combination can resolve it unchanged.
+The model inference pipeline was deployed and verified on **Google Colab** on a single **15 GiB Tesla T4 GPU** with ~12.7 GiB host RAM:
+- **Model Checkpoint:** `Qwen/Qwen3-4B-Instruct-2507` (served locally via vLLM 0.8.5 with BFCL official handler).
+- **Python Runtime:** Python 3.12 virtual environment (`/content/bfcl-py312`).
+- **Core Dependencies:** PyTorch 2.6.0, Transformers 4.51.3, NumPy 1.26.4, SoundFile 0.14.0 (full freeze documented in [`requirements-colab-observed.txt`](requirements-colab-observed.txt)).
+- **Serving Parameters:** FP16 precision, 85% GPU memory utilization cap, max 1 concurrent sequence, eager execution (V0), 2,048-token chunked prefill, 0 GiB CPU swap/offload.
+- **Context Budget Guard:** Max sequence length capped at 24,576 tokens, enforcing an explicit 4,096-token completion allowance while rejecting overlength requests without destructive history truncation.
 
-Warm run reuses that environment and performs explicit version/import/CLI checks without upgrading. If absent, the notebook attempts an isolated cold replay from observed pins (TEST REQUIRED). Cold disk minimum is 25 GiB; record real memory/disk state. The original 12.7 GiB host RAM and 15 GiB T4 budget motivate FP16, one sequence, 85% memory, 24K cap, eager V0, 2048-token chunked prefill and zero offload/swap. Overlong requests are rejected without truncation or reducing the answer allowance.
+---
 
-## Reproduce Completed Development Tables and Figures
+## Reproduction Guide
 
-From the project root:
+All reproduction commands can be executed directly from the project root directory:
 
-`ash
-python scripts/analyze_run.py   --archive runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip   --output results/reproduced_development
-python scripts/score_decisions.py   --archive runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip   --output results/reproduced_development/decision
+### 1. Reproduce Task Outcomes & Figures
+```bash
+python scripts/analyze_run.py \
+  --archive runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip \
+  --output results/reproduced_development
+```
+*Outputs:* Manifest validation checks, per-case outcomes CSV, score summaries, and figures (`failure_types.png`, `task_outcomes.png`). Use `--no-plots` to run without matplotlib.
+
+### 2. Reproduce Attributed Decision Scoring
+```bash
+python scripts/score_decisions.py \
+  --archive runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip \
+  --output results/reproduced_development/decision
+```
+*Outputs:* Downloads, hash-verifies, and executes Liu & Han's published paired decision scorer against the recovery outputs.
+
+### 3. Run Submission Verification Suite
+```bash
 python scripts/test_submission.py
-`
+```
+*Outputs:* Offline checks validating notebook AST syntax, subprocess timeouts, lifecycle recovery, and byte-level hash integrity.
 
-These scripts were executed against the genuine archive. The plotting script needs matplotlib ([
-equirements-analysis.txt](requirements-analysis.txt) records the local version); --no-plots uses the standard library only. Run analysis in a separate CPU environment or existing compatible notebook kernel rather than upgrading the inference venv unnecessarily. The decision wrapper downloads and hash-verifies the original published scorer, manifest, labels, LICENSE and NOTICE. Warm-cache execution was tested; fresh downloads of these files remain TEST REQUIRED in another environment.
+---
 
-Expected development task results: 0/6 for each condition. Expected original published decision means on two eligible pairs: 50%, 25%, 75%. These are post-hoc development measures with different targets and denominators. Do not relabel either measure as useful clarification accuracy.
+## Manuscript Compilation (Overleaf / Local LaTeX)
 
-For a new genuine archive, use the same analysis commands with its path and a new output folder. Generation/scoring must be complete before task accuracy is calculated; inference exceptions block a completed-run accuracy report. Keep force-terminated tasks as failures. The decision wrapper marks missing raw anchors unavailable, rather than crediting them as abstentions. Review source/reference/parser compatibility before interpreting new secondary scores.
+The manuscript is written in standard IEEE conference format using CTAN `IEEEtran.cls`:
 
-## Build the Manuscript / Overleaf
-
-`ash
+```bash
 cd paper
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 bibtex main
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
-`
+```
 
-This exact compilation sequence ran successfully. Import [paper/](paper/) as an Overleaf project and set [main.tex](paper/main.tex) as the main file. [IEEEtran.cls](paper/IEEEtran.cls) is the CTAN class with original license text retained; template provenance is recorded. There is no claim of IEEE acceptance or a published paper. An instructor-selected alternative template takes precedence if one is specified later.
+To compile on **Overleaf**:
+1. Upload the entire [`paper/`](paper/) directory to Overleaf.
+2. Ensure [`main.tex`](paper/main.tex) is selected as the main document.
+3. Choose the standard pdfLaTeX compiler.
 
-The compiled version reports only completed development evidence. After actual prospective outputs arrive, add a separate results table/section, update pending status and rerender/review; do not silently replace or backdate the pilot. The manuscript source, CSVs and figure script are editable for future work with any assistant or without a subscription.
+---
 
-## Evidence, Licenses and Credits
+## Citation & Upstream Attribution
 
-Raw smoke and recovery ZIPs are in sibling [
-uns/](runs/) folders in the complete package. The 203 outer and 62 nested recovery hashes were verified, and 11 reused records matched the original attempt. Development comparisons mix old valid 12K records and new 24K records with provenance; they are not a uniform-run speed benchmark.
-
-BFCL code/data: [Gorilla](https://github.com/ShishirPatil/gorilla). Model: [Qwen checkpoint](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507). Published diagnostic, its labels and certification: [Liu and Han](https://github.com/YangzeLiu/asking-earns-nothing), pinned in [configs/published_scorer_lock.json](configs/published_scorer_lock.json). Preserve upstream licenses/notices. Public access does not independently establish every constituent redistribution right; model weights are not included. This repository's existing [LICENSE](../LICENSE) applies to original project material, subject to upstream terms for reused components.
-
-## Before Submission
-
-- Confirm the latest announcement's submission location, exact cutoff and template; these are not inferred from the earlier deadline.
-- Verify the fresh run's actual status and keep pending labels if it did not complete.
-- Read and understand the principal code path; finish your authentic reflection.
-- Submit the PDF, LaTeX/BibTeX/figures, repository, real CSV/log evidence, validation/provenance reports and prepare the demonstration. Preserve the conversation as supporting evidence; the concise authentic log does not pretend to be a full transcript.
+- **BFCL Benchmark:** Gorilla Function Calling Benchmark ([Patil et al., 2025](https://gorilla.cs.berkeley.edu/leaderboard.html)). Source pinned at commit `6ea57973c7a6`.
+- **Model Checkpoint:** [Qwen/Qwen3-4B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507).
+- **Secondary Scorer:** Attributed paired act/hold decision scorer from [Liu & Han (2026)](https://github.com/YangzeLiu/asking-earns-nothing), pinned in [`configs/published_scorer_lock.json`](configs/published_scorer_lock.json).
+- **Project License:** Original project code and documentation are released under the repository's [MIT License](../LICENSE), preserving all upstream notices.
