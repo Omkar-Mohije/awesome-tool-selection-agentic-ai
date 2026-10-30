@@ -12,6 +12,6 @@
 
 **4:30–5:00 — Limits and reproducibility.** Explain fixed order, unmatched instruction lengths, correlated families, recovery provenance and pending/final prospective status. Show one reproduction command and AI-use report.
 
-Suggested CPU rerun: `python scripts/analyze_run.py --archive ../runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip --output results/demo` from `submission/`. The source archive is already in the repository; no GPU needed for this demonstration. Plotting needs matplotlib.
+Suggested CPU rerun: `python scripts/analyze_run.py --archive runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip --output results/demo` from `submission/`. The source archive is already in the repository; no GPU needed for this demonstration. Plotting needs matplotlib.
 
 Viva questions to rehearse: Why is the checklist not a new algorithm? Why is 75% not proven improvement? What is the experimental unit? What does the scorer ignore? Why preserve failed runs? How does the answer-budget guard work? What does pinning reproduce and what remains stochastic? What work did you personally perform and verify?

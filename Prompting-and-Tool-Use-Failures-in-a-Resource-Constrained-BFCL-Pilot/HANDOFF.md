@@ -25,7 +25,7 @@ The user received a one-cell loader for the pinned notebook to execute in the ex
 
 ## Still human-dependent
 
-The student must review the code walkthrough, write/confirm the three authentic reflection paragraphs, rehearse the five-minute demonstration and submit to Classroom. No personal understanding or independent human annotation is certified by these documents. Latest verified announcement: Phase III through P11 by 30 October 2026; all phases and implementation paper before end-sem. Exact cutoff/submission location should be checked in Classroom.
+The student must review the code walkthrough, review the completed authentic reflection paragraphs, rehearse the five-minute demonstration and submit to Classroom. No personal understanding or independent human annotation is certified by these documents. Latest verified announcement: Phase III through P11 by 30 October 2026; all phases and implementation paper before end-sem. Exact cutoff/submission location should be checked in Classroom.
 
 ## Package state
 

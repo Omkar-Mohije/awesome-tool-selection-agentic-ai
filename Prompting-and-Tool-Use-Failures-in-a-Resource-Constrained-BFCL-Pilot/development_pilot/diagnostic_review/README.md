@@ -51,7 +51,7 @@ The wrapper verified that both anchor turns exist in raw outputs and that deleti
 Run from a repository checkout (replace ARCHIVE with the preserved recovery ZIP):
 
 ```bash
-python Tool-Description-Ambiguity-and-Selection-Accuracy/p06/development_pilot/run_published_diagnostic.py --archive ARCHIVE --output published_diagnostic_results
+python Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/development_pilot/run_published_diagnostic.py --archive ARCHIVE --output published_diagnostic_results
 ```
 
 No GPU, API key, or model call is used. The current run used verified locally fetched sources; cold-cache network downloading is implemented but not executed here. The output includes original scorer logs, per-pair CSVs, compatibility evidence, and a structured report.
@@ -59,7 +59,7 @@ No GPU, API key, or model call is used. The current run used verified locally fe
 The synthetic dispatch control can be rerun with the hash-locked BFCL source subset from the preceding CPU control and the pinned official `bfcl_eval/eval_checker/eval_runner.py`:
 
 ```bash
-python Tool-Description-Ambiguity-and-Selection-Accuracy/p06/development_pilot/dispatch_no_call_control.py --source-root BFCL_SOURCE_ROOT --runner-source EVAL_RUNNER_PY --output dispatch_control.json
+python Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/development_pilot/dispatch_no_call_control.py --source-root BFCL_SOURCE_ROOT --runner-source EVAL_RUNNER_PY --output dispatch_control.json
 ```
 
 ## Proposed next scope; not a frozen protocol

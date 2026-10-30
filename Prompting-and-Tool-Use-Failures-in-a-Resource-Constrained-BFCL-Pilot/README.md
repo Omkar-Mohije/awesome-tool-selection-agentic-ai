@@ -36,14 +36,14 @@ Warm run reuses that environment and performs explicit version/import/CLI checks
 
 ## Reproduce completed development tables and figures
 
-From `submission/` inside the complete package/repository:
+From the project root:
 
 ```bash
 python scripts/analyze_run.py \
-  --archive ../runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip \
+  --archive runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip \
   --output results/reproduced_development
 python scripts/score_decisions.py \
-  --archive ../runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip \
+  --archive runs/20261029T122816Z-5e29a2e6/P06_BFCL_Development_Pilot_Recovery_Outputs.zip \
   --output results/reproduced_development/decision
 python scripts/test_submission.py
 ```

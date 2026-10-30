@@ -11,7 +11,7 @@ Code imports the original pinned official checker and tool implementation withou
 From a checkout, run:
 
 ```bash
-python Tool-Description-Ambiguity-and-Selection-Accuracy/p06/development_pilot/run_reference_control.py --output reference_replay_results.json
+python Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/development_pilot/run_reference_control.py --output reference_replay_results.json
 ```
 
 This downloads only the hash-locked sources into a temporary cache, skips already verified downloads, runs all controls, and saves the detailed report. The current run exercised the verified-cache path; fresh network downloading was not executed locally. Original sources were retrieved via GitHub. Results and audit files alongside this README are already executed outputs, not placeholders.
