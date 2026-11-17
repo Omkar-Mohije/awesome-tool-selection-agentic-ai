@@ -40,7 +40,7 @@ The frozen prospective run evaluated the same three conditions on six tasks from
 | **Colab Evaluation** | [`notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb`](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb) | Pinned executable Google Colab evaluation notebook |
 | **Pipeline Scripts** | [`scripts/policy_runner.py`](scripts/policy_runner.py), [`scripts/analyze_run.py`](scripts/analyze_run.py) | Inference wrapper, context guarding, and analysis scripts |
 | **Configuration** | [`configs/protocol.json`](configs/protocol.json), [`configs/published_scorer_lock.json`](configs/published_scorer_lock.json) | Frozen experiment protocol and secondary scorer pins |
-| **Reports (P05–P18)** | [`reports/`](reports/) | Research brief, baseline validation, debugging logs, AI reflection |
+| **Reports (P05–P18)** | [`reports/`](reports/), [`reports/P07_run_analysis_20261117.md`](reports/P07_run_analysis_20261117.md) | Research brief, prospective P07 run analysis, baseline validation, and AI reflection |
 | **Experimental Runs** | [`runs/`](runs/) | Verified raw output archives, manifests, and execution logs |
 | **Assignment Stages** | [`assignment_prompts/`](assignment_prompts/) | Isolated coursework prompts and decisions ([`P01_P04/`](assignment_prompts/P01_P04/), [`P05/`](assignment_prompts/P05/), [`P06/`](assignment_prompts/P06/)) |
 
@@ -94,7 +94,7 @@ Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/
 │   └── demonstration_and_viva.md      # 5-minute walkthrough and viva defense guide
 │
 ├── results/                           # Evaluation outputs and metrics
-│   └── development/                   # Verified CSV results and decision scores
+│   ├── development/                   # Verified development CSVs and decision scores\n│   └── prospective/                   # ATR-P07-v1 verified run exports
 │
 ├── runs/                              # Verifiable execution archives and logs
 │   ├── 20261029T113521Z-d72a657e/     # Initial smoke run outputs
