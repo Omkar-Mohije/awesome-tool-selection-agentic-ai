@@ -1,0 +1,32 @@
+{
+  "archive_sha256": "745e904d2ed702795ec979f68614aac6c012efea0b0dc3eb4b31e49855108eab",
+  "verified_file_hashes": 202,
+  "run_id": "20261117T100033Z-29245346",
+  "selected_ids": {
+    "multi_turn_base": [
+      "multi_turn_base_89",
+      "multi_turn_base_73"
+    ],
+    "multi_turn_miss_func": [
+      "multi_turn_miss_func_89",
+      "multi_turn_miss_func_73"
+    ],
+    "multi_turn_miss_param": [
+      "multi_turn_miss_param_89",
+      "multi_turn_miss_param_73"
+    ]
+  },
+  "conditions": [
+    "vanilla",
+    "generic_control",
+    "schema_evidence"
+  ],
+  "families": [
+    73,
+    89
+  ],
+  "first_failure_counts": {
+    "multi_turn:instance_state_mismatch": 17
+  }
+}
+
