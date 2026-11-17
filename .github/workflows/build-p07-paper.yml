@@ -1,0 +1,49 @@
+name: Build P07 paper candidate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper/**"
+      - "Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/scripts/generate_prospective_figures.py"
+      - ".github/workflows/build-p07-paper.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX and PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures poppler-utils
+
+      - name: Compile candidate PDF
+        shell: bash
+        run: |
+          set -o pipefail
+          cd Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper
+          mkdir -p build
+          latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error -outdir=build main.tex 2>&1 | tee build/latexmk.log
+          cp build/main.pdf build/main-candidate.pdf
+          pdfinfo build/main-candidate.pdf | tee build/pdfinfo.txt
+          pdftotext -layout build/main-candidate.pdf build/main-candidate.txt
+
+      - name: Upload candidate and build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P07-paper-candidate
+          path: |
+            Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper/build/main-candidate.pdf
+            Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper/build/latexmk.log
+            Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper/build/pdfinfo.txt
+            Prompting-and-Tool-Use-Failures-in-a-Resource-Constrained-BFCL-Pilot/paper/build/main-candidate.txt
+          if-no-files-found: warn
+          retention-days: 14
