@@ -51,10 +51,13 @@ def main():
     import functools
     def pinned(original):
         @functools.wraps(original)
-        def load(name, *args, **kwargs):
-            if name == 'Qwen/Qwen3-4B-Instruct-2507':
-                kwargs['revision'] = os.environ['ATR_MODEL_REVISION']
-            return original(name, *args, **kwargs)
+        def load(*args, **kwargs):
+            model_name = args[0] if args else (kwargs.get('pretrained_model_name_or_path') or kwargs.get('name'))
+            if model_name == 'Qwen/Qwen3-4B-Instruct-2507':
+                rev = os.environ.get('ATR_MODEL_REVISION')
+                if rev:
+                    kwargs['revision'] = rev
+            return original(*args, **kwargs)
         return load
     AutoConfig.from_pretrained = pinned(AutoConfig.from_pretrained)
     AutoTokenizer.from_pretrained = pinned(AutoTokenizer.from_pretrained)

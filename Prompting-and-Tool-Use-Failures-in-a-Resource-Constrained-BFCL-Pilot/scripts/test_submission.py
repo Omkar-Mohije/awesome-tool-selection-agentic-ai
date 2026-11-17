@@ -2,6 +2,12 @@
 import ast, contextlib, io, json, os, pathlib, signal, subprocess, sys, tempfile, zipfile
 from pathlib import Path
 from unittest.mock import Mock, patch
+if not hasattr(os, 'killpg'):
+    os.killpg = lambda pid, sig: None
+if not hasattr(signal, 'SIGKILL'):
+    signal.SIGKILL = 9
+if not hasattr(signal, 'SIGTERM'):
+    signal.SIGTERM = 15
 n=json.loads((Path(__file__).resolve().parents[1]/'notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb').read_text())
 passed=[]
 for i,c in enumerate(n['cells']):
