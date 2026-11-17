@@ -1,0 +1,5 @@
+condition,successes,total,accuracy,failures
+vanilla,0,6,0.0,6
+generic_control,1,6,0.16666666666666666,5
+schema_evidence,0,6,0.0,6
+
