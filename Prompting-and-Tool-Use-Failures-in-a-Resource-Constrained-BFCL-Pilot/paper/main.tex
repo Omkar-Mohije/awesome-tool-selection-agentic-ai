@@ -168,12 +168,12 @@ The released act/hold definition instead asks whether the model attempted a call
 
 Table~\ref{tab:decision} reports our post-hoc application of the original released scorer. Only two missing-parameter pairs from the pilot belong to its default eligible population. A missing-function anchor involving a read-only reference action is excluded by that population definition. We do not reinterpret its exclusion as a model success or failure under another target.
 
-\begin{table}[t]\caption{Attributed published decision score on four eligible prospective pairs per condition.}\label{tab:prospective_decision}\centering\small
-\begin{tabular}{lrrrrrr}\toprule
-Condition & $n$ & Act & Hold & Hold credit & Decision mean & Both-twin correct\\\midrule
-Original & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\
-Generic control & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\
-Schema evidence & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\\bottomrule
+\begin{table}[t]\caption{Attributed published decision score on only two eligible development pairs per condition. Post-hoc; no significance claim.}\label{tab:decision}\centering\small
+\begin{tabular}{lrrrr}\toprule
+Condition & $n$ & Act & Hold & Mean\\\midrule
+Original & 2 & 50\% & 50\% & 50\%\\
+General review & 2 & 50\% & 0\% & 25\%\\
+Schema evidence & 2 & 100\% & 50\% & 75\%\\\bottomrule
 \end{tabular}
 \end{table}
 
@@ -233,11 +233,11 @@ The single complete-task success was \code{multi_turn_miss_func_73} under generi
 Table~\ref{tab:prospective_decision} reports the secondary decision scores computed with Liu and Han's reproduced scorer~\cite{liu2026asking} on the four eligible prospective pairs per condition ($n=4$). All 12 miss-side anchor turns were available in the raw outputs. Across all three conditions, the scores were identical: 100\% act, 25\% strict hold, 50\% credited hold, a decision mean of 62.5\% (75.0\% credited), and a pair-correct rate of 25\%. Strict no-call compliance was 1/4 (25\%) for each condition, as the same missing-parameter family-89 anchor contained zero parsed calls across all conditions while the other three anchors contained calls.
 
 \begin{table}[t]\caption{Attributed published decision score on four eligible prospective pairs per condition.}\label{tab:prospective_decision}\centering\small
-\begin{tabular}{lrrrrr}\toprule
-Condition & $n$ & Act & Hold & Credited & Mean\\\midrule
-Original & 4 & 100\% & 25\% & 50\% & 62.5\%\\
-Generic control & 4 & 100\% & 25\% & 50\% & 62.5\%\\
-Schema evidence & 4 & 100\% & 25\% & 50\% & 62.5\%\\\bottomrule
+\begin{tabular}{lrrrrrr}\toprule
+Condition & $n$ & Act & Hold & Credited & Mean & Pair correct\\\midrule
+Original & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\
+Generic control & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\
+Schema evidence & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\\bottomrule
 \end{tabular}
 \end{table}
 
