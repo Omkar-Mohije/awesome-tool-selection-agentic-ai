@@ -1,263 +1,262 @@
-"""Generate standalone prospective figures matching the repository's visual style.
-Produces both vector PDF and PNG files using pure Python standard library.
+#!/usr/bin/env python3
+"""Generate labeled prospective P07 figures without third-party packages.
+
+Writes new prospective PDF and PNG files; existing development figures are untouched.
 """
+from __future__ import annotations
+
+import argparse
 import struct
 import zlib
 from pathlib import Path
 
-def generate_task_outcomes(pdf_path, png_path):
-    # Data: vanilla: 0/6, generic_control: 1/6, schema_evidence: 0/6
-    # Total: 6 for each.
-    # Dimensions: 6.4 x 3.3 inches -> 1152 x 594 px at 180 DPI (460.8 x 237.6 pt for PDF)
-    W_PT, H_PT = 460.8, 237.6
-    W_PX, H_PX = 1152, 594
-    
-    # 1. Generate Vector PDF
-    # Colors: Success #237766 (0.137, 0.467, 0.400), Failure #b34e4e (0.702, 0.306, 0.306)
-    # Background #ffffff
-    # Chart area: x: 70 to 420, y: 55 to 195 (width 350, height 140)
-    pdf_stream = []
-    pdf_stream.append("q")
-    pdf_stream.append("1 1 1 rg 0 0 460.8 237.6 re f") # background
-    
-    # Title
-    pdf_stream.append("BT /F1 11 Tf 0 0 0 rg 90 215 Td (Official complete-task outcomes (prospective evaluation)) Tj ET")
-    # Y-axis label
-    pdf_stream.append("BT /F1 9 Tf 0 0 0 rg 15 110 Td (Task records) Tj ET")
-    
-    # Axes lines (bottom and left only, spines top/right False)
-    pdf_stream.append("0.2 0.2 0.2 RG 0.8 w")
-    pdf_stream.append("70 55 m 420 55 l S") # X axis
-    pdf_stream.append("70 55 m 70 200 l S") # Y axis
-    
-    # Y ticks and grid
-    for y_val in range(0, 7, 2):
-        y_pt = 55 + (y_val / 6.0) * 140
-        pdf_stream.append(f"65 {y_pt:.1f} m 70 {y_pt:.1f} l S")
-        pdf_stream.append(f"BT /F1 8 Tf 0.2 0.2 0.2 rg 55 {y_pt-3:.1f} Td ({y_val}) Tj ET")
-    
-    # Bars: 3 bars at x = 110, 230, 350 (bar width = 60)
-    bar_data = [
-        ("vanilla", 0, 6, "0/6 success"),
-        ("generic\ncontrol", 1, 5, "1/6 success"),
-        ("schema\nevidence", 0, 6, "0/6 success")
+WIDTH_PT, HEIGHT_PT = 460.8, 237.6
+DPI_SCALE = 2.5
+WIDTH_PX, HEIGHT_PX = round(WIDTH_PT * DPI_SCALE), round(HEIGHT_PT * DPI_SCALE)
+SUCCESS = (35, 119, 102)
+FAILURE = (179, 78, 78)
+BLUE = (61, 101, 140)
+DARK = (38, 48, 58)
+GRID = (220, 225, 230)
+WHITE = (255, 255, 255)
+FONT = {
+    "A": ("01110","10001","10001","11111","10001","10001","10001"),
+    "B": ("11110","10001","10001","11110","10001","10001","11110"),
+    "C": ("01111","10000","10000","10000","10000","10000","01111"),
+    "D": ("11110","10001","10001","10001","10001","10001","11110"),
+    "E": ("11111","10000","10000","11110","10000","10000","11111"),
+    "F": ("11111","10000","10000","11110","10000","10000","10000"),
+    "G": ("01111","10000","10000","10111","10001","10001","01111"),
+    "H": ("10001","10001","10001","11111","10001","10001","10001"),
+    "I": ("11111","00100","00100","00100","00100","00100","11111"),
+    "J": ("00111","00010","00010","00010","10010","10010","01100"),
+    "K": ("10001","10010","10100","11000","10100","10010","10001"),
+    "L": ("10000","10000","10000","10000","10000","10000","11111"),
+    "M": ("10001","11011","10101","10101","10001","10001","10001"),
+    "N": ("10001","11001","10101","10011","10001","10001","10001"),
+    "O": ("01110","10001","10001","10001","10001","10001","01110"),
+    "P": ("11110","10001","10001","11110","10000","10000","10000"),
+    "Q": ("01110","10001","10001","10001","10101","10010","01101"),
+    "R": ("11110","10001","10001","11110","10100","10010","10001"),
+    "S": ("01111","10000","10000","01110","00001","00001","11110"),
+    "T": ("11111","00100","00100","00100","00100","00100","00100"),
+    "U": ("10001","10001","10001","10001","10001","10001","01110"),
+    "V": ("10001","10001","10001","10001","10001","01010","00100"),
+    "W": ("10001","10001","10001","10101","10101","10101","01010"),
+    "X": ("10001","10001","01010","00100","01010","10001","10001"),
+    "Y": ("10001","10001","01010","00100","00100","00100","00100"),
+    "Z": ("11111","00001","00010","00100","01000","10000","11111"),
+    "0": ("01110","10001","10011","10101","11001","10001","01110"),
+    "1": ("00100","01100","00100","00100","00100","00100","01110"),
+    "2": ("01110","10001","00001","00010","00100","01000","11111"),
+    "3": ("11110","00001","00001","01110","00001","00001","11110"),
+    "4": ("00010","00110","01010","10010","11111","00010","00010"),
+    "5": ("11111","10000","10000","11110","00001","00001","11110"),
+    "6": ("01110","10000","10000","11110","10001","10001","01110"),
+    "7": ("11111","00001","00010","00100","01000","01000","01000"),
+    "8": ("01110","10001","10001","01110","10001","10001","01110"),
+    "9": ("01110","10001","10001","01111","00001","00001","01110"),
+    "-": ("00000","00000","00000","11111","00000","00000","00000"),
+    "/": ("00001","00010","00010","00100","01000","01000","10000"),
+    ":": ("00000","00100","00100","00000","00100","00100","00000"),
+    ".": ("00000","00000","00000","00000","00000","00110","00110"),
+    "%": ("11001","11010","00100","01000","10110","00110","00000"),
+    "(": ("00010","00100","01000","01000","01000","00100","00010"),
+    ")": ("01000","00100","00010","00010","00010","00100","01000"),
+    "_": ("00000","00000","00000","00000","00000","00000","11111"),
+    " ": ("00000",)*7,
+}
+
+def rgb_pdf(color):
+    return " ".join(f"{channel / 255:.4f}" for channel in color)
+
+def escape_pdf(text):
+    return text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+
+def pdf_page(title, plot_commands):
+    stream = ("q\n" + "\n".join(plot_commands) + "\nQ\n").encode("ascii")
+    objects = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {WIDTH_PT} {HEIGHT_PT}] "
+        "/Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>".encode("ascii"),
+        b"<< /Length " + str(len(stream)).encode("ascii") + b" >>\nstream\n" + stream + b"endstream",
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
     ]
-    
-    bar_w = 60
-    centers = [125, 245, 365]
-    for idx, (label, succ, fail, txt) in enumerate(bar_data):
-        cx = centers[idx]
-        bx = cx - bar_w / 2.0
-        
-        # Bottom bar: success (if > 0)
-        succ_h = (succ / 6.0) * 140
-        fail_h = (fail / 6.0) * 140
-        
-        if succ > 0:
-            pdf_stream.append(f"0.137 0.467 0.400 rg {bx:.1f} 55 {bar_w} {succ_h:.1f} re f")
-        if fail > 0:
-            pdf_stream.append(f"0.702 0.306 0.306 rg {bx:.1f} {55+succ_h:.1f} {bar_w} {fail_h:.1f} re f")
-            
-        # Text label inside bar
-        txt_y = 55 + 70 # middle of bar (total/2)
-        pdf_stream.append(f"BT /F1 9 Tf 1 1 1 rg {cx-24:.1f} {txt_y-4:.1f} Td ({txt}) Tj ET")
-        
-        # X-axis label
-        if "\n" in label:
-            l1, l2 = label.split("\n")
-            pdf_stream.append(f"BT /F1 8.5 Tf 0 0 0 rg {cx-15:.1f} 42 Td ({l1}) Tj ET")
-            pdf_stream.append(f"BT /F1 8.5 Tf 0 0 0 rg {cx-16:.1f} 32 Td ({l2}) Tj ET")
-        else:
-            pdf_stream.append(f"BT /F1 8.5 Tf 0 0 0 rg {cx-15:.1f} 40 Td ({label}) Tj ET")
+    data = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+    offsets = [0]
+    for index, obj in enumerate(objects, 1):
+        offsets.append(len(data))
+        data.extend(f"{index} 0 obj\n".encode("ascii"))
+        data.extend(obj)
+        data.extend(b"\nendobj\n")
+    xref_offset = len(data)
+    data.extend(f"xref\n0 {len(offsets)}\n".encode("ascii"))
+    data.extend(b"0000000000 65535 f \n")
+    for offset in offsets[1:]:
+        data.extend(f"{offset:010d} 00000 n \n".encode("ascii"))
+    data.extend(f"trailer\n<< /Size {len(offsets)} /Root 1 0 R >>\nstartxref\n{xref_offset}\n%%EOF\n".encode("ascii"))
+    return bytes(data)
 
-    # Legend at bottom
-    pdf_stream.append("0.137 0.467 0.400 rg 160 12 12 8 re f")
-    pdf_stream.append("BT /F1 8 Tf 0 0 0 rg 176 13 Td (Task success) Tj ET")
-    pdf_stream.append("0.702 0.306 0.306 rg 255 12 12 8 re f")
-    pdf_stream.append("BT /F1 8 Tf 0 0 0 rg 271 13 Td (Task failure) Tj ET")
-    
-    pdf_stream.append("Q")
-    stream_bytes = "\n".join(pdf_stream).encode("latin1")
-    
-    pdf_doc = f"""%PDF-1.4
-1 0 obj <</Type /Catalog /Pages 2 0 R>> endobj
-2 0 obj <</Type /Pages /Kids [3 0 R] /Count 1>> endobj
-3 0 obj <</Type /Page /Parent 2 0 R /MediaBox [0 0 {W_PT} {H_PT}] /Resources <</Font <</F1 5 0 R>>>> /Contents 4 0 R>> endobj
-4 0 obj <</Length {len(stream_bytes)}>> stream
-{stream_bytes.decode('latin1')}
-endstream endobj
-5 0 obj <</Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold>> endobj
-xref
-0 6
-0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000244 00000 n 
-0000000346 00000 n 
-trailer <</Size 6 /Root 1 0 R>>
-startxref
-420
-%%EOF
-"""
-    pdf_path.write_bytes(pdf_doc.encode("latin1"))
+class Raster:
+    def __init__(self):
+        self.data = bytearray(WHITE * (WIDTH_PX * HEIGHT_PX))
 
-    # 2. Generate PNG raster
-    # Render into 1152 x 594 RGB buffer
-    img = bytearray([255] * (W_PX * H_PX * 3))
-    def fill_rect(x1, y1, w, h, r, g, b):
-        for y in range(max(0, y1), min(H_PX, y1 + h)):
-            row_start = y * W_PX * 3
-            for x in range(max(0, x1), min(W_PX, x1 + w)):
-                idx = row_start + x * 3
-                img[idx] = r; img[idx+1] = g; img[idx+2] = b
+    def rect(self, x, y, width, height, color):
+        x0, y0 = max(0, int(x)), max(0, int(y))
+        x1, y1 = min(WIDTH_PX, int(x + width)), min(HEIGHT_PX, int(y + height))
+        row = bytes(color)
+        for py in range(y0, y1):
+            start = (py * WIDTH_PX + x0) * 3
+            self.data[start:(py * WIDTH_PX + x1) * 3] = row * max(0, x1 - x0)
 
-    # Chart scale: 180 / 72 = 2.5
-    scale = 2.5
-    # Axes
-    fill_rect(int(70 * scale), H_PX - int(200 * scale), int(1.5 * scale), int(145 * scale), 50, 50, 50) # Y
-    fill_rect(int(70 * scale), H_PX - int(55 * scale), int(350 * scale), int(1.5 * scale), 50, 50, 50) # X
-    
-    # Draw bars
-    for idx, (label, succ, fail, txt) in enumerate(bar_data):
-        cx = int(centers[idx] * scale)
-        bw = int(bar_w * scale)
-        bx = cx - bw // 2
-        sh = int((succ / 6.0) * 140 * scale)
-        fh = int((fail / 6.0) * 140 * scale)
-        
-        # Success bar
-        if succ > 0:
-            fill_rect(bx, H_PX - int(55 * scale) - sh, bw, sh, 35, 119, 102)
-        # Failure bar
-        if fail > 0:
-            fill_rect(bx, H_PX - int(55 * scale) - sh - fh, bw, fh, 179, 78, 78)
+    def line(self, x0, y0, x1, y1, color, thickness=1):
+        x0,y0,x1,y1 = map(int,(x0,y0,x1,y1))
+        dx,dy=abs(x1-x0),abs(y1-y0)
+        sx,sy=(1 if x0<x1 else -1),(1 if y0<y1 else -1)
+        err=dx-dy
+        while True:
+            self.rect(x0-thickness//2,y0-thickness//2,thickness,thickness,color)
+            if x0==x1 and y0==y1: break
+            e2=2*err
+            if e2>-dy: err-=dy; x0+=sx
+            if e2<dx: err+=dx; y0+=sy
 
-    # Encode PNG
-    raw = bytearray()
-    for y in range(H_PX):
-        raw.append(0)
-        raw.extend(img[y * W_PX * 3 : (y + 1) * W_PX * 3])
-    compressed = zlib.compress(bytes(raw), 6)
-    
-    png = bytearray(b'\x89PNG\r\n\x1a\n')
-    ihdr = struct.pack('>IIBBBBB', W_PX, H_PX, 8, 2, 0, 0, 0)
-    png.extend(struct.pack('>I', len(ihdr)) + b'IHDR' + ihdr + struct.pack('>I', zlib.crc32(b'IHDR' + ihdr)))
-    png.extend(struct.pack('>I', len(compressed)) + b'IDAT' + compressed + struct.pack('>I', zlib.crc32(b'IDAT' + compressed)))
-    iend_crc = zlib.crc32(b'IEND')
-    png.extend(struct.pack('>I', 0) + b'IEND' + struct.pack('>I', iend_crc))
-    png_path.write_bytes(png)
+    def text(self, x, y, text, color, scale=2, align="left"):
+        text=text.upper()
+        char_w=6*scale
+        width=max(0,len(text)*char_w-scale)
+        if align=="center": x-=width/2
+        elif align=="right": x-=width
+        x=int(x); y=int(y)
+        for char in text:
+            glyph=FONT.get(char,FONT[" "])
+            for row,bits in enumerate(glyph):
+                for col,bit in enumerate(bits):
+                    if bit=="1": self.rect(x+col*scale,y+row*scale,scale,scale,color)
+            x+=char_w
 
+    def png(self, path):
+        raw=bytearray()
+        stride=WIDTH_PX*3
+        for y in range(HEIGHT_PX):
+            raw.append(0)
+            raw.extend(self.data[y*stride:(y+1)*stride])
+        compressed=zlib.compress(bytes(raw),9)
+        png=bytearray(b"\x89PNG\r\n\x1a\n")
+        def chunk(name, payload):
+            png.extend(struct.pack(">I",len(payload))+name+payload+struct.pack(">I",zlib.crc32(name+payload)&0xffffffff))
+        chunk(b"IHDR",struct.pack(">IIBBBBB",WIDTH_PX,HEIGHT_PX,8,2,0,0,0))
+        chunk(b"IDAT",compressed)
+        chunk(b"IEND",b"")
+        Path(path).write_bytes(png)
 
-def generate_failure_types(pdf_path, png_path):
-    W_PT, H_PT = 460.8, 237.6
-    W_PX, H_PX = 1152, 594
-    
-    # 1. Generate Vector PDF
-    pdf_stream = []
-    pdf_stream.append("q")
-    pdf_stream.append("1 1 1 rg 0 0 460.8 237.6 re f")
-    
-    # Title
-    pdf_stream.append("BT /F1 11 Tf 0 0 0 rg 160 215 Td (First reported task failure) Tj ET")
-    pdf_stream.append("BT /F1 9 Tf 0 0 0 rg 180 20 Td (Condition/task records) Tj ET")
-    
-    # Axes
-    pdf_stream.append("0.2 0.2 0.2 RG 0.8 w")
-    pdf_stream.append("160 45 m 420 45 l S") # X axis
-    pdf_stream.append("160 45 m 160 195 l S") # Y axis
-    
-    # X ticks: 0, 5, 10, 15, 17, 19
-    max_val = 19
-    for x_val in (0, 5, 10, 15, 17):
-        x_pt = 160 + (x_val / max_val) * 250
-        pdf_stream.append(f"{x_pt:.1f} 40 m {x_pt:.1f} 45 l S")
-        pdf_stream.append(f"BT /F1 8 Tf 0.2 0.2 0.2 rg {x_pt-4:.1f} 30 Td ({x_val}) Tj ET")
-    
-    # Horizontal Bar: instance state mismatch = 17
-    bar_y = 100
-    bar_h = 35
-    bar_w = (17.0 / max_val) * 250
-    # Color #3d658c (61, 101, 140) -> 0.239, 0.396, 0.549
-    pdf_stream.append(f"0.239 0.396 0.549 rg 160 {bar_y} {bar_w:.1f} {bar_h} re f")
-    
-    # Y-axis label: instance state mismatch
-    pdf_stream.append("BT /F1 9 Tf 0 0 0 rg 35 112 Td (instance state mismatch) Tj ET")
-    # Number label next to bar: 17
-    pdf_stream.append(f"BT /F1 9 Tf 0.239 0.396 0.549 rg {160 + bar_w + 5:.1f} 112 Td (17) Tj ET")
-    
-    pdf_stream.append("Q")
-    stream_bytes = "\n".join(pdf_stream).encode("latin1")
-    
-    pdf_doc = f"""%PDF-1.4
-1 0 obj <</Type /Catalog /Pages 2 0 R>> endobj
-2 0 obj <</Type /Pages /Kids [3 0 R] /Count 1>> endobj
-3 0 obj <</Type /Page /Parent 2 0 R /MediaBox [0 0 {W_PT} {H_PT}] /Resources <</Font <</F1 5 0 R>>>> /Contents 4 0 R>> endobj
-4 0 obj <</Length {len(stream_bytes)}>> stream
-{stream_bytes.decode('latin1')}
-endstream endobj
-5 0 obj <</Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold>> endobj
-xref
-0 6
-0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000244 00000 n 
-0000000346 00000 n 
-trailer <</Size 6 /Root 1 0 R>>
-startxref
-420
-%%EOF
-"""
-    pdf_path.write_bytes(pdf_doc.encode("latin1"))
+def text_cmd(x,y,text,size=8,color=DARK,align="center"):
+    estimated=len(text)*size*0.56
+    if align=="center": x-=estimated/2
+    elif align=="right": x-=estimated
+    return f"BT /F1 {size} Tf {rgb_pdf(color)} rg 1 0 0 1 {x:.2f} {y:.2f} Tm ({escape_pdf(text)}) Tj ET"
 
-    # PNG raster
-    img = bytearray([255] * (W_PX * H_PX * 3))
-    def fill_rect(x1, y1, w, h, r, g, b):
-        for y in range(max(0, y1), min(H_PX, y1 + h)):
-            row_start = y * W_PX * 3
-            for x in range(max(0, x1), min(W_PX, x1 + w)):
-                idx = row_start + x * 3
-                img[idx] = r; img[idx+1] = g; img[idx+2] = b
+def rect_cmd(x,y,w,h,color):
+    return f"{rgb_pdf(color)} rg {x:.2f} {y:.2f} {w:.2f} {h:.2f} re f"
 
-    scale = 2.5
-    fill_rect(int(160 * scale), H_PX - int(195 * scale), int(1.5 * scale), int(150 * scale), 50, 50, 50)
-    fill_rect(int(160 * scale), H_PX - int(45 * scale), int(260 * scale), int(1.5 * scale), 50, 50, 50)
-    
-    bw = int((17.0 / max_val) * 250 * scale)
-    bh = int(bar_h * scale)
-    by = H_PX - int(bar_y * scale) - bh
-    fill_rect(int(160 * scale), by, bw, bh, 61, 101, 140)
-    
-    raw = bytearray()
-    for y in range(H_PX):
-        raw.append(0)
-        raw.extend(img[y * W_PX * 3 : (y + 1) * W_PX * 3])
-    compressed = zlib.compress(bytes(raw), 6)
-    
-    png = bytearray(b'\x89PNG\r\n\x1a\n')
-    ihdr = struct.pack('>IIBBBBB', W_PX, H_PX, 8, 2, 0, 0, 0)
-    png.extend(struct.pack('>I', len(ihdr)) + b'IHDR' + ihdr + struct.pack('>I', zlib.crc32(b'IHDR' + ihdr)))
-    png.extend(struct.pack('>I', len(compressed)) + b'IDAT' + compressed + struct.pack('>I', zlib.crc32(b'IDAT' + compressed)))
-    iend_crc = zlib.crc32(b'IEND')
-    png.extend(struct.pack('>I', 0) + b'IEND' + struct.pack('>I', iend_crc))
-    png_path.write_bytes(png)
+def line_cmd(x1,y1,x2,y2,color=GRID,width=0.6):
+    return f"{rgb_pdf(color)} RG {width:.2f} w {x1:.2f} {y1:.2f} m {x2:.2f} {y2:.2f} l S"
+
+def render_task_figure(pdf_path,png_path):
+    cmds=[]
+    cmds.append(text_cmd(WIDTH_PT/2,218,"COMPLETE-TASK OUTCOMES (N=6 PER CONDITION)",11,DARK))
+    left,bottom,plot_w,plot_h=72,62,350,128
+    for tick in (0,2,4,6):
+        y=bottom+plot_h*tick/6
+        cmds.extend((line_cmd(left,y,left+plot_w,y,GRID,0.5),text_cmd(left-10,y-2,str(tick),8,DARK,"right")))
+    cmds.extend((line_cmd(left,bottom,left+plot_w,bottom,DARK,0.9),line_cmd(left,bottom,left,bottom+plot_h,DARK,0.9)))
+    conditions=[("VANILLA",0),("GENERIC CONTROL",1),("SCHEMA EVIDENCE",0)]
+    centers=[left+plot_w*.19,left+plot_w*.50,left+plot_w*.81]
+    bar_w=62
+    for (label,success),cx in zip(conditions,centers):
+        fail=6-success
+        good_h=plot_h*success/6
+        bad_h=plot_h*fail/6
+        if success: cmds.append(rect_cmd(cx-bar_w/2,bottom,bar_w,good_h,SUCCESS))
+        if fail: cmds.append(rect_cmd(cx-bar_w/2,bottom+good_h,bar_w,bad_h,FAILURE))
+        cmds.append(text_cmd(cx,bottom+plot_h+8,f"{success}/6",8,DARK))
+        cmds.append(text_cmd(cx,bottom-14,label,7,DARK))
+    cmds.extend((rect_cmd(158,12,10,8,SUCCESS),text_cmd(173,13,"SUCCESS",7,DARK,"left"),
+                 rect_cmd(250,12,10,8,FAILURE),text_cmd(265,13,"FAILED",7,DARK,"left")))
+    Path(pdf_path).write_bytes(pdf_page("task outcomes",cmds))
+
+    img=Raster()
+    s=DPI_SCALE
+    def X(v): return v*s
+    def Y(v): return HEIGHT_PX-v*s
+    def r(x,y,w,h,c): img.rect(X(x),Y(y+h),X(w),X(h),c)
+    def ln(x1,y1,x2,y2,c=GRID,t=1): img.line(X(x1),Y(y1),X(x2),Y(y2),c,max(1,round(t*s)))
+    def tx(x,y,text,c=DARK,fs=8,align="center"):
+        scale=max(1,round(fs*s/9))
+        yy=Y(y)-round(7*scale*0.85)
+        img.text(X(x),yy,text,c,scale,align)
+    tx(WIDTH_PT/2,218,"COMPLETE-TASK OUTCOMES (N=6 PER CONDITION)",DARK,11)
+    for tick in (0,2,4,6):
+        yy=bottom+plot_h*tick/6
+        ln(left,yy,left+plot_w,yy,GRID,.5)
+        tx(left-10,yy-2,str(tick),DARK,8,"right")
+    ln(left,bottom,left+plot_w,bottom,DARK,.9);ln(left,bottom,left,bottom+plot_h,DARK,.9)
+    for (label,success),cx in zip(conditions,centers):
+        good_h=plot_h*success/6;bad_h=plot_h*(6-success)/6
+        if success:r(cx-bar_w/2,bottom,bar_w,good_h,SUCCESS)
+        if 6-success:r(cx-bar_w/2,bottom+good_h,bar_w,bad_h,FAILURE)
+        tx(cx,bottom+plot_h+8,f"{success}/6",DARK,8)
+        tx(cx,bottom-14,label,DARK,7)
+    r(158,12,10,8,SUCCESS);tx(173,13,"SUCCESS",DARK,7,"left")
+    r(250,12,10,8,FAILURE);tx(265,13,"FAILED",DARK,7,"left")
+    img.png(png_path)
+
+def render_failure_figure(pdf_path,png_path):
+    cmds=[]
+    cmds.append(text_cmd(WIDTH_PT/2,218,"FIRST REPORTED TASK FAILURES",11,DARK))
+    left,bottom,plot_w=90,75,320
+    max_count=18
+    for tick in (0,5,10,15,18):
+        x=left+plot_w*tick/max_count
+        cmds.extend((line_cmd(x,bottom,x,bottom+75,GRID,.5),text_cmd(x,bottom-13,str(tick),8,DARK)))
+    cmds.extend((line_cmd(left,bottom,left+plot_w,bottom,DARK,.9),line_cmd(left,bottom,left,bottom+75,DARK,.9)))
+    cmds.append(text_cmd(left,165,"INSTANCE-STATE MISMATCH",8,DARK,"left"))
+    bw=plot_w*17/max_count
+    cmds.append(rect_cmd(left,bottom+18,bw,28,BLUE))
+    cmds.append(text_cmd(left+bw+13,bottom+30,"17 / 18",9,DARK,"left"))
+    cmds.append(text_cmd(WIDTH_PT/2,25,"FAILED CONDITION/TASK RECORDS",8,DARK))
+    Path(pdf_path).write_bytes(pdf_page("failure types",cmds))
+
+    img=Raster();s=DPI_SCALE
+    def X(v): return v*s
+    def Y(v): return HEIGHT_PX-v*s
+    def ln(x1,y1,x2,y2,c=GRID,t=1):img.line(X(x1),Y(y1),X(x2),Y(y2),c,max(1,round(t*s)))
+    def r(x,y,w,h,c):img.rect(X(x),Y(y+h),X(w),X(h),c)
+    def tx(x,y,text,c=DARK,fs=8,align="center"):
+        scale=max(1,round(fs*s/9));img.text(X(x),Y(y)-round(7*scale*.85),text,c,scale,align)
+    tx(WIDTH_PT/2,218,"FIRST REPORTED TASK FAILURES",DARK,11)
+    for tick in (0,5,10,15,18):
+        x=left+plot_w*tick/max_count
+        ln(x,bottom,x,bottom+75,GRID,.5);tx(x,bottom-13,str(tick),DARK,8)
+    ln(left,bottom,left+plot_w,bottom,DARK,.9);ln(left,bottom,left,bottom+75,DARK,.9)
+    tx(left,165,"INSTANCE-STATE MISMATCH",DARK,8,"left")
+    r(left,bottom+18,bw,28,BLUE);tx(left+bw+13,bottom+30,"17 / 18",DARK,9,"left")
+    tx(WIDTH_PT/2,25,"FAILED CONDITION/TASK RECORDS",DARK,8)
+    img.png(png_path)
+
+def generate(root):
+    root=Path(root)
+    outdirs=[root/"paper"/"figures",root/"results"/"prospective"/"ATR-P07-v1-20261117"]
+    for out in outdirs:
+        out.mkdir(parents=True,exist_ok=True)
+        render_task_figure(out/"prospective_task_outcomes.pdf",out/"prospective_task_outcomes.png")
+        render_failure_figure(out/"prospective_failure_types.pdf",out/"prospective_failure_types.png")
+
+if __name__=="__main__":
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--root",default=".",help="Repository root (default: current directory)")
+    args=p.parse_args()
+    generate(args.root)
 
 
-if __name__ == '__main__':
-    root = Path(__file__).resolve().parent.parent
-    fig_dir = root / 'paper/figures'
-    res_dir = root / 'results/prospective/ATR-P07-v1-20261117'
-    fig_dir.mkdir(parents=True, exist_ok=True)
-    res_dir.mkdir(parents=True, exist_ok=True)
-    
-    for d in (fig_dir, res_dir):
-        p_task_pdf = d / 'prospective_task_outcomes.pdf'
-        p_task_png = d / 'prospective_task_outcomes.png'
-        p_fail_pdf = d / 'prospective_failure_types.pdf'
-        p_fail_png = d / 'prospective_failure_types.png'
-        
-        generate_task_outcomes(p_task_pdf, p_task_png)
-        generate_failure_types(p_fail_pdf, p_fail_png)
-        print('Generated figures in', d)

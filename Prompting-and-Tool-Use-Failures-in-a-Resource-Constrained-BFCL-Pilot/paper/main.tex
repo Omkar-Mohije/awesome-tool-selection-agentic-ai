@@ -168,12 +168,12 @@ The released act/hold definition instead asks whether the model attempted a call
 
 Table~\ref{tab:decision} reports our post-hoc application of the original released scorer. Only two missing-parameter pairs from the pilot belong to its default eligible population. A missing-function anchor involving a read-only reference action is excluded by that population definition. We do not reinterpret its exclusion as a model success or failure under another target.
 
-\begin{table}[t]\caption{Attributed published decision score on only two eligible development pairs per condition. Post-hoc; no significance claim.}\label{tab:decision}\centering\small
-\begin{tabular}{lrrrr}\toprule
-Condition & $n$ & Act & Hold & Mean\\\midrule
-Original & 2 & 50\% & 50\% & 50\%\\
-General review & 2 & 50\% & 0\% & 25\%\\
-Schema evidence & 2 & 100\% & 50\% & 75\%\\\bottomrule
+\begin{table}[t]\caption{Attributed published decision score on four eligible prospective pairs per condition.}\label{tab:prospective_decision}\centering\small
+\begin{tabular}{lrrrrrr}\toprule
+Condition & $n$ & Act & Hold & Hold credit & Decision mean & Both-twin correct\\\midrule
+Original & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\
+Generic control & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\
+Schema evidence & 4 & 100\% & 25\% & 50\% & 62.5\% & 25\%\\\bottomrule
 \end{tabular}
 \end{table}
 
@@ -223,7 +223,7 @@ Schema evidence & 0/6 & 0\%\\\bottomrule
 \caption{Prospective task outcomes across the three prompting conditions on Families 89 and 73. Development figures are preserved separately.}\label{fig:prospective_tasks}
 \end{figure}
 
-The single complete-task success was \code{multi_turn_miss_func_73} under generic control. Trace inspection illustrates the mechanism: in Turn 3, invoking \code{startEngine} returned an environmental safety error requiring the brake pedal to be pressed. Under generic control, the instruction to review progress and keep the requested outcome in mind led the model to actively resolve the prerequisite by chaining \code{pressBrakePedal(pedalPosition=1.0)} and \code{startEngine(ignitionMode='START')} in the same turn, subsequently completing the trajectory. Under original prompting, the model passively reported inability, while under schema evidence, the strict checklist instruction to seek clarification on unresolved constraints biased the model to ask the user for permission instead of executing the prerequisite. All remaining 17 condition/task records were first labeled \code{multi_turn:instance_state_mismatch} on \code{VehicleControlAPI} (Fig.~\ref{fig:prospective_failures}), indicating that multi-turn state tracking remained the primary barrier to completion.
+The single complete-task success was \code{multi_turn_miss_func_73} under generic control. In the recorded Turn 3 trajectory, \code{startEngine} first returned a safety error requiring the brake pedal to be pressed; the model then called \code{pressBrakePedal(pedalPosition=1.0)} and retried \code{startEngine(ignitionMode='START')}, after which the official evaluator recorded task success. At the corresponding point, the vanilla trace asked the user to press the brake before retrying, while the schema-evidence trace asked whether it should press the brake and start the engine. These are observed differences in one run per condition. They are consistent with the prompt instructions but do not establish that wording caused the behavior. All remaining 17 condition/task records were first labeled \code{multi_turn:instance_state_mismatch} on \code{VehicleControlAPI} (Fig.~\ref{fig:prospective_failures}); this is the evaluator's first-failure classification, not a complete causal diagnosis.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{figures/prospective_failure_types.pdf}
@@ -259,7 +259,7 @@ The development process exposed genuine limitations of AI assistance: a missing 
 Student understanding cannot be certified by an assistant-generated report. A separate walkthrough identifies the model/data flow, context guard, scoring distinctions and representative failures to explain in a five-minute demonstration. The student must review that material and provide an authentic personal reflection. No fictional account of independent coding, annotation or human reasoning is substituted for that requirement.
 
 \section{Conclusion}
-This resource-constrained BFCL pilot produced no complete-task successes under original, general-review or schema-evidence prompting on six development tasks per condition, while the prospectively frozen evaluation on vehicle tasks (ATR-P07-v1) yielded 1/6 success under generic control (\code{multi_turn_miss_func_73}) and 0/6 under original and schema-evidence conditions ($-16.7\%$ primary contrast). Failure analysis demonstrated that simulation-state mismatches (13 development, 17 prospective) dominated outcomes rather than tool hallucination. Reproducing a published act/hold metric and testing evaluator dispatch showed why task success, strict no-call compliance and attempted state changes must be interpreted separately. The artifacts preserve authentic failures, recovery provenance, frozen protocol specifications and executed controls. The result is a defensible implementation and measurement study with negative and descriptive findings under hard hardware limits, rather than an unsupported novelty or performance claim.
+This resource-constrained BFCL pilot produced no complete-task successes under original, general-review or schema-evidence prompting on six development tasks per condition, while the prospectively frozen evaluation on vehicle tasks (ATR-P07-v1) yielded 1/6 success under generic control (\code{multi_turn_miss_func_73}) and 0/6 under original and schema-evidence conditions ($-16.7\%$ primary contrast). The first reported failure type was a simulation-state mismatch in 13 development and 17 prospective records; these evaluator labels describe the observed failures but do not by themselves establish their full root causes. Reproducing a published act/hold metric and testing evaluator dispatch showed why task success, strict no-call compliance and attempted state changes must be interpreted separately. The artifacts preserve authentic failures, recovery provenance, frozen protocol specifications and executed controls. The result is a defensible implementation and measurement study with negative and descriptive findings under hard hardware limits, rather than an unsupported novelty or performance claim.
 
 \balance
 \bibliographystyle{plain}

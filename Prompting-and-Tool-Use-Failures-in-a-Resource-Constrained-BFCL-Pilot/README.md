@@ -36,9 +36,9 @@ The frozen prospective run evaluated the same three conditions on six tasks from
 
 | Deliverable | Key Artifacts | Description |
 |---|---|---|
-| **Research Paper** | [`paper/main.pdf`](paper/main.pdf), [`paper/main.tex`](paper/main.tex) | Revised IEEE manuscript incorporating development and prospective P07 outcomes |
+| **Research Paper** | [`paper/main.tex`](paper/main.tex), [`paper/main.pdf`](paper/main.pdf) | Updated LaTeX source; linked PDF remains the development version until recompiled |
 | **Colab Evaluation** | [`notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb`](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb) | Pinned executable Google Colab evaluation notebook |
-| **Pipeline Scripts** | [`scripts/policy_runner.py`](scripts/policy_runner.py), [`scripts/analyze_run.py`](scripts/analyze_run.py) | Inference wrapper, context guarding, and analysis scripts |
+| **Pipeline Scripts** | [`scripts/policy_runner.py`](scripts/policy_runner.py), [`scripts/analyze_run.py`](scripts/analyze_run.py), [`scripts/generate_prospective_figures.py`](scripts/generate_prospective_figures.py) | Inference, archive analysis, and prospective figure generation |
 | **Configuration** | [`configs/protocol.json`](configs/protocol.json), [`configs/published_scorer_lock.json`](configs/published_scorer_lock.json) | Frozen experiment protocol and secondary scorer pins |
 | **Reports (P05–P18)** | [`reports/`](reports/), [`reports/P07_run_analysis_20261117.md`](reports/P07_run_analysis_20261117.md) | Research brief, prospective P07 run analysis, baseline validation, and AI reflection |
 | **Experimental Runs** | [`runs/`](runs/) | Verified raw output archives, manifests, and execution logs |

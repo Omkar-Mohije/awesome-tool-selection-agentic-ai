@@ -45,7 +45,7 @@ A separate strict no-call count from the scorer's raw parsed anchor turns is **1
 - The per-category JSON score headers are the suitable source for this selected-case result. The adjacent `data_overall.csv` and `data_multi_turn.csv` files explicitly describe a **partial run** and include aggregate percentages that should not be substituted for the frozen 6-task denominator.
 - `protocol.json` still says `"inference_status": "NOT RUN"`, while the manifest and logs record completed generation and evaluation.
 - The P07 report's last two freeze checklist items remain unchecked, and README/HANDOFF text still says the new GPU outcomes are pending.
-- The analyzer's CSV and verification JSON were generated at this output directory. Plot generation was not completed because Matplotlib is unavailable in this workspace. The raw ZIP was not modified.
+- The analyzer's CSV and verification JSON were generated at this output directory. It ran with plotting disabled because Matplotlib is unavailable. Separate prospective figures were later regenerated; their PDF cross-reference offsets and PNG dimensions were checked, and the PNGs were visually inspected. The raw ZIP was not modified.
 - Before using the secondary scorer in a paper, record that it uses the published parser and inherited eligibility labels; this analysis did not independently establish semantic gold labels or prove that parsed calls were useful clarification.
 
 ## Reproduction
@@ -57,6 +57,6 @@ python scripts/analyze_run.py --archive "/path/to/ATR_Frozen_Evaluation_Outputs.
 python scripts/score_decisions.py --archive "/path/to/ATR_Frozen_Evaluation_Outputs.zip" --output results/prospective/ATR-P07-v1-20261117/decision --cache results/prospective/ATR-P07-v1-20261117/scorer_cache
 ```
 
-The local run used `--no-plots` because Matplotlib is not installed in the current workspace. Run the first command without `--no-plots` in the repository's analysis environment to generate the repository's PNG/PDF figures.
+The initial analyzer run used `--no-plots` because Matplotlib is not installed in the current workspace. The later standalone figure generator produces new labeled prospective PDF/PNG files without changing the analyzer outputs.
 
 
