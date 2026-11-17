@@ -5,8 +5,7 @@
 **Paper:** [Compiled 6-Page IEEE Paper (PDF)](paper/main.pdf) | [LaTeX Source](paper/main.tex)
 
 > [!NOTE]
-> **Study Status:** Completed development evidence and validation reports. Prospective held-out evaluation is frozen under commit `2d72394d1e72` with new GPU outcomes pending. Publication novelty is not claimed; this package provides an attributed, reproducible evaluation of prompt interventions and failure modes under hard hardware limits.
-
+> **Study Status:** The ATR-P07-v1 prospective GPU run is complete and its archive was validated on 17 November 2026. The dated [run analysis](reports/P07_run_analysis_20261117.md) records 0/6, 1/6, and 0/6 complete-task successes for vanilla, generic control, and schema evidence. The compiled paper below is still the development-only version; prospective results, figures, and a revised compilation remain to be incorporated. Publication novelty is not claimed.
 ---
 
 ## Executive Summary
@@ -18,21 +17,26 @@ This project investigates tool-calling failures on the **Berkeley Function-Calli
 2. **General Review:** Generic instruction emphasizing step-by-step task review.
 3. **Schema-Evidence Checklist:** Structured checklist verifying capabilities, required arguments, and state prerequisites.
 
-### Core Empirical Findings
+### Development Pilot Findings
 
-Across 18 recorded condition/task runs (evaluating base, missing-function, and missing-parameter variants across two task families):
-- **Complete-Task Accuracy:** **0/6 (0%)** across all three prompting conditions. Neither prompt intervention enabled end-to-end task success.
-- **Observed Failure Modes:** The 18 first-failure events comprised **13 state mismatches**, **4 response mismatches**, and **1 force termination**.
-- **Root Causes:** Failures were driven primarily by ordinary path/state-tracking errors (e.g., calling `cd(folder='document')` instead of `documents`), rather than function hallucination or schema syntax errors.
-- **Secondary Act/Hold Scoring:** Applying Liu & Han's reproduced paired decision scorer yielded post-hoc descriptive scores of 50%, 25%, and 75% on only two eligible pairs, which does not constitute evidence of systematic prompt improvement.
+The earlier development experiment remains separate from ATR-P07-v1:
+- **Complete-task accuracy:** 0/6 across each of its three prompting conditions.
+- **First failures:** 13 state mismatches, four response mismatches, and one force termination across its 18 condition/task records.
+- **Secondary act/hold scores:** 50%, 25%, and 75% on two eligible development pairs; post-hoc descriptive results, not evidence of systematic improvement.
 
+### Prospective ATR-P07-v1 Findings
+
+The frozen prospective run evaluated the same three conditions on six tasks from families 73 and 89:
+- **Vanilla:** 0/6; **generic control:** 1/6; **schema evidence:** 0/6.
+- The primary schema-evidence minus generic-control difference is **−1/6 (−16.7 percentage points)** on this small, domain-limited sample.
+- All 17 failed records were first reported as simulation-state mismatches. The pinned secondary act/hold scorer produced identical scores across conditions; details and caveats are in the [dated run analysis](reports/P07_run_analysis_20261117.md).
 ---
 
 ## Quick Navigation
 
 | Deliverable | Key Artifacts | Description |
 |---|---|---|
-| **Research Paper** | [`paper/main.pdf`](paper/main.pdf), [`paper/main.tex`](paper/main.tex) | 6-page IEEE conference format manuscript |
+| **Research Paper** | [`paper/main.pdf`](paper/main.pdf), [`paper/main.tex`](paper/main.tex) | Existing development-only manuscript; prospective revision pending |
 | **Colab Evaluation** | [`notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb`](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb) | Pinned executable Google Colab evaluation notebook |
 | **Pipeline Scripts** | [`scripts/policy_runner.py`](scripts/policy_runner.py), [`scripts/analyze_run.py`](scripts/analyze_run.py) | Inference wrapper, context guarding, and analysis scripts |
 | **Configuration** | [`configs/protocol.json`](configs/protocol.json), [`configs/published_scorer_lock.json`](configs/published_scorer_lock.json) | Frozen experiment protocol and secondary scorer pins |
