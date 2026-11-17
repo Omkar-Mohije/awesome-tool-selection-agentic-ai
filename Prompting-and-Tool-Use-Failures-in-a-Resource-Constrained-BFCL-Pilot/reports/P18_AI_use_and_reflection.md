@@ -12,7 +12,7 @@ Historical entries below are summaries of actual activity, **not reconstructed v
 | Evaluation | AI inspected actual traces and executed CPU controls/offline scorers | Original ZIPs, CSVs, source locks, state/response and dispatch controls | Metric distinctions established; interpretations corrected |
 | Human scope choice | Exact user request: “proceed with output based study. drop the publication only thing.” | Conversation and dated D023 decision | Output-based course scope adopted; no novelty gate |
 | Requirements audit | User asked whether prompts/deliverables were complete | Original 18-prompt sheet and latest announcement read | Earlier broad completion language corrected; prospective freeze gap identified |
-| Submission preparation | Exact user request: “Make sure the last generated experiment code is reproducible as per used colab environment.” | New version/import/source/hash checks, observed dependency freeze, frozen notebook | Prepared warm/cold paths; new GPU execution pending |
+| Submission preparation | Exact user request: “Make sure the last generated experiment code is reproducible as per used colab environment.” | New version/import/source/hash checks, observed dependency freeze, frozen notebook, and validated ATR-P07-v1 output archive | Prospective run completed and archived; exact cold dependency replay and independent second-student rerun remain unverified |
 
 ## Real AI limitations and corrections
 
@@ -23,6 +23,10 @@ Historical entries below are summaries of actual activity, **not reconstructed v
 5. Study drafting was initially described too broadly as readiness. Checking the original instruction sheet exposed the missing prospective P07 requirement and incomplete final deliverables.
 
 ## Human ownership and student reflection
+
+### Prospective P07 update (objective record; personal reflection remains the student's)
+
+The historical first-person paragraphs below describe earlier development-pilot work and predate the ATR-P07-v1 prospective run. They are preserved as written; the student should review whether their own reflection needs a truthful update in their own words. The separately verified prospective outcomes were 0/6 for vanilla, 1/6 for generic control, and 0/6 for schema evidence on two vehicle-control families. All 17 failed records were first labeled as instance-state mismatches. The one success was `multi_turn_miss_func_73` under generic control. These small-sample results do not establish a general or causal prompt effect.
 
 ### 1. Code path personally traced
 While running the benchmark on Google Colab, I stepped through how requests flow through scripts/policy_runner.py into BFCL and vLLM. Taking Family 2 (BFCL_v4_multi_turn_base_2) as a concrete case, the runner deep-copies the conversation history, injects the designated prompt instruction (vanilla, generic review, or schema checklist), and dispatches the payload to the local Qwen3-4B endpoint. When inspecting the resulting model outputs, I saw the model emit cd(folder='document') instead of the required folder name documents. Because BFCL validates against the live simulated environment, this single slip caused an execution error that registered as a state mismatch in score.json. Walking through this trace confirmed that the failure wasn't caused by JSON syntax issues or model hallucinations about nonexistent tools, but because the model lost track of exact argument references and directory paths across consecutive turns.

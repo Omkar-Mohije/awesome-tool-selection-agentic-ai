@@ -40,13 +40,14 @@ The pinned repository scorer ran using the exact source files whose SHA-256 hash
 
 A separate strict no-call count from the scorer's raw parsed anchor turns is **1/4 for each condition**; the same missing-parameter family-89 anchor has no parsed calls in all three conditions. The other three miss anchors contain calls. This is distinct from the published scorer's strict hold measure, which concerns state-changing attempts.
 
-## Interpretation cautions and status conflicts
+## Interpretation cautions and current status
 
 - The per-category JSON score headers are the suitable source for this selected-case result. The adjacent `data_overall.csv` and `data_multi_turn.csv` files explicitly describe a **partial run** and include aggregate percentages that should not be substituted for the frozen 6-task denominator.
-- `protocol.json` still says `"inference_status": "NOT RUN"`, while the manifest and logs record completed generation and evaluation.
-- The P07 report's last two freeze checklist items remain unchecked, and README/HANDOFF text still says the new GPU outcomes are pending.
-- The analyzer's CSV and verification JSON were generated at this output directory. It ran with plotting disabled because Matplotlib is unavailable. Separate prospective figures were later regenerated; their PDF cross-reference offsets and PNG dimensions were checked, and the PNGs were visually inspected. The raw ZIP was not modified.
-- Before using the secondary scorer in a paper, record that it uses the published parser and inherited eligibility labels; this analysis did not independently establish semantic gold labels or prove that parsed calls were useful clarification.
+- `configs/protocol.json` still says `"inference_status": "NOT RUN"` because it is the immutable freeze-time protocol snapshot. Completed inference and evaluation are established separately by the uploaded run archive, its manifest, status files, and integrity checks; do not edit the snapshot to imply it was written after inference.
+- The raw ZIP passed archive validation. All 202 manifest-listed file hashes match; all 18 condition/task records have successful generation/evaluation statuses and no inference-error IDs. The six selected reference preflight entries pass.
+- The analyzer export was generated with plotting disabled because Matplotlib was unavailable. Separate prospective figures were generated afterward from the validated case-level outputs; the ZIP was not modified.
+- The secondary scorer uses its published parser and inherited eligibility labels. This analysis did not independently establish semantic gold labels or prove parsed calls were useful clarification.
+- The prospective result remains descriptive: two correlated vehicle-control families do not support a general population or causal prompt-effect claim.
 
 ## Reproduction
 

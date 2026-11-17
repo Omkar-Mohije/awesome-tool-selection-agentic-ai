@@ -5,7 +5,7 @@
 - [x] Current notebook code and child programs compile; nine local subprocess/lifecycle test groups pass.
 - [x] Published decision scorer reused with attribution and source hashes; expected development values reproduced.
 - [x] LaTeX + BibTeX compiled; result figures derive from archive data.
-- [ ] New prospective GPU run: TEST REQUIRED until uploaded output is validated.
+- [x] Prospective GPU run completed; the uploaded archive and all 202 manifest-listed hashes were validated; all 18 condition/task records completed without inference errors.
 - [ ] Cold dependency replay: TEST REQUIRED; warm preflight checks core pins/imports before generation.
 - [ ] Independent second-student rerun: not performed.
 - [ ] Student reviews code walkthrough and completes authentic personal reflection.

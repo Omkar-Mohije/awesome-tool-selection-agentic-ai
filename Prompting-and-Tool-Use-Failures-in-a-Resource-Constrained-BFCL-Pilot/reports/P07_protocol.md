@@ -57,7 +57,7 @@ Perform first-failure analysis with representative genuine trace excerpts, ident
 - [x] Exact policies, core environment, model/source revisions, seed, budget and failure rules recorded.
 - [x] All six selected author references pass a CPU-only execution control.
 - [x] Existing results retained as development; no retrospective preregistration claim.
-- [ ] Colab environment/import/CLI and initial context checks pass in the actual new run.
-- [ ] New outputs and score integrity checks pass; upload the genuine archive for offline analysis.
+- [x] The actual prospective run completed generation and evaluation for all three conditions without inference-error IDs; archived input/reference verification and all six reference preflight entries pass.
+- [x] New outputs and score integrity checks pass; the genuine archive is uploaded, hash-verified, and analyzed offline.
 
 After freezing, changes require a dated decision, reason, affected files/IDs, and explicit separation of results before/after the change. Never silently rerun favorable cases, exclude failures, tune on these outputs and then call them unseen, or alter gold actions. If resource failure prevents completion, preserve the incomplete archive, state the deviation, and keep the pilot-only paper honest.
