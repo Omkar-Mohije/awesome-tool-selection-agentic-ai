@@ -5,7 +5,7 @@
 **Paper:** [Compiled 6-Page IEEE Paper (PDF)](paper/main.pdf) | [LaTeX Source](paper/main.tex)
 
 > [!NOTE]
-> **Study Status:** The ATR-P07-v1 prospective GPU run is complete and its archive was validated on 17 November 2026. The dated [run analysis](reports/P07_run_analysis_20261117.md) records 0/6, 1/6, and 0/6 complete-task successes for vanilla, generic control, and schema evidence. The compiled paper below is still the development-only version; prospective results, figures, and a revised compilation remain to be incorporated. Publication novelty is not claimed.
+> **Study Status:** The ATR-P07-v1 prospective GPU run is complete and its archive was validated on 17 November 2026. The dated [run analysis](reports/P07_run_analysis_20261117.md) records 0/6, 1/6, and 0/6 complete-task successes for vanilla, generic control, and schema evidence. The [LaTeX manuscript](paper/main.tex) incorporates both development and prospective tables, trace analyses, and figures. The compiled PDF reflects the base pilot (local pdflatex compilation is blocked by environment tools; compile on Overleaf or Colab). Publication novelty is not claimed.
 ---
 
 ## Executive Summary
@@ -36,7 +36,7 @@ The frozen prospective run evaluated the same three conditions on six tasks from
 
 | Deliverable | Key Artifacts | Description |
 |---|---|---|
-| **Research Paper** | [`paper/main.pdf`](paper/main.pdf), [`paper/main.tex`](paper/main.tex) | Existing development-only manuscript; prospective revision pending |
+| **Research Paper** | [`paper/main.pdf`](paper/main.pdf), [`paper/main.tex`](paper/main.tex) | Revised IEEE manuscript incorporating development and prospective P07 outcomes |
 | **Colab Evaluation** | [`notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb`](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb) | Pinned executable Google Colab evaluation notebook |
 | **Pipeline Scripts** | [`scripts/policy_runner.py`](scripts/policy_runner.py), [`scripts/analyze_run.py`](scripts/analyze_run.py) | Inference wrapper, context guarding, and analysis scripts |
 | **Configuration** | [`configs/protocol.json`](configs/protocol.json), [`configs/published_scorer_lock.json`](configs/published_scorer_lock.json) | Frozen experiment protocol and secondary scorer pins |

@@ -16,7 +16,7 @@ Email: mai2026006@iiita.ac.in}}
 \begin{document}
 \maketitle
 \begin{abstract}
-Tool-calling agents can choose plausible functions yet fail to attain the requested environment state. This study investigates that distinction through a small, reproducible Berkeley Function Calling Leaderboard (BFCL) pilot on a 15 GiB Tesla T4. A Qwen3-4B model was evaluated under its original prompting, a general-review instruction, and a schema-evidence checklist. Two development families, each with base, missing-function and missing-parameter variants, produced six task records per condition. None of the conditions completed any of the six tasks. Across the 18 condition/task records, the first reported failures comprised 13 state mismatches, four response mismatches and one force termination. We also reproduced an existing act/hold decision scorer on two eligible development pairs; the resulting 50\%, 25\% and 75\% scores are descriptive, post-hoc values and do not establish an intervention benefit. CPU reference and synthetic dispatch controls show that the pinned runner's complete-task score, strict no-call compliance and attempted state-changing decisions target different behaviors. We preserve failed attempts, dependency and context-budget corrections, and mixed-run provenance. A separate prospective protocol is frozen, but its model outputs are pending in this version. The contribution is an attributed, resource-constrained empirical pilot and failure analysis, rather than a new algorithm or a claim of generalizable prompt improvement.
+Tool-calling agents can choose plausible functions yet fail to attain the requested environment state. This study investigates that distinction through a small, reproducible Berkeley Function Calling Leaderboard (BFCL) pilot on a 15 GiB Tesla T4. A Qwen3-4B model was evaluated under its original prompting, a general-review instruction, and a schema-evidence checklist. Two development families, each with base, missing-function and missing-parameter variants, produced six task records per condition. None of the conditions completed any of the six tasks. Across the 18 condition/task records, the first reported failures comprised 13 state mismatches, four response mismatches and one force termination. We also reproduced an existing act/hold decision scorer on two eligible development pairs; the resulting 50\%, 25\% and 75\% scores are descriptive, post-hoc values and do not establish an intervention benefit. CPU reference and synthetic dispatch controls show that the pinned runner's complete-task score, strict no-call compliance and attempted state-changing decisions target different behaviors. We preserve failed attempts, dependency and context-budget corrections, and mixed-run provenance. On the prospectively frozen ATR-P07-v1 vehicle-control evaluation (Families 89 and 73), generic control completed 1/6 tasks (\code{multi_turn_miss_func_73}) while original prompting and schema evidence completed 0/6 (primary contrast $-16.7$ percentage points); all 17 failed records were first labeled simulation-state mismatches. On four eligible secondary decision pairs, all conditions achieved identical 62.5\% decision means (100\% act, 25\% hold), demonstrating that attempted actions and strict no-call compliance do not equate to trajectory completion. The contribution is an attributed, resource-constrained empirical pilot and failure analysis, rather than a new algorithm or a claim of generalizable prompt improvement.
 \end{abstract}
 \begin{IEEEkeywords}
 tool calling, BFCL, prompt comparison, negative results, reproducibility, agent evaluation
@@ -204,12 +204,44 @@ External validity is limited by one model and two comparative development famili
 
 Measurement validity is limited by the distinctions above. Useful clarification prose is not scored. Strict no-call compliance can reject harmless exploration, while attempted state-changing behavior can count an unsuccessful call as acting. State/response checks can fail early, hiding later behavior. The published function labels and pair certification are inherited and attributed, not replaced with an unverified semantic oracle.
 
-\subsection{Prospective extension and amendment policy}
-ATR-P07-v1 fixes two new families, 89 and 73, before viewing their model outputs. Eligibility requires the published mutator-pair definition for both missing categories, exclusion of inspected families and previously unequal initial states, and deterministic hash sorting. Both selected families are vehicle-control tasks, which narrows rather than broadens domain claims. Their six author reference trajectories passed a CPU preflight. The protocol, selected input/reference hashes, notebook and budget were committed before generation.
+\subsection{Prospective Evaluation Outcomes (ATR-P07-v1)}
+Protocol ATR-P07-v1 fixed two held-out families, 89 and 73, prior to inspecting model outputs. Eligibility required the published mutator-pair definition for both missing categories, exclusion of inspected development families and previously identified unequal initial states, and deterministic hash sorting. Both selected families belong to the vehicle-control domain (\code{VehicleControlAPI}), which narrows rather than broadens domain claims. Their six author reference trajectories passed a CPU preflight with zero execution exceptions. The frozen protocol, selected input/reference hashes, notebook and budget were committed before model generation.
 
-The primary prospective comparison is checklist minus general review in official task success, accompanied by raw counts. The same three conditions and one fixed serving profile are preserved. The protocol allows negative outcomes and does not promise significance from a small sample. Any context or serving failure must be reported as incomplete execution, not silently replaced with an easier case. Changing prompts, IDs, metrics or limits after results requires a dated amendment and separation of prior observations.
+Table~\ref{tab:prospective_results} and Fig.~\ref{fig:prospective_tasks} present the verified prospective complete-task outcomes across the 18 condition/task records (run \code{20261117T100033Z-29245346}). Original prompting achieved 0/6 (0\%), generic control achieved 1/6 (16.7\%), and schema evidence achieved 0/6 (0\%). The prespecified primary contrast---schema evidence minus generic control---is $-1/6$ ($-16.7$ percentage points). This descriptive difference on two vehicle-control families does not support an inference of general population superiority.
 
-At the time of this manuscript version, that new GPU evaluation is pending. No prospective table or anticipated numerical result is fabricated. The current paper is an evidence-based report of completed development work, with a transparent path to completing the separately frozen stage. A later revision may incorporate its genuine outputs without rewriting the historical pilot as a pre-frozen experiment.
+\begin{table}[t]\caption{Verified prospective complete-task outcomes (ATR-P07-v1, Families 89 and 73).}\label{tab:prospective_results}\centering
+\begin{tabular}{lrr}\toprule
+Condition & Successes / tasks & Accuracy\\\midrule
+Original & 0/6 & 0\%\\
+Generic control & 1/6 & 16.7\%\\
+Schema evidence & 0/6 & 0\%\\\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\columnwidth]{figures/prospective_task_outcomes.pdf}
+\caption{Prospective task outcomes across the three prompting conditions on Families 89 and 73. Development figures are preserved separately.}\label{fig:prospective_tasks}
+\end{figure}
+
+The single complete-task success was \code{multi_turn_miss_func_73} under generic control. Trace inspection illustrates the mechanism: in Turn 3, invoking \code{startEngine} returned an environmental safety error requiring the brake pedal to be pressed. Under generic control, the instruction to review progress and keep the requested outcome in mind led the model to actively resolve the prerequisite by chaining \code{pressBrakePedal(pedalPosition=1.0)} and \code{startEngine(ignitionMode='START')} in the same turn, subsequently completing the trajectory. Under original prompting, the model passively reported inability, while under schema evidence, the strict checklist instruction to seek clarification on unresolved constraints biased the model to ask the user for permission instead of executing the prerequisite. All remaining 17 condition/task records were first labeled \code{multi_turn:instance_state_mismatch} on \code{VehicleControlAPI} (Fig.~\ref{fig:prospective_failures}), indicating that multi-turn state tracking remained the primary barrier to completion.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\columnwidth]{figures/prospective_failure_types.pdf}
+\caption{First reported failures across the 18 prospective records. All 17 failures exhibited simulation-state mismatches.}\label{fig:prospective_failures}
+\end{figure}
+
+Table~\ref{tab:prospective_decision} reports the secondary decision scores computed with Liu and Han's reproduced scorer~\cite{liu2026asking} on the four eligible prospective pairs per condition ($n=4$). All 12 miss-side anchor turns were available in the raw outputs. Across all three conditions, the scores were identical: 100\% act, 25\% strict hold, 50\% credited hold, a decision mean of 62.5\% (75.0\% credited), and a pair-correct rate of 25\%. Strict no-call compliance was 1/4 (25\%) for each condition, as the same missing-parameter family-89 anchor contained zero parsed calls across all conditions while the other three anchors contained calls.
+
+\begin{table}[t]\caption{Attributed published decision score on four eligible prospective pairs per condition.}\label{tab:prospective_decision}\centering\small
+\begin{tabular}{lrrrrr}\toprule
+Condition & $n$ & Act & Hold & Credited & Mean\\\midrule
+Original & 4 & 100\% & 25\% & 50\% & 62.5\%\\
+Generic control & 4 & 100\% & 25\% & 50\% & 62.5\%\\
+Schema evidence & 4 & 100\% & 25\% & 50\% & 62.5\%\\\bottomrule
+\end{tabular}
+\end{table}
+
+These secondary metrics emphasize the necessary distinction between attempted actions and complete-task outcomes: identical 62.5\% decision scores coexisted with divergent full-task outcomes (0/6 vs 1/6). Furthermore, the published scorer evaluates state-changing attempts rather than conversational usefulness or verified semantic clarification.
 
 \section{Reproducibility and Human--AI Accountability}
 \subsection{Artifact structure and reruns}
@@ -227,7 +259,7 @@ The development process exposed genuine limitations of AI assistance: a missing 
 Student understanding cannot be certified by an assistant-generated report. A separate walkthrough identifies the model/data flow, context guard, scoring distinctions and representative failures to explain in a five-minute demonstration. The student must review that material and provide an authentic personal reflection. No fictional account of independent coding, annotation or human reasoning is substituted for that requirement.
 
 \section{Conclusion}
-This resource-constrained BFCL pilot produced no complete-task successes under original, general-review or schema-evidence prompting on six development tasks per condition. Failure analysis exposed ordinary state-tracking and execution problems alongside intervention-turn behavior. Reproducing a published act/hold metric and testing actual evaluator dispatch showed why task success, strict no-call compliance and attempted state changes must be interpreted separately. The small secondary percentages do not establish improvement. The artifacts preserve authentic failures, recovery provenance and executed controls, while a prospectively frozen evaluation remains explicitly pending. The result is a defensible implementation and measurement study with negative findings and reproducible evidence, rather than an unsupported novelty or performance claim.
+This resource-constrained BFCL pilot produced no complete-task successes under original, general-review or schema-evidence prompting on six development tasks per condition, while the prospectively frozen evaluation on vehicle tasks (ATR-P07-v1) yielded 1/6 success under generic control (\code{multi_turn_miss_func_73}) and 0/6 under original and schema-evidence conditions ($-16.7\%$ primary contrast). Failure analysis demonstrated that simulation-state mismatches (13 development, 17 prospective) dominated outcomes rather than tool hallucination. Reproducing a published act/hold metric and testing evaluator dispatch showed why task success, strict no-call compliance and attempted state changes must be interpreted separately. The artifacts preserve authentic failures, recovery provenance, frozen protocol specifications and executed controls. The result is a defensible implementation and measurement study with negative and descriptive findings under hard hardware limits, rather than an unsupported novelty or performance claim.
 
 \balance
 \bibliographystyle{plain}

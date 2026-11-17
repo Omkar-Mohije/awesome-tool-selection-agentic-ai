@@ -18,14 +18,14 @@ The user supplied `ATR_Frozen_Evaluation_Outputs.zip`. Run `20261117T100033Z-292
 
 Primary complete-task outcomes: vanilla 0/6, generic control 1/6, schema evidence 0/6. The schema-evidence-minus-generic-control contrast is −1/6 (−16.7 percentage points). All 17 first failures are instance-state mismatches. The pinned published scorer ran on four eligible pairs per condition with every anchor available; act, hold, credited hold, decision, and pair-correct scores are identical across conditions. Strict no-call is 1/4 per condition. These remain descriptive sample results, not broad or causal claims.
 
-The freeze-time `configs/protocol.json` still records `inference_status: NOT RUN`; preserve it as the protocol snapshot rather than silently rewriting the frozen record. The compiled paper remains the development-only version.
+The freeze-time `configs/protocol.json` still records `inference_status: NOT RUN`; it is preserved unchanged as the protocol snapshot. The user-supplied frozen ZIP is stored in `runs/20261117T100033Z-29245346/ATR_Frozen_Evaluation_Outputs.zip` and hash-verified.
 
-## Remaining work after archive validation
+## Paper status after prospective incorporation
 
-1. Incorporate the prospective table and qualified interpretation into `paper/main.tex`, keeping the development pilot separate.
-2. Regenerate prospective figures from the verified case-level data, compile and visually inspect the revised paper. The current assistant workspace lacks Matplotlib, so its analyzer export used `--no-plots`.
-3. Update the remaining activity/validation records and submission bundle. Exact cold dependency replay and a second-student rerun remain unverified.
-4. Keep the run unchanged; any prompt, case, or metric change after viewing results requires a dated amendment and separate reporting.
+1. Prospective tables, trace analysis, and qualified sample interpretations are incorporated into `paper/main.tex`, keeping the development pilot separate.
+2. Separate prospective figures (`prospective_task_outcomes.pdf`/`.png` and `prospective_failure_types.pdf`/`.png`) are generated in `paper/figures/` and `results/prospective/ATR-P07-v1-20261117/`.
+3. Local LaTeX compilation of `paper/main.pdf` is blocked by the absence of `pdflatex` in the Windows host environment; compile on Overleaf or Colab and inspect visually before submission.
+4. Exact cold dependency replay and a second-student rerun remain unverified. Keep the run unchanged.
 ## Still human-dependent
 
 The student must review the code walkthrough, review the completed authentic reflection paragraphs in [`reports/P18_AI_use_and_reflection.md`](reports/P18_AI_use_and_reflection.md), rehearse the five-minute demonstration and submit to Classroom. No personal understanding or independent human annotation is certified by these documents. Latest verified announcement: Phase III through P11 by 30 October 2026; all phases and implementation paper before end-sem. Exact cutoff/submission location should be checked in Classroom.

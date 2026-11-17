@@ -1,0 +1,40 @@
+%PDF-1.4
+1 0 obj <</Type /Catalog /Pages 2 0 R>> endobj
+2 0 obj <</Type /Pages /Kids [3 0 R] /Count 1>> endobj
+3 0 obj <</Type /Page /Parent 2 0 R /MediaBox [0 0 460.8 237.6] /Resources <</Font <</F1 5 0 R>>>> /Contents 4 0 R>> endobj
+4 0 obj <</Length 757>> stream
+q
+1 1 1 rg 0 0 460.8 237.6 re f
+BT /F1 11 Tf 0 0 0 rg 160 215 Td (First reported task failure) Tj ET
+BT /F1 9 Tf 0 0 0 rg 180 20 Td (Condition/task records) Tj ET
+0.2 0.2 0.2 RG 0.8 w
+160 45 m 420 45 l S
+160 45 m 160 195 l S
+160.0 40 m 160.0 45 l S
+BT /F1 8 Tf 0.2 0.2 0.2 rg 156.0 30 Td (0) Tj ET
+225.8 40 m 225.8 45 l S
+BT /F1 8 Tf 0.2 0.2 0.2 rg 221.8 30 Td (5) Tj ET
+291.6 40 m 291.6 45 l S
+BT /F1 8 Tf 0.2 0.2 0.2 rg 287.6 30 Td (10) Tj ET
+357.4 40 m 357.4 45 l S
+BT /F1 8 Tf 0.2 0.2 0.2 rg 353.4 30 Td (15) Tj ET
+383.7 40 m 383.7 45 l S
+BT /F1 8 Tf 0.2 0.2 0.2 rg 379.7 30 Td (17) Tj ET
+0.239 0.396 0.549 rg 160 100 223.7 35 re f
+BT /F1 9 Tf 0 0 0 rg 35 112 Td (instance state mismatch) Tj ET
+BT /F1 9 Tf 0.239 0.396 0.549 rg 388.7 112 Td (17) Tj ET
+Q
+endstream endobj
+5 0 obj <</Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold>> endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000244 00000 n 
+0000000346 00000 n 
+trailer <</Size 6 /Root 1 0 R>>
+startxref
+420
+%%EOF
