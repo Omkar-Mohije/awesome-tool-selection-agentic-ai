@@ -12,17 +12,20 @@ Current user-approved goal: finish an output-based ATR course study; publication
 
 ## Latest prospective experiment
 
-Protocol freeze commit `2d72394d1e725f7a80236661f600d995dd705b39`, ID ATR-P07-v1. Families 89/73, each base/miss_func/miss_param, exact three policies, 18 records. Source/input/reference/model revision pinned. Development excluded. Both new families are vehicle-control cases; no broad domain claim.
+Protocol ATR-P07-v1 was frozen before these model outputs. Families 89 and 73, their base/miss_func/miss_param variants, and all three exact prompt conditions were used; development cases were excluded. Both selected families are vehicle-control cases, so the domain limitation remains.
 
-The user received a one-cell loader for the pinned notebook to execute in the existing Colab kernel. Await `ATR_Frozen_Evaluation_Outputs.zip`. No genuine new GPU outcome has yet been supplied. Do not invent one or report this experiment as completed. The notebook was syntax/lifecycle checked locally; cold install remains TEST REQUIRED. Never tune prompts or substitute cases after outputs without a dated amendment.
+The user supplied `ATR_Frozen_Evaluation_Outputs.zip`. Run `20261117T100033Z-29245346` completed all 18 condition/task records. The archive analyzer verified all 202 manifest file hashes, selected IDs, complete generation/evaluation statuses, and no inference exceptions. The archived input/reference hash check and six reference preflight checks pass. The dated [P07 run analysis](reports/P07_run_analysis_20261117.md) records the archive SHA-256 and full results.
 
-## On receiving the archive
+Primary complete-task outcomes: vanilla 0/6, generic control 1/6, schema evidence 0/6. The schema-evidence-minus-generic-control contrast is −1/6 (−16.7 percentage points). All 17 first failures are instance-state mismatches. The pinned published scorer ran on four eligible pairs per condition with every anchor available; act, hold, credited hold, decision, and pair-correct scores are identical across conditions. Strict no-call is 1/4 per condition. These remain descriptive sample results, not broad or causal claims.
 
-1. Verify every manifest hash, selected IDs, original protocol, source/revision, all generation/evaluation statuses and inference exceptions. Confirm no old-case reuse and no missing/duplicate task records. Separate infrastructure errors from force-terminated tasks.
-2. Run [`scripts/analyze_run.py`](scripts/analyze_run.py) into a new prospective output folder. Run the attributed [`scripts/score_decisions.py`](scripts/score_decisions.py); review eligibility, raw anchor presence and reference/parser compatibility before interpretation. Keep family dependence and all denominators explicit.
-3. Add prospective results as a separate section/table in [`paper/main.tex`](paper/main.tex); retain development history. Regenerate figures from actual CSVs, compile and render/inspect the paper. Update pending labels without implying that pilot design was frozen before it occurred.
-4. Update validation, AI-use and decision logs with actual activity, then rebuild the submission bundle and sync GitHub. No positive result is required.
+The freeze-time `configs/protocol.json` still records `inference_status: NOT RUN`; preserve it as the protocol snapshot rather than silently rewriting the frozen record. The compiled paper remains the development-only version.
 
+## Remaining work after archive validation
+
+1. Incorporate the prospective table and qualified interpretation into `paper/main.tex`, keeping the development pilot separate.
+2. Regenerate prospective figures from the verified case-level data, compile and visually inspect the revised paper. The current assistant workspace lacks Matplotlib, so its analyzer export used `--no-plots`.
+3. Update the remaining activity/validation records and submission bundle. Exact cold dependency replay and a second-student rerun remain unverified.
+4. Keep the run unchanged; any prompt, case, or metric change after viewing results requires a dated amendment and separate reporting.
 ## Still human-dependent
 
 The student must review the code walkthrough, review the completed authentic reflection paragraphs in [`reports/P18_AI_use_and_reflection.md`](reports/P18_AI_use_and_reflection.md), rehearse the five-minute demonstration and submit to Classroom. No personal understanding or independent human annotation is certified by these documents. Latest verified announcement: Phase III through P11 by 30 October 2026; all phases and implementation paper before end-sem. Exact cutoff/submission location should be checked in Classroom.
