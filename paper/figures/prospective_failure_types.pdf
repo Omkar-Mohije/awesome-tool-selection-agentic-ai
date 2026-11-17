@@ -1,0 +1,51 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 460.8 237.6] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1218 >>
+stream
+q
+BT /F1 11 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 144.16 218.00 Tm (FIRST REPORTED TASK FAILURES) Tj ET
+0.8627 0.8824 0.9020 RG 0.50 w 90.00 75.00 m 90.00 150.00 l S
+BT /F1 8 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 87.76 62.00 Tm (0) Tj ET
+0.8627 0.8824 0.9020 RG 0.50 w 178.89 75.00 m 178.89 150.00 l S
+BT /F1 8 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 176.65 62.00 Tm (5) Tj ET
+0.8627 0.8824 0.9020 RG 0.50 w 267.78 75.00 m 267.78 150.00 l S
+BT /F1 8 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 263.30 62.00 Tm (10) Tj ET
+0.8627 0.8824 0.9020 RG 0.50 w 356.67 75.00 m 356.67 150.00 l S
+BT /F1 8 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 352.19 62.00 Tm (15) Tj ET
+0.8627 0.8824 0.9020 RG 0.50 w 410.00 75.00 m 410.00 150.00 l S
+BT /F1 8 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 405.52 62.00 Tm (18) Tj ET
+0.1490 0.1882 0.2275 RG 0.90 w 90.00 75.00 m 410.00 75.00 l S
+0.1490 0.1882 0.2275 RG 0.90 w 90.00 75.00 m 90.00 150.00 l S
+BT /F1 8 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 90.00 165.00 Tm (INSTANCE-STATE MISMATCH) Tj ET
+0.2392 0.3961 0.5490 rg 90.00 93.00 302.22 28.00 re f
+BT /F1 9 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 405.22 105.00 Tm (17 / 18) Tj ET
+BT /F1 8 Tf 0.1490 0.1882 0.2275 rg 1 0 0 1 165.44 25.00 Tm (FAILED CONDITION/TASK RECORDS) Tj ET
+Q
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000251 00000 n 
+0000001520 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1590
+%%EOF
