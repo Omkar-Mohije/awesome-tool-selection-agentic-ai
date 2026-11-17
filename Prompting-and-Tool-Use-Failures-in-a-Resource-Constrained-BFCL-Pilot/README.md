@@ -2,10 +2,10 @@
 
 **Author:** Omkar Arjun Mohije (M.Tech, IIIT Allahabad)  
 **Study Scope:** Empirical Implementation Study & Failure Analysis (Course Study)  
-**Paper:** [Development baseline PDF](paper/main.pdf) | [LaTeX Source](paper/main.tex)
+**Paper:** [Compiled 7-Page IEEE Paper (PDF)](paper/main.pdf) | [LaTeX Source](paper/main.tex)
 
 > [!NOTE]
-> **Study Status:** The ATR-P07-v1 prospective GPU run is complete and its archive was validated on 17 November 2026. The dated [run analysis](reports/P07_run_analysis_20261117.md) records 0/6, 1/6, and 0/6 complete-task successes for vanilla, generic control, and schema evidence. The [LaTeX manuscript](paper/main.tex) incorporates both development and prospective tables, trace analyses, and figures. The checked-in PDF remains the development baseline. A GitHub Actions workflow now compiles a separate candidate PDF on paper-source changes; inspect the candidate artifact before replacing the baseline PDF. Publication novelty is not claimed.
+> **Study Status:** The ATR-P07-v1 prospective GPU run is complete and its archive was validated on 17 November 2026. The dated [run analysis](reports/P07_run_analysis_20261117.md) records 0/6, 1/6, and 0/6 complete-task successes for vanilla, generic control, and schema evidence. The [LaTeX manuscript](paper/main.tex) incorporates both development and prospective tables, trace analyses, and figures. The compiled 7-page PDF ([`paper/main.pdf`](paper/main.pdf)) has been visually verified and updated using automated GitHub Actions and local Tectonic builds. Publication novelty is not claimed.
 ---
 
 ## Executive Summary
@@ -36,7 +36,7 @@ The frozen prospective run evaluated the same three conditions on six tasks from
 
 | Deliverable | Key Artifacts | Description |
 |---|---|---|
-| **Research Paper** | [`paper/main.tex`](paper/main.tex), [`paper/main.pdf`](paper/main.pdf), [automated build workflow](../.github/workflows/build-p07-paper.yml) | Updated LaTeX source; linked PDF remains the development version until a candidate passes review |
+| **Research Paper** | [`paper/main.tex`](paper/main.tex), [`paper/main.pdf`](paper/main.pdf), [automated build workflow](../.github/workflows/build-p07-paper.yml) | Verified 7-page IEEE manuscript incorporating development and prospective P07 outcomes |
 | **Colab Evaluation** | [`notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb`](notebooks/ATR_P07_Frozen_Evaluation_Colab.ipynb) | Pinned executable Google Colab evaluation notebook |
 | **Pipeline Scripts** | [`scripts/policy_runner.py`](scripts/policy_runner.py), [`scripts/analyze_run.py`](scripts/analyze_run.py), [`scripts/generate_prospective_figures.py`](scripts/generate_prospective_figures.py) | Inference, archive analysis, and prospective figure generation |
 | **Configuration** | [`configs/protocol.json`](configs/protocol.json), [`configs/published_scorer_lock.json`](configs/published_scorer_lock.json) | Frozen experiment protocol and secondary scorer pins |

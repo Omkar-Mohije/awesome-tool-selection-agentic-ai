@@ -215,14 +215,14 @@ Schema evidence & 0/6 & 0\%\\\bottomrule
 \end{table}
 
 \begin{figure}[t]\centering
-\includegraphics[width=\columnwidth]{figures/prospective_task_outcomes.pdf}
+\includegraphics[width=\columnwidth]{figures/prospective_task_outcomes.png}
 \caption{Prospective task outcomes across the three prompting conditions on Families 89 and 73. Development figures are preserved separately.}\label{fig:prospective_tasks}
 \end{figure}
 
 The single complete-task success was \code{multi_turn_miss_func_73} under generic control. In the recorded Turn 3 trajectory, \code{startEngine} first returned a safety error requiring the brake pedal to be pressed; the model then called \code{pressBrakePedal(pedalPosition=1.0)} and retried \code{startEngine(ignitionMode='START')}, after which the official evaluator recorded task success. At the corresponding point, the vanilla trace asked the user to press the brake before retrying, while the schema-evidence trace asked whether it should press the brake and start the engine. These are observed differences in one run per condition. They are consistent with the prompt instructions but do not establish that wording caused the behavior. All remaining 17 condition/task records were first labeled \code{multi_turn:instance_state_mismatch} on \code{VehicleControlAPI} (Fig.~\ref{fig:prospective_failures}); this is the evaluator's first-failure classification, not a complete causal diagnosis.
 
 \begin{figure}[t]\centering
-\includegraphics[width=\columnwidth]{figures/prospective_failure_types.pdf}
+\includegraphics[width=\columnwidth]{figures/prospective_failure_types.png}
 \caption{First reported failures across the 18 prospective records. All 17 failures exhibited simulation-state mismatches.}\label{fig:prospective_failures}
 \end{figure}
 
